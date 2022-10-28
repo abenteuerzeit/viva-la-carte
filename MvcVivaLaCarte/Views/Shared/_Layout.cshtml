@@ -1,9 +1,14 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+    int year = DateTime.Today.Year;
+}
+
+
+<!DOCTYPE html>
+<html lang="en-us">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MvcVivaLaCarte</title>
+    <title>@ViewData["Title"] - Viva la carte! </title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MvcVivaLaCarte.styles.css" asp-append-version="true" />
@@ -12,7 +17,49 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MvcVivaLaCarte</a>
+
+            <figure>
+                <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <img id="logo" src="~/Content/Images/Logo.svg" alt="Viva la carte logo">
+                </a>
+            </figure>
+            <ul>
+                <li>
+                    <p>
+                        <a href="#">Discover </a>
+                    </p>
+                </li>
+                   
+                <li>
+                    <p>
+                        <a href="#">Post recipe </a>
+                    </p>
+                    </li>
+                <li>
+                    <p>
+                        <a href="#">Contact </a>
+                    </p>
+                    </li>
+                <li>
+                    <p>
+                        <a href="#">Groceries </a>
+                        </p>
+                    </li>
+                <li>
+                    <p>
+                        <a href="#">Pantry </a>
+                    </p>
+                    </li>
+            </ul>
+            </div>
+        </nav>
+        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <figure>
+                    <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <img id="logo" src="~/Content/Images/Logo.svg" alt="Viva la carte logo">
+                    </a>
+                </figure>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -28,22 +75,128 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav>*@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - MvcVivaLaCarte - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div id="copyright">
+            <p> © @year Viva la carte! Made by Adrian Mróz and Piotr Palacz </p>
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script>
+            // JavaScript goes here
+            const business = {
+                name: "Viva la carte",
+                programmers: ['Adrian Mróz', 'Piotr Palacz'],
+            };
+            const getCopyright = () => document.getElementById('copyright').innerHTML = `&copy; ${new Date().getFullYear()} ${business.name}! <br> <p>Made by ${business.programmers[0]} and ${business.programmers[1]}</p>`;
+
+            function addCart(id = 0, name = 'name', calories = 0) {
+                const cart = document.createElement('div');
+                const headerEl = document.createElement('div');
+                const bodyEl = document.createElement('div');
+                const titleEl = document.createElement('h3');
+                const image = document.createElement('img');
+                const caloriesEl = document.createElement('p');
+                const description = document.createElement('p');
+                const btn = document.createElement('button');
+
+                cart.classList.add('cart');
+                cart.style.border = '3px dotted green';
+                cart.style.display = 'flex';
+                cart.style.flexDirection = 'column';
+                cart.style.alignItems = 'center';
+                cart.style.justifyContent = 'center';
+                cart.style.margin = '2px';
+                cart.style.padding = '20px';
+
+                headerEl.style.backgroundColor = 'lightblue';
+                headerEl.display = 'flex';
+                headerEl.style.flexDirection = 'column';
+                headerEl.style.justifyContent = 'stretch';
+                headerEl.style.width = '100%';
+
+                titleEl.innerText = name;
+                headerEl.appendChild(titleEl);
+
+                image.src = 'https://via.placeholder.com/150';
+                image.alt = 'placeholder';
+                // image.style.borderRadius = '0 1rem 0 1rem';
+                // image.style.border = '1px solid green';
+                image.style.maxWidth = '100%';
+                image.style.float = 'right';
+                headerEl.appendChild(image);
+
+                caloriesEl.style.fontWeight = 'bold';
+                caloriesEl.innerText = `Calories: ${calories}`;
+                caloriesEl.style.fontSize = 'x-small';
+                caloriesEl.style.color = 'var(--brown-hue)';
+                caloriesEl.style.fontStyle = 'italic';
+                headerEl.appendChild(caloriesEl);
+
+                cart.appendChild(headerEl);
+
+                bodyEl.style.backgroundColor = 'lightgreen';
+                bodyEl.style.display = 'flex';
+                bodyEl.style.flexDirection = 'row';
+                bodyEl.style.alignItems = 'center';
+                bodyEl.style.justifyContent = 'space-between';
+                bodyEl.style.width = '100%';
+
+                description.textContent = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.';
+                description.style.fontSize = 'small';
+                bodyEl.appendChild(description);
+
+                btn.textContent = 'Buy';
+                btn.style.backgroundColor = 'var(--green-hue)';
+                btn.style.color = 'var(--white-hue)';
+                btn.style.border = 'none';
+                btn.style.borderRadius = '5px';
+                btn.style.padding = '5px';
+                btn.style.margin = '5px';
+                btn.classList.add('btn-primary');
+                btn.id = 'display-cart-details';
+                btn.addEventListener('click', () => {
+                    alert('clicked');
+                });
+                bodyEl.appendChild(btn);
+
+                cart.appendChild(bodyEl);
+                feed.appendChild(cart);
+
+            }
+
+
+            function setUp() {
+                const feed = document.getElementById('feed');
+                feed.style.border = '3px solid black';
+                feed.style.padding = '10px';
+                feed.style.margin = '10px';
+                feed.style.width = '100%';
+                feed.style.height = '100%';
+                feed.style.display = 'flex';
+                feed.style.flexDirection = 'column';
+                feed.style.flexWrap = 'wrap';
+                feed.style.justifyContent = 'flex-start';
+                feed.style.alignItems = 'flex-start';
+                feed.style.alignContent = 'flex-start';
+                feed.style.backgroundColor = 'var(--whitelight)';
+
+                for (let i = 0; i < 10; i++) {
+                    addCart(i, 'name', 100);
+                }
+
+            }
+        </script>
+        @await RenderSectionAsync("Scripts", required: false)
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    
 </body>
 </html>
