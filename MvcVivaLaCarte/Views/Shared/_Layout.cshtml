@@ -12,73 +12,75 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MvcVivaLaCarte.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/login.css" asp-append-verion="true" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
 
-            <figure>
-                <a asp-area="" asp-controller="Home" asp-action="Index">
-                    <img id="logo" src="~/Content/Images/Logo.svg" alt="Viva la carte logo">
-                </a>
-            </figure>
-            <ul>
-                <li>
-                    <p>
-                        <a href="#">Discover </a>
-                    </p>
-                </li>
-                   
-                <li>
-                    <p>
-                        <a href="#">Post recipe </a>
-                    </p>
-                    </li>
-                <li>
-                    <p>
-                        <a href="#">Contact </a>
-                    </p>
-                    </li>
-                <li>
-                    <p>
-                        <a href="#">Groceries </a>
+                <figure>
+                    <a asp-area="" asp-controller="Home" asp-action="Index">
+                        <img id="logo" src="~/Content/Images/Logo.svg" alt="Viva la carte logo">
+                    </a>
+                </figure>
+                <ul>
+                    <li>
+                        <p>
+                            <a href="#">Discover </a>
                         </p>
                     </li>
-                <li>
-                    <p>
-                        <a href="#">Pantry </a>
-                    </p>
+
+                    <li>
+                        <p>
+                            <a href="#">Post recipe </a>
+                        </p>
                     </li>
-            </ul>
+                    <li>
+                        <p>
+                            <a href="#">Contact </a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#">Groceries </a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#">Pantry </a>
+                        </p>
+                    </li>
+                </ul>
             </div>
         </nav>
         @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <figure>
-                    <a asp-area="" asp-controller="Home" asp-action="Index">
-                    <img id="logo" src="~/Content/Images/Logo.svg" alt="Viva la carte logo">
-                    </a>
-                </figure>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+                <div class="container-fluid">
+                    <figure>
+                        <a asp-area="" asp-controller="Home" asp-action="Index">
+                        <img id="logo" src="~/Content/Images/Logo.svg" alt="Viva la carte logo">
+                        </a>
+                    </figure>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>*@
+            </nav>*@
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
@@ -90,8 +92,7 @@
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
-        <script>
-            // JavaScript goes here
+        <script>// JavaScript goes here
             const business = {
                 name: "Viva la carte",
                 programmers: ['Adrian Mróz', 'Piotr Palacz'],
@@ -193,10 +194,9 @@
                     addCart(i, 'name', 100);
                 }
 
-            }
-        </script>
+            }</script>
         @await RenderSectionAsync("Scripts", required: false)
     </footer>
-    
+
 </body>
 </html>
