@@ -203,14 +203,13 @@ nav {
                 }
 
 
-/* Login Page */
+/* Login and Registration Container */
 .login-container {
     width: 700px;
-    margin: 0 auto;
     font-family: 'macha', sans-serif;
     margin: 50px auto;
     background-color: rgb(0, 100, 0, 0.1);
-    padding: 20px;
+    
 }
 
 .form-container {
@@ -250,6 +249,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 10px;
 }
 
 .simple-form .fields-group .label {
@@ -263,11 +263,69 @@ nav {
     height: auto;
     position: relative;
     cursor: pointer;
-    margin-bottom: 15px;
 }
 
 .simple-form .remember-me--forget-password p {
     font-size: medium;
+}
+
+/* Register Page*/
+
+/*.simple-form input[type=radio] {
+    
+    
+}*/
+
+.simple-form #select-gender {
+    margin-left: 10px;
+    font-size: medium;
+}
+
+.simple-form .radio-buttons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 15px;
+}
+
+
+
+.simple-form .input-label-postal-city {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin-bottom: 8px;
+}
+
+    .simple-form .input-label-postal-city .input-fields-postal {
+        width: 30%;
+        padding: 10px;
+        font-size: 16px;
+        font-family: inherit;
+        border-radius: 4px;
+        border: 1px solid black;
+        
+    }
+
+    .simple-form .input-label-postal-city .input-fields-city {
+        width: 70%;
+        padding: 10px;
+        font-size: 16px;
+        font-family: inherit;
+        border-radius: 4px;
+        border: 1px solid black;
+        
+    }
+
+.simple-form .select-country {
+    border-radius: 4px;
+    border: 1px solid black;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    
 }
 
 
@@ -276,6 +334,7 @@ nav {
     float: right;
     margin-right: 30px;
     font-size: 16px;
+    margin-top: 30px;
 }
 
 .button-53 {
@@ -333,5 +392,5 @@ nav {
 .dob-append {
     margin-bottom: 10px;
     font-size: small;
-    text-shadow: 1px -1px 5px rgb(0, 0, 0);
+    
 }
