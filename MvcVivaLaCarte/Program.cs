@@ -1,3 +1,8 @@
+using Microsoft.AspNetCore;
+using Microsoft.EntityFrameworkCore;
+using MvcVivaLaCarte.Models.Users;
+using System;
+
 namespace MvcVivaLaCarte
 {
     public class Program
@@ -7,7 +12,16 @@ namespace MvcVivaLaCarte
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<UserDbContext>
+                (options =>
+                    options.UseSqlServer
+                    (
+                        builder.Configuration.GetConnectionString("UserDbContext")
+                    )
+                );
 
             var app = builder.Build();
 
