@@ -11,7 +11,7 @@ namespace MvcVivaLaCarte.Models.Users
         public string? LastName { get; set; }
         public string? Email { get; set; }
 
-        protected string? Password { get; set; }
+        public string? Password { get; set; }
 
         public DateTime CreatedDate { get; set; }
 

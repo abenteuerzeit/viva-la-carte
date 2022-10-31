@@ -1,9 +1,9 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace MvcVivaLaCarte.Controllers
 {
@@ -36,7 +36,7 @@ namespace MvcVivaLaCarte.Controllers
             {
                 // TODO: Add insert logic here
 
-                return RedirectToAction(nameof(Index));
+                return View("Success"); // RedirectToAction(nameof(Index));
             }
             catch
             {

@@ -9,7 +9,7 @@
 
 <div class="login-container">
     <div class="form-container">
-        <form class="simple-form" id="login" action="/auth" accept-charset="UTF-8" method="post">
+        <form class="simple-form" id="login" asp-action="Create" asp-controller="Register" accept-charset="UTF-8" method="post" autocomplete="on">
             <h1 class="title">Create your new Foodie Account!</h1>
             <p>Do you have an account? <a asp-controller="Login" asp-action="Index">Sign up</a></p>
             <div class="fields-group">
