@@ -7,7 +7,7 @@
 const defaultUser = {
     FullName: "Joe Biden",
     Username: "nomalarky",
-    DOB: "20-11-1942",
+    DOB: "1942-11-20",
     Email: "presjoe12@whitehouse.gov",
     Password: "$p@ma&3665",
     Gender: "Male",
@@ -29,7 +29,7 @@ function FillRegistrationForm() {
     document.getElementById("user_email").value = defaultUser.Email;
     document.getElementById("user_password").value = defaultUser.Password;
     document.getElementById("user_password_confirmation").value = defaultUser.Password;
-    document.getElementById("male");
+    document.getElementById("male").checked = true;
     document.getElementById("user_street_nr").value = defaultUser.Address.street;
     document.getElementById("user_postal_code").value = defaultUser.Address.postcode;
     document.getElementById("user_city").value = defaultUser.Address.city;
