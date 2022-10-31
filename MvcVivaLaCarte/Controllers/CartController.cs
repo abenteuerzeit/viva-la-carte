@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MvcVivaLaCarte.Models.Carts;
 using MvcVivaLaCarte.Models.Users;
+using MvcVivaLaCarte.Models.Utils;
 
 namespace MvcVivaLaCarte.Controllers
 {
@@ -48,6 +49,14 @@ namespace MvcVivaLaCarte.Controllers
         // GET: Cart/Create
         public IActionResult Create()
         {
+            var categories = new List<Category>()
+            {
+                Category.Vegan,
+                Category.Vegetarian,
+                Category.GlutenFree
+            };
+            ViewData["Categories"] = categories;
+
             return View();
         }
 

@@ -22,6 +22,8 @@
     <Folder Include="wwwroot\Content\Images\" />
     <Folder Include="Models\Carts\" />
     <Folder Include="Models\Products\" />
+    <Folder Include="Models\Recipes\" />
+    <Folder Include="Models\Utils\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,5 +31,7 @@
     <None Remove="Models\Products\" />
     <None Remove="Swashbuckle.AspNetCore" />
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
+    <None Remove="Models\Recipes\" />
+    <None Remove="Models\Utils\" />
   </ItemGroup>
 </Project>

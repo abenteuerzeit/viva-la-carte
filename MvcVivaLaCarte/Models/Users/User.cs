@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using MvcVivaLaCarte.Models.Carts;
 using System;
 using System.Security.Policy;
 
@@ -14,6 +15,10 @@ namespace MvcVivaLaCarte.Models.Users
         public string? Password { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        public List<Cart> Carts { get; set; }
+
+
 
         public User() { }
 
