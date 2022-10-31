@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,9 @@ namespace MvcVivaLaCarte.Controllers
             try
             {
                 // TODO: Add insert logic here
+
+                string json = collection.ToJson();
+                Console.WriteLine(json);
 
                 return View("Success"); // RedirectToAction(nameof(Index));
             }
