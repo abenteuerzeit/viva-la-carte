@@ -14,6 +14,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,5 +26,6 @@
   <ItemGroup>
     <None Remove="Models\Carts\" />
     <None Remove="Models\Products\" />
+    <None Remove="Swashbuckle.AspNetCore" />
   </ItemGroup>
 </Project>
