@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace MvcVivaLaCarte.Models.Users
 {
@@ -12,4 +13,6 @@ namespace MvcVivaLaCarte.Models.Users
 
         public virtual DbSet<User>? Users { get; set; }
     }
+
+    
 }

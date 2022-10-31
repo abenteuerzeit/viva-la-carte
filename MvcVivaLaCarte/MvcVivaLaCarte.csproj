@@ -18,6 +18,12 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Content\Images\" />
+    <Folder Include="Models\Carts\" />
+    <Folder Include="Models\Products\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Models\Carts\" />
+    <None Remove="Models\Products\" />
+  </ItemGroup>
 </Project>
