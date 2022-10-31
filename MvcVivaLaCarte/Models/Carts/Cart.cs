@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http.Headers;
 using MvcVivaLaCarte.Models.Products;
+using Microsoft.AspNetCore.Identity;
 
 namespace MvcVivaLaCarte.Models.Carts
 {
