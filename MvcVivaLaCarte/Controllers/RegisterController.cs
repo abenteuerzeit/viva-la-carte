@@ -86,11 +86,16 @@ namespace MvcVivaLaCarte.Controllers
                 string[] name = fullName.ToString().Split(" ");
                 user.FirstName = name[0].Trim();
                 user.LastName = name[1].Trim();
-                user.Username = (string)username;
-                user.Email = (string)email;
-                user.Password = (string)password;
                 user.Gender = (Gender)Enum.Parse(typeof(Gender), gender.ToString());
                 user.DOB = new DateTime(yy, mm, dd).Date;
+
+
+                user.UserName = username;
+                user.PasswordHash = password;
+                user.Email = email;
+                user.PhoneNumber = phone;
+                
+
 
                 string fullInputLine = streetData.ToString();
                 string[] streetArr = streetData.ToString().Split(' ');

@@ -11,7 +11,7 @@
 <h1>@Model.FirstName @Model.LastName</h1>
 
 <table class="table table-success table-dark table-active">
-    <caption class="text-black">Data for user: @Model.Username</caption>
+    <caption class="text-black">Data for user: @Model.UserName</caption>
     <thead class="thead-dark">
         <tr>
             <th scope="col">Id</th>
@@ -29,7 +29,7 @@
             <td>@Model.FirstName @Model.LastName</td>
             <td>@Model.DOB </td>
             <td>@Model.Gender</td>
-            <td>Email: @Model.Email<br />Password: @Model.Password</td>
+            <td>Email: @Model.Email<br />Password: @Model.PasswordHash</td>
             <td>
                 <ol>
                     <li>@Model.BillingAddress.ToString()</li>
