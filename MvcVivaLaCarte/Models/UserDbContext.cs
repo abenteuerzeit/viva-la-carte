@@ -11,14 +11,18 @@ namespace MvcVivaLaCarte.Models
     {
         public UserDbContext()
         {
+            //Users = new InternalDbSet<User>(this, "Users");
         }
 
         public UserDbContext(DbContextOptions<UserDbContext> options) : base(options)
         {
+            //Users = new InternalDbSet<User>(this, "Users");
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Cart> Carts { get; set; }
+        //public DbSet<User> Users { get; set; }
+
+        public List<User> Users => new List<User>() ?? Users;
+        public DbSet<Cart>? Carts { get; set; }
     }
 
 }

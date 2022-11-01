@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MvcVivaLaCarte.Models.Carts;
+using MvcVivaLaCarte.Models.Recipes;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Policy;
 using System.Text;
 
@@ -14,7 +16,7 @@ namespace MvcVivaLaCarte.Models.Users
         female,
         undisclosed
     }
-    public class User
+    public class User //: IdentityUser
     {
         [Key]
         public int Id { get; set; }
@@ -26,11 +28,16 @@ namespace MvcVivaLaCarte.Models.Users
         public string? Email { get; set; }
         public string? Password { get; set; }
 
+        [ForeignKey("Address")]
+        public int DeliveryAddressId { get; set; }
         public Address? DeliveryAddress { get; set; }
 
+        [ForeignKey("Address")]
+        public int BillingAddressId { get; set; }
         public Address? BillingAddress { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
         public ICollection<Cart> Carts { get; set; } = new List<Cart>();
+        public ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
 
 
         public User()
@@ -42,8 +49,6 @@ namespace MvcVivaLaCarte.Models.Users
             //Password = "";
             //Created = DateTime.Now;
         }
-
-        public User() { }
 
         public User(string firstName, string lastName, string username, string dob, string email, string password, Gender gender = Gender.undisclosed)
         {
