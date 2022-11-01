@@ -10,26 +10,29 @@ using System.Text;
 
 namespace MvcVivaLaCarte.Models.Users
 {
+    // TODO Move to Data Folder
     public enum Gender
     {
         male,
         female,
         undisclosed
     }
+
     public class User //: IdentityUser
+
     {
-        [Key]
-        public int Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public DateTime? DOB { get; set; }
         public Gender Gender { get; set; }
+
         public string? Username { get; set; }
         public string? Email { get; set; }
         public string? Password { get; set; }
 
         [ForeignKey("Address")]
         public int DeliveryAddressId { get; set; }
+
         public Address? DeliveryAddress { get; set; }
 
         [ForeignKey("Address")]
@@ -38,7 +41,6 @@ namespace MvcVivaLaCarte.Models.Users
         public DateTime Created { get; set; } = DateTime.Now;
         public ICollection<Cart> Carts { get; set; } = new List<Cart>();
         public ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
-
 
         public User()
         {
@@ -55,7 +57,7 @@ namespace MvcVivaLaCarte.Models.Users
             FirstName = firstName;
             LastName = lastName;
             Gender = gender;
-            Username = username;
+            UserName = username;
 
             string[] dobInput = dob.Split("-");
             int yyyy = Convert.ToInt32(dobInput[0]);
@@ -64,7 +66,7 @@ namespace MvcVivaLaCarte.Models.Users
             DOB = new DateTime(yyyy, mm, dd);
 
             Email = email;
-            Password = password;
+            PasswordHash = password;
             Created = DateTime.Now;
         }
 
@@ -73,7 +75,7 @@ namespace MvcVivaLaCarte.Models.Users
 
         public override string ToString()
         {
-            return $"Id:{Id}\nLogin: {Username}: {Password}\nDetails:{FirstName} {LastName}\nDOB: {DOB}\nGender:{Gender}\nAddresses:\n\tDelivery: {DeliveryAddress}\n\tBilling: {BillingAddress} ";
+            return $"Id:{Id}\nLogin: {UserName}: {PasswordHash}\nDetails:{FirstName} {LastName}\nDOB: {DOB}\nGender:{Gender}\nAddresses:\n\tDelivery: {DeliveryAddress}\n\tBilling: {BillingAddress} ";
         }
 
 

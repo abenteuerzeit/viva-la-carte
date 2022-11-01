@@ -19,6 +19,7 @@ namespace MvcVivaLaCarte.Models
             //Users = new InternalDbSet<User>(this, "Users");
         }
 
+
         //public DbSet<User> Users { get; set; }
 
         public List<User> Users => new List<User>() ?? Users;
