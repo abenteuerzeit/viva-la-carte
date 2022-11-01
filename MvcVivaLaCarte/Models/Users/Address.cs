@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Routing;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Numerics;
 
@@ -7,6 +8,7 @@ namespace MvcVivaLaCarte.Models.Users
 {
     public class Address
     {
+        [Key]
         public int Id { get; set; }
         //public string? FullStreetName { get; set; }
         public string? Street { get; set; }

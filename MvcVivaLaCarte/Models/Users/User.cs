@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MvcVivaLaCarte.Models.Carts;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Policy;
 using System.Text;
 
@@ -15,6 +16,7 @@ namespace MvcVivaLaCarte.Models.Users
     }
     public class User
     {
+        [Key]
         public int Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

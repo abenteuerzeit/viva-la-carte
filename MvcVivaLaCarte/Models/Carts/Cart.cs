@@ -1,13 +1,15 @@
-﻿using System;
-using System.Net.Http.Headers;
+﻿using Microsoft.AspNetCore.Identity;
 using MvcVivaLaCarte.Models.Products;
-using Microsoft.AspNetCore.Identity;
 using MvcVivaLaCarte.Models.Utils;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Net.Http.Headers;
 
 namespace MvcVivaLaCarte.Models.Carts
 {
     public class Cart
     {
+        [Key]
         public int Id { get; set; }
         public int UserId { get; set; }
         public Category Category { get; set; }
@@ -21,11 +23,11 @@ namespace MvcVivaLaCarte.Models.Carts
 
         public Cart(int id, int userId, Category category, List<Product> products, int orderId)
         {
-            this.Id = id;
-            this.UserId = userId;
-            this.Category = category;
-            this.Products = products;
-            this.OrderId = orderId;
+            Id = id;
+            UserId = userId;
+            Category = category;
+            Products = products;
+            OrderId = orderId;
         }
 
     }
