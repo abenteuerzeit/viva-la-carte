@@ -41,6 +41,7 @@ namespace MvcVivaLaCarte.Models.Users
             //Created = DateTime.Now;
         }
 
+        public User() { }
 
         public User(string firstName, string lastName, string username, string dob, string email, string password, Gender gender = Gender.undisclosed)
         {

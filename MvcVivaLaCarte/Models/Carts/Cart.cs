@@ -2,6 +2,7 @@
 using System.Net.Http.Headers;
 using MvcVivaLaCarte.Models.Products;
 using Microsoft.AspNetCore.Identity;
+using MvcVivaLaCarte.Models.Utils;
 
 namespace MvcVivaLaCarte.Models.Carts
 {
@@ -9,7 +10,7 @@ namespace MvcVivaLaCarte.Models.Carts
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public Categories Category { get; set; }
+        public Category Category { get; set; }
         public List<Product>? Products { get; set; }
         public int OrderId { get; set; }
 
@@ -18,7 +19,7 @@ namespace MvcVivaLaCarte.Models.Carts
 
         }
 
-        public Cart(int id, int userId, Categories category, List<Product> products, int orderId)
+        public Cart(int id, int userId, Category category, List<Product> products, int orderId)
         {
             this.Id = id;
             this.UserId = userId;
@@ -27,15 +28,6 @@ namespace MvcVivaLaCarte.Models.Carts
             this.OrderId = orderId;
         }
 
-    }
-
-
-
-    public enum Categories
-    {
-        Vegan,
-        Vegetarian,
-        GlutenFree
     }
 }
 
