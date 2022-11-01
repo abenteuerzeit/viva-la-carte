@@ -90,11 +90,15 @@ namespace MvcVivaLaCarte.Controllers
                 user.DOB = new DateTime(yy, mm, dd).Date;
 
 
+                //user.UserName = username;
+                //user.PasswordHash = password;
+                //user.Email = email;
+                //user.PhoneNumber = phone;
+
                 user.UserName = username;
                 user.PasswordHash = password;
                 user.Email = email;
-                user.PhoneNumber = phone;
-                
+
 
 
                 string fullInputLine = streetData.ToString();
