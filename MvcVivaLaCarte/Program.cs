@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using MvcVivaLaCarte.Models.Users;
+using MvcVivaLaCarte.Models;
 using System;
 
 namespace MvcVivaLaCarte

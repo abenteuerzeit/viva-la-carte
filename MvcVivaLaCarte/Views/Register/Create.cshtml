@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model User
+
+@{
+    ViewData["Title"] = $"{Model.FirstName} {Model.LastName}";
+}
+
+<h1>@Model.FirstName @Model.LastName</h1>
+
+<table class="table table-success table-dark table-active">
+    <caption class="text-black">Data for user: @Model.Username</caption>
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Names</th>
+            <th scope="col">DOB</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Login</th>
+            <th scope="col">Addresses</th>
+            <th scope="col">Num of Carts</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.FirstName @Model.LastName</td>
+            <td>@Model.DOB </td>
+            <td>@Model.Gender</td>
+            <td>Email: @Model.Email<br />Password: @Model.Password</td>
+            <td>
+                <ol>
+                    <li>@Model.BillingAddress.ToString()</li>
+                    <li>@Model.DeliveryAddress.ToString()</li>
+                </ol>
+            </td>
+            <td>@Model.Carts.Count</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2> Created on @Model.Created
+</h2>
+<p>
+    User.ToString() returns @Model.ToString()
+    Carts: @Model.Carts
+</p>
