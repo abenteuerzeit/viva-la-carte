@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\amroz\\source\\repos\\VLC\\VLC\\VLC.csproj": {}
+    "C:\\Users\\amroz\\source\\repos\\MvcVivaLaCarte\\VLC\\VLC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\amroz\\source\\repos\\VLC\\VLC\\VLC.csproj": {
+    "C:\\Users\\amroz\\source\\repos\\MvcVivaLaCarte\\VLC\\VLC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\amroz\\source\\repos\\VLC\\VLC\\VLC.csproj",
+        "projectUniqueName": "C:\\Users\\amroz\\source\\repos\\MvcVivaLaCarte\\VLC\\VLC.csproj",
         "projectName": "VLC",
-        "projectPath": "C:\\Users\\amroz\\source\\repos\\VLC\\VLC\\VLC.csproj",
+        "projectPath": "C:\\Users\\amroz\\source\\repos\\MvcVivaLaCarte\\VLC\\VLC.csproj",
         "packagesPath": "C:\\Users\\amroz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\amroz\\source\\repos\\VLC\\VLC\\obj\\",
+        "outputPath": "C:\\Users\\amroz\\source\\repos\\MvcVivaLaCarte\\VLC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -62,6 +62,10 @@
               "version": "[6.0.10, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[6.0.10, )"
             }
