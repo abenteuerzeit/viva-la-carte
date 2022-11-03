@@ -31,7 +31,11 @@ namespace VLC
             {
                 facebookOptions.AppId = builder.Configuration["Authentication:Facebook:AppId"];
                 facebookOptions.AppSecret = builder.Configuration["Authentication:Facebook:AppSecret"];
-            });
+            }).AddGoogle(googleOptions =>
+         {
+             googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+             googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+         });
 
             builder.Services.Configure<IdentityOptions>(options =>
             {

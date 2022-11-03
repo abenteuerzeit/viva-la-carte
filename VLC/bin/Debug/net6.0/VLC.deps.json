@@ -9,6 +9,7 @@
       "VLC/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.Facebook": "6.0.10",
+          "Microsoft.AspNetCore.Authentication.Google": "6.0.10",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.10",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.10",
           "Microsoft.AspNetCore.Identity.UI": "6.0.10",
@@ -57,6 +58,14 @@
       "Microsoft.AspNetCore.Authentication.Facebook/6.0.10": {
         "runtime": {
           "lib/net6.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {
+            "assemblyVersion": "6.0.10.0",
+            "fileVersion": "6.0.1022.47617"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.Google/6.0.10": {
+        "runtime": {
+          "lib/net6.0/Microsoft.AspNetCore.Authentication.Google.dll": {
             "assemblyVersion": "6.0.10.0",
             "fileVersion": "6.0.1022.47617"
           }
@@ -2372,6 +2381,13 @@
       "sha512": "sha512-3WSu0C1q7ngdVjdqxQaq26cr2n9LWa/Ve4A0I9DKZ1E5AqSum9XJ8gvbwdFxe3ucWBfdX1o9hxjj23q3oHhRlg==",
       "path": "microsoft.aspnetcore.authentication.facebook/6.0.10",
       "hashPath": "microsoft.aspnetcore.authentication.facebook.6.0.10.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.Google/6.0.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-D9ZgmzDU78XXp1j/Rk6JOYYhB4/lVtUlSfcBYMNF4ieSNm5gM2d+3RALxGZEjQxd6QL/7YGdCd3jygsLNltm1w==",
+      "path": "microsoft.aspnetcore.authentication.google/6.0.10",
+      "hashPath": "microsoft.aspnetcore.authentication.google.6.0.10.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Cryptography.Internal/6.0.10": {
       "type": "package",
