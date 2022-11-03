@@ -8,6 +8,10 @@
     ".NETCoreApp,Version=v6.0": {
       "VLC/1.0.0": {
         "dependencies": {
+          "Google.Apis.Auth": "1.58.0-beta01",
+          "Google.Apis.Auth.Mvc": "1.58.0-beta01",
+          "Google.Apis.Oauth2.v2": "1.57.0.1869",
+          "Google.Apis.PeopleService.v1": "1.57.0.2707",
           "Microsoft.AspNetCore.Authentication.Facebook": "6.0.10",
           "Microsoft.AspNetCore.Authentication.Google": "6.0.10",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.10",
@@ -19,6 +23,80 @@
         },
         "runtime": {
           "VLC.dll": {}
+        }
+      },
+      "Google.Apis/1.58.0-beta01": {
+        "dependencies": {
+          "Google.Apis.Core": "1.58.0-beta01"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.dll": {
+            "assemblyVersion": "1.58.0.0",
+            "fileVersion": "1.58.0.0"
+          }
+        }
+      },
+      "Google.Apis.Auth/1.58.0-beta01": {
+        "dependencies": {
+          "Google.Apis": "1.58.0-beta01",
+          "Google.Apis.Core": "1.58.0-beta01"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.Auth.PlatformServices.dll": {
+            "assemblyVersion": "1.58.0.0",
+            "fileVersion": "1.58.0.0"
+          },
+          "lib/netstandard2.0/Google.Apis.Auth.dll": {
+            "assemblyVersion": "1.58.0.0",
+            "fileVersion": "1.58.0.0"
+          }
+        }
+      },
+      "Google.Apis.Auth.Mvc/1.58.0-beta01": {
+        "dependencies": {
+          "Google.Apis.Auth": "1.58.0-beta01",
+          "Microsoft.AspNet.Mvc": "5.2.9"
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Auth.Mvc.dll": {
+            "assemblyVersion": "1.58.0.0",
+            "fileVersion": "1.58.0.0"
+          }
+        }
+      },
+      "Google.Apis.Core/1.58.0-beta01": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.Core.dll": {
+            "assemblyVersion": "1.58.0.0",
+            "fileVersion": "1.58.0.0"
+          }
+        }
+      },
+      "Google.Apis.Oauth2.v2/1.57.0.1869": {
+        "dependencies": {
+          "Google.Apis": "1.58.0-beta01",
+          "Google.Apis.Auth": "1.58.0-beta01"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.Oauth2.v2.dll": {
+            "assemblyVersion": "1.57.0.1869",
+            "fileVersion": "1.57.0.1869"
+          }
+        }
+      },
+      "Google.Apis.PeopleService.v1/1.57.0.2707": {
+        "dependencies": {
+          "Google.Apis": "1.58.0-beta01",
+          "Google.Apis.Auth": "1.58.0-beta01"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.PeopleService.v1.dll": {
+            "assemblyVersion": "1.57.0.2707",
+            "fileVersion": "1.57.0.2707"
+          }
         }
       },
       "Humanizer.Core/2.8.26": {
@@ -55,6 +133,50 @@
         }
       },
       "MessagePackAnalyzer/2.1.152": {},
+      "Microsoft.AspNet.Mvc/5.2.9": {
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "3.2.9",
+          "Microsoft.AspNet.WebPages": "3.2.9"
+        },
+        "runtime": {
+          "lib/net45/System.Web.Mvc.dll": {
+            "assemblyVersion": "5.2.9.0",
+            "fileVersion": "5.2.61129.10"
+          }
+        }
+      },
+      "Microsoft.AspNet.Razor/3.2.9": {
+        "runtime": {
+          "lib/net45/System.Web.Razor.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.61129.10"
+          }
+        }
+      },
+      "Microsoft.AspNet.WebPages/3.2.9": {
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "3.2.9",
+          "Microsoft.Web.Infrastructure": "1.0.0"
+        },
+        "runtime": {
+          "lib/net45/System.Web.Helpers.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.61129.10"
+          },
+          "lib/net45/System.Web.WebPages.Deployment.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.61129.10"
+          },
+          "lib/net45/System.Web.WebPages.Razor.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.61129.10"
+          },
+          "lib/net45/System.Web.WebPages.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.61129.10"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Authentication.Facebook/6.0.10": {
         "runtime": {
           "lib/net6.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {
@@ -1326,6 +1448,14 @@
           }
         }
       },
+      "Microsoft.Web.Infrastructure/1.0.0": {
+        "runtime": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.20105.407"
+          }
+        }
+      },
       "Microsoft.Win32.Primitives/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -2347,6 +2477,48 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Google.Apis/1.58.0-beta01": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pPlzLFErKZ2/8kHFIeKGVoD/Z7wEx2BOzMB2UDsZ0Uw5efGC5GRLGVKwlllIqS6YZXZ6ARRe74j7AzV/yRgJwg==",
+      "path": "google.apis/1.58.0-beta01",
+      "hashPath": "google.apis.1.58.0-beta01.nupkg.sha512"
+    },
+    "Google.Apis.Auth/1.58.0-beta01": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zn4s26KFpT9DmVgSm3BihyGaWIWvf4pNTyvZ1nPMNGDcGe5+suNSy3RHcEsd7OHiyZOji5873JNa05pa2LB2rg==",
+      "path": "google.apis.auth/1.58.0-beta01",
+      "hashPath": "google.apis.auth.1.58.0-beta01.nupkg.sha512"
+    },
+    "Google.Apis.Auth.Mvc/1.58.0-beta01": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Qt4iA3lQyePCw0RaQwy2X6kPt9AVplKV/oEflIyGlSsuOZYVkZx4hjLidBKvTL7jzQDf3CLOgw0CQ3i0VPFDqg==",
+      "path": "google.apis.auth.mvc/1.58.0-beta01",
+      "hashPath": "google.apis.auth.mvc.1.58.0-beta01.nupkg.sha512"
+    },
+    "Google.Apis.Core/1.58.0-beta01": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bgLj9YUMvYjTPoUhUBSUBmrX+/xvDVV1+EPnx7NCqYyZ/rWJpCYdqKv8SNPXtfOTre1mbOswGqtiiDeo+6EVUA==",
+      "path": "google.apis.core/1.58.0-beta01",
+      "hashPath": "google.apis.core.1.58.0-beta01.nupkg.sha512"
+    },
+    "Google.Apis.Oauth2.v2/1.57.0.1869": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XkCw37ggROiJQNxHzJHtdWZAzMc6own2HobzKQi5SARtP1rlp88Z6wHAF5yRh/T0SPf9UDPVHkVOg7Cff46/ig==",
+      "path": "google.apis.oauth2.v2/1.57.0.1869",
+      "hashPath": "google.apis.oauth2.v2.1.57.0.1869.nupkg.sha512"
+    },
+    "Google.Apis.PeopleService.v1/1.57.0.2707": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hlq1tmE79YjFgKhfeiAZmz2YLgyvnq/TcCjhei5bmwt83NmPohrPEhysPlfNfueKmYdb8F4WMx8W5jQovws2SA==",
+      "path": "google.apis.peopleservice.v1/1.57.0.2707",
+      "hashPath": "google.apis.peopleservice.v1.1.57.0.2707.nupkg.sha512"
+    },
     "Humanizer.Core/2.8.26": {
       "type": "package",
       "serviceable": true,
@@ -2374,6 +2546,27 @@
       "sha512": "sha512-uJhZlGMkXDaFYsH8V9S6o1EyvsUqB9mpU4DVBXNr0DXZVzZMhuLP1IkLj5xK3EKlaAcvkFkZv3eSvuz360wb3Q==",
       "path": "messagepackanalyzer/2.1.152",
       "hashPath": "messagepackanalyzer.2.1.152.nupkg.sha512"
+    },
+    "Microsoft.AspNet.Mvc/5.2.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bcekKshCAh7kTWSMZPavQStSZQF/QmjEjO2gVWGITEd0/t5eRlb+ZLDE+az2qY1bZ8L6Hz0OCNeS0uzXtJcK5w==",
+      "path": "microsoft.aspnet.mvc/5.2.9",
+      "hashPath": "microsoft.aspnet.mvc.5.2.9.nupkg.sha512"
+    },
+    "Microsoft.AspNet.Razor/3.2.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QOJEnEw3xp+t5lMvYR5nGCF4CfZpHqr2p8uZOBEgDZoB6r2txtSj6581YNr+/dOHjI3YRlo1QAKGQoSohbQ/KA==",
+      "path": "microsoft.aspnet.razor/3.2.9",
+      "hashPath": "microsoft.aspnet.razor.3.2.9.nupkg.sha512"
+    },
+    "Microsoft.AspNet.WebPages/3.2.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yByb721lwv8YFsx1oKA5CLKXa89XVbVMkPafS4bg/bPelBEgChq/coFBQEkA4kwcabG7AR56w3vapnoZUfr2Cw==",
+      "path": "microsoft.aspnet.webpages/3.2.9",
+      "hashPath": "microsoft.aspnet.webpages.3.2.9.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.Facebook/6.0.10": {
       "type": "package",
@@ -2850,6 +3043,13 @@
       "sha512": "sha512-7QdD1LXFftoQPuk77Isp/8BQR4PYebPaRle38NbUYjJlK9sHPoORiOID2WOPeqLC8EP5SabwN2XS468GuOPG7w==",
       "path": "microsoft.visualstudio.web.codegenerators.mvc/6.0.10",
       "hashPath": "microsoft.visualstudio.web.codegenerators.mvc.6.0.10.nupkg.sha512"
+    },
+    "Microsoft.Web.Infrastructure/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FNmvLn5m2LTU/Rs2KWVo0SIIh9Ek+U0ojex7xeDaSHw/zgEP77A8vY5cVWgUtBGS8MJfDGNn8rpXJWEIQaPwTg==",
+      "path": "microsoft.web.infrastructure/1.0.0",
+      "hashPath": "microsoft.web.infrastructure.1.0.0.nupkg.sha512"
     },
     "Microsoft.Win32.Primitives/4.3.0": {
       "type": "package",

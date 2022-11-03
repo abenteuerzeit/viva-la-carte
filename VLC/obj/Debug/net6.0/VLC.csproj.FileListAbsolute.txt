@@ -344,3 +344,17 @@ C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\runtimes\win\lib
 C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Facebook.dll
 C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Google.dll
+C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\Google.Apis.dll
+C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\Google.Apis.Auth.PlatformServices.dll
+C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\Google.Apis.Auth.dll
+C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\Google.Apis.Auth.Mvc.dll
+C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\Google.Apis.Core.dll
+C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\Google.Apis.Oauth2.v2.dll
+C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\Google.Apis.PeopleService.v1.dll
+C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\System.Web.Mvc.dll
+C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\System.Web.Razor.dll
+C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\System.Web.Helpers.dll
+C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\System.Web.WebPages.dll
+C:\Users\amroz\source\repos\MvcVivaLaCarte\VLC\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll
