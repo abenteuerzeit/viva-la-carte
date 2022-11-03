@@ -10754,9 +10754,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\amroz\\Source\\Repos\\viva-la-carte\\VLC\\VLC.csproj",
+      "projectUniqueName": "C:\\Users\\amroz\\source\\repos\\viva-la-carte\\VLC\\VLC.csproj",
       "projectName": "VLC",
-      "projectPath": "C:\\Users\\amroz\\Source\\Repos\\viva-la-carte\\VLC\\VLC.csproj",
+      "projectPath": "C:\\Users\\amroz\\source\\repos\\viva-la-carte\\VLC\\VLC.csproj",
       "packagesPath": "C:\\Users\\amroz\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\amroz\\Source\\Repos\\viva-la-carte\\VLC\\obj\\",
       "projectStyle": "PackageReference",
