@@ -33,24 +33,24 @@
                     </label>
                     <p><a id="forgot-password" asp-page="./ForgotPassword">Forgot password?</a></p>
                 </div>
-                <div class="sign-in-with">
-                    <figure id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </figure>
-                    
-                </div>
                 <div class="btn-field">
                     <button id="loginBtn" class="button-53" type="submit">Login</button>
                 </div>
             </div>
         </form>
+        <div class="sign-in-with">
+            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                <div>
+                    <p>
+                        @foreach (var provider in Model.ExternalLogins)
+                        {
+                            <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                        }
+                    </p>
+                </div>
+            </form>
+
+        </div>
     </div>
 </div>
 
