@@ -10,7 +10,7 @@
     <div class="form-container">
         <form class="simple-form" id="account" accept-charset="UTF-8" method="post">
             <h1 class="title">Log into your account</h1>
-            <p>Don't you have an account? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Sign in now!</a></p>
+            
             <p>Hello Foodie my Friend!</p>
             <div class="fields-group">
                 <div class="intput-label">
@@ -33,24 +33,27 @@
                     </label>
                     <p><a id="forgot-password" asp-page="./ForgotPassword">Forgot password?</a></p>
                 </div>
-                <div class="btn-field">
-                    <button id="loginBtn" class="button-53" type="submit">Login</button>
-                </div>
             </div>
         </form>
         <div class="sign-in-with">
-            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                <div>
-                    <p>
-                        @foreach (var provider in Model.ExternalLogins)
-                        {
-                            <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                        }
-                    </p>
-                </div>
-            </form>
+            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
 
+                @foreach (var provider in Model.ExternalLogins)
+                {
+                    if (provider.DisplayName == "Google")
+                    {
+                        <button type="submit" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account" style="border: none">
+                            <img src="~/Content/Images/btn-google.png" alt="Log in button for Google Account" />
+                        </button>
+                    }
+
+                }
+            </form>
+            <div class="btn-field">
+                <button id="loginBtn" class="button-53" type="submit">Login</button>
+            </div>
         </div>
+
     </div>
 </div>
 

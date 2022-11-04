@@ -25,7 +25,7 @@ body {
     font-family: 'macha', sans-serif;
     margin: 50px auto;
     background-color: rgb(0, 100, 0, 0.1);
-    
+    padding: 30px 0 10px 0;
 }
 
 .form-container {
@@ -85,11 +85,11 @@ body {
     font-size: medium;
 }
 
-.simple-form .sign-in-with {
+.sign-in-with {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 5px;
+    
 }
 
 
@@ -99,6 +99,7 @@ body {
     margin-right: 30px;
     font-size: 16px;
     margin-top: 30px;
+    width: 100px;
 }
 
 .button-53 {
