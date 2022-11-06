@@ -1,8 +1,176 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Viva La Carte!";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+    <main>
+        <div class="modal-container">
+            <div class="modal-content">
+                <div style="border-bottom: 2px solid black; margin-bottom: 10px;">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Nutrition calculator</h4>
+                        <button type="button" class="close" aria-hidden="true">x</button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="calculator_form">
+                        <form class="form-horizontal" id="calculator_form">
+                            <fieldset>
+                                <div class="col-12 alert alert-primary text-small" role="alert">
+                                    <p>
+                                        This calculator uses a standard BMR equation (the Mifflin-St Jeor formula) to estimate your Calorie
+                                        needs. We also make some rough macronutrient suggestions, but you're free to
+                                        completely customize these values when you create a free account.
+                                    </p>
+                                    <p class="pb-0 mb-0">
+                                        <strong>Keep in mind that this is a general estimate.</strong> For best results, consult your healthcare
+                                        provider.
+                                    </p>
+                                </div>
+
+                                <div class="row label-align">
+                                    <label for="current-preset-diet" class="col-sm-4 col-form-label">Current diet type</label>
+                                    <div class="col-sm-8" id="current-preset-diet">
+                                        <span> vegan </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row label-align">
+                                    <div class="col-sm-4">
+                                        <label for="goal-radio">I want to</label>
+                                    </div>
+                                    <div class="col-sm-8 stretch-it" id="goals-radio">
+                                        <div class="radio-flex">
+                                            <input type="radio" name="goal" value="L" id="goal-1">
+                                            <label class="btn-sm" for="goal-1">Lose weight</label>
+                                        </div>
+                                        <div class="radio-flex">
+                                            <input type="radio" name="goal" value="M" id="goal-2" checked>
+                                            <label class="btn-sm" for="goal-2">Maintain</label>
+                                        </div>
+                                        <div class="radio-flex">
+                                            <input type="radio" name="goal" value="B" id="goal-3">
+                                            <label class="btn-sm" for="goal-3">Build muscle</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row label-align">
+                                    <div class="col-sm-4">
+                                        <label for="units-radio">Preffered units</label>
+                                    </div>
+                                    <div class="col-sm-8 stretch-it" id="units-radio">
+                                        <div class="radio-flex">
+                                            <input type="radio" name="units" value="I" id="units-inches">
+                                            <label class="btn-sm" for="units-1">U.S. Standard</label>
+                                        </div>
+                                        <div class="radio-flex">
+                                            <input type="radio" name="units" value="M" id="units-metric" checked>
+                                            <label class="btn-sm" for="units-1">Metric</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row label-align">
+                                    <div class="col-sm-4">
+                                        <label for="gender-radio">I am</label>
+                                    </div>
+                                    <div class="col-sm-8 stretch-it" id="gender-radio">
+                                        <div class="radio-flex">
+                                            <input type="radio" name="gender" value="M" id="gender-male">
+                                            <label class="btn-sm" for="gender-1">Male</label>
+                                        </div>
+                                        <div class="radio-flex">
+                                            <input type="radio" name="gender" value="W" id="gender-female" checked>
+                                            <label class="btn-sm" for="gender-2">Female</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row label-align">
+                                    <div class="col-sm-4">
+                                        <label for="height">Height</label>
+                                    </div>
+                                    <div class="col-sm-4 stretch-it" id="height">
+                                        <input type="text" name="height" id="height">
+                                        <label for="height" class="label-absolute">cm</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row label-align">
+                                    <div class="col-sm-4">
+                                        <label for="weight">Weight</label>
+                                    </div>
+                                    <div class="col-sm-4 stretch-it" id="weight">
+                                        <input type="text" name="weight" id="weight">
+                                        <label for="weight" class="label-absolute">kg</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row label-align">
+                                    <div class="col-sm-4">
+                                        <label for="height">Age</label>
+                                    </div>
+                                    <div class="col-sm-4 stretch-it" id="age">
+                                        <input type="text" name="height" id="age">
+                                        <label for="age" class="label-absolute">years</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row label-align">
+                                    <div class="col-sm-4">
+                                        <label for="goal-radio">Bodyfat</label>
+                                    </div>
+                                    <div class="col-sm-8 stretch-it" id="fat-radio">
+                                        <div class="radio-flex">
+                                            <input type="radio" name="bodyfat" value="low" id="fat-1">
+                                            <label class="btn-sm" for="bodyfat-1">Low <14%</label>
+                                        </div>
+                                        <div class="radio-flex">
+                                            <input type="radio" name="bodyfat" value="medium" id="fat-2" checked>
+                                            <label class="btn-sm" for="bodyfat-2">Medium 14%-22%</label>
+                                        </div>
+                                        <div class="radio-flex">
+                                            <input type="radio" name="bodyfat" value="high" id="fat-3">
+                                            <label class="btn-sm" for="bodyfat-3">High >22%</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row label-align">
+                                    <div class="col-sm-4">
+                                        <label for="height">Activity level</label>
+                                    </div>
+                                    <div class="col-sm-6 stretch-it" id="activity_level_dropdown">
+                                        <select name="activity_level" class="form-control-act">
+                                            <option value="Choose an option">-- choose an option --</option>
+                                            <option value="1.2">Sedentary</option>
+                                            <option value="1.375">Lightly Active</option>
+                                            <option value="1.55">Moderatly Active</option>
+                                            <option value="1.725">Very Active</option>
+                                            <option value="1.9">Extremely Active</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="offset">
+                                    <button class="btn-green" id="calculate_button">
+                                        <i class="fa fa-calculator" aria-hidden="true"></i>
+                                        Calculate
+                                    </button>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div style="border-top: 2px solid black; margin-top: 10px;">
+                        <div class="modal-footer">
+                            <a href="#" data-dismiss="modal" class="btn">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </main>
