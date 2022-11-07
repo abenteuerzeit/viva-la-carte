@@ -1,4 +1,4 @@
-﻿namespace VLC.Models.NutritionFacts
+﻿namespace VLC.Models.Nutrition
 {
     public class NutritionFacts
     {
