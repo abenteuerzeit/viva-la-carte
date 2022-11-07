@@ -1,25 +1,30 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-VLC-A09E9715-3D3A-4606-BB3F-D9026657A975</UserSecretsId>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>aspnet-VLC-A09E9715-3D3A-4606-BB3F-D9026657A975</UserSecretsId>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Google.Apis.Auth" Version="1.58.0-beta01" />
-    <PackageReference Include="Google.Apis.Auth.Mvc" Version="1.58.0-beta01" />
-    <PackageReference Include="Google.Apis.Oauth2.v2" Version="1.57.0.1869" />
-    <PackageReference Include="Google.Apis.PeopleService.v1" Version="1.57.0.2707" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Google.Apis.Auth.Mvc" Version="1.57.0" />
+		<PackageReference Include="Google.Apis.Oauth2.v2" Version="1.57.0.1869" />
+		<PackageReference Include="Google.Apis.PeopleService.v1" Version="1.57.0.2707" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Models\Addresses\" />
+		<Folder Include="Models\UserRoles\" />
+	</ItemGroup>
 
 </Project>
