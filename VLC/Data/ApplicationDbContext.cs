@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using VLC.Models.Meals;
 
 namespace VLC.Data
 {
@@ -9,5 +10,9 @@ namespace VLC.Data
             : base(options)
         {
         }
+
+        public DbSet<Meal> meals { get; set; }
+
+
     }
 }

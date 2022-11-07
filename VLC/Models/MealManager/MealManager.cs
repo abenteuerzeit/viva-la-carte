@@ -1,34 +1,38 @@
-﻿using VLC.Models.Recipes;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using VLC.Models.Recipes;
 using static VLC.Models.MealManager.Diet;
 
 namespace VLC.Models.MealManager
 {
     public class MealManager
     {
+        [Required, Key]
+        public int Id { get; set; }
         #region Input
+        [Required, Display(Name = "Total Calories"), BindProperty]
+        public int TotalCalories { get; set; } = 2000 * 7; // 2000kcal for 7 days
 
-        private int totalCalories { get; set; } = 2000 * 7; // 2000kcal for 7 days
+        [Required, Display(Name = "Number of meals")]
+        public int MealCount { get; set; } = 3 * 7; //3 meals for each day of the week
 
-        private int mealCount { get; set; } = 3 * 7; //3 meals for each day of the week
+        [Required, Display(Name = "Diet Preference")]
+        public Diets Diet { get; set; } = Diets.Whatever;
 
-        protected Diets diet { get; set; } = Diets.Whatever;
-
-        private List<Recipe> Meals => new List<Recipe>();
-
-        private bool advandedOptions { get; set; } = false;
-
-        private string? ThisWeeksMealPlan { get; set; }
+        [ForeignKey("MealPlan")]
+        public int MealPlanId { get; set; }
 
 
         #endregion
 
-        public MealManager()
-        {
-            totalCalories = default;
-            mealCount = default;
-            diet = default;
-            advandedOptions = default;
-            ThisWeeksMealPlan = default;
-        }
+        //public MealManager()
+        //{
+        //    TotalCalories = default;
+        //    MealCount = default;
+        //    Diet = default;
+        //    AdvandedOptions = default;
+        //    ThisWeeksMealPlan = default;
+        //}
     }
 }
