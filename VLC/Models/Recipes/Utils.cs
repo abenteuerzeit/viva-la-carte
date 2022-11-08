@@ -48,7 +48,7 @@
             centi,
             deci,
             hecto,
-            kilog
+            kilo
         }
 
         public enum MetricUnit
