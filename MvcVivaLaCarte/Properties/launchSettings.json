@@ -11,7 +11,7 @@
     "MvcVivaLaCarte": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7136;http://localhost:5136",
+      "applicationUrl": "http://localhost:49317",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
