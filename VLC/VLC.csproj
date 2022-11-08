@@ -28,4 +28,12 @@
 		<Folder Include="BussinessLogic\" />
 	</ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\Content\" />
+    <Content Remove="wwwroot\Content\Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\Content\" />
+    <Folder Include="wwwroot\Content\Images\" />
+  </ItemGroup>
 </Project>
