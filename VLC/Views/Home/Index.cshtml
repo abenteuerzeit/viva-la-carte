@@ -14,7 +14,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="calculator_form">
-                        <form class="form-horizontal" id="calculator_form">
+                        <form class="form-horizontal" id="calculator_form" asp-action="Create" asp-controller="MealManagers" onsubmit="() => { alert('Submitted') };">
                             <fieldset>
                                 <div class="col-12 alert alert-primary text-small" role="alert">
                                     <p>
@@ -41,15 +41,15 @@
                                     </div>
                                     <div class="col-sm-8 stretch-it" id="goals-radio">
                                         <div class="radio-flex">
-                                            <input type="radio" name="goal" value="L" id="goal-1">
+                                            <input type="radio" name="goal" value="@MealManagerUtility.WeightGoal.Lose" id="goal-1">
                                             <label class="btn-sm" for="goal-1">Lose weight</label>
                                         </div>
                                         <div class="radio-flex">
-                                            <input type="radio" name="goal" value="M" id="goal-2" checked>
+                                            <input type="radio" name="goal" value="@MealManagerUtility.WeightGoal.Maintain" id="goal-2" checked>
                                             <label class="btn-sm" for="goal-2">Maintain</label>
                                         </div>
                                         <div class="radio-flex">
-                                            <input type="radio" name="goal" value="B" id="goal-3">
+                                            <input type="radio" name="goal" value="@MealManagerUtility.WeightGoal.Gain" id="goal-3">
                                             <label class="btn-sm" for="goal-3">Build muscle</label>
                                         </div>
                                     </div>
@@ -61,11 +61,11 @@
                                     </div>
                                     <div class="col-sm-8 stretch-it" id="units-radio">
                                         <div class="radio-flex">
-                                            <input type="radio" name="units" value="I" id="units-inches">
+                                            <input type="radio" name="units" value="@MealManagerUtility.MeasurementSystem.US_Customary" id="units-inches">
                                             <label class="btn-sm" for="units-1">U.S. Standard</label>
                                         </div>
                                         <div class="radio-flex">
-                                            <input type="radio" name="units" value="M" id="units-metric" checked>
+                                            <input type="radio" name="units" value="@MealManagerUtility.MeasurementSystem.Metric" id="units-metric" checked>
                                             <label class="btn-sm" for="units-1">Metric</label>
                                         </div>
                                     </div>
@@ -77,22 +77,22 @@
                                     </div>
                                     <div class="col-sm-8 stretch-it" id="gender-radio">
                                         <div class="radio-flex">
-                                            <input type="radio" name="gender" value="M" id="gender-male">
+                                            <input type="radio" name="gender" value="@MealManagerUtility.Gender.Male" id="gender-male">
                                             <label class="btn-sm" for="gender-1">Male</label>
                                         </div>
                                         <div class="radio-flex">
-                                            <input type="radio" name="gender" value="W" id="gender-female" checked>
+                                            <input type="radio" name="gender" value="@MealManagerUtility.Gender.Female" id="gender-female" checked>
                                             <label class="btn-sm" for="gender-2">Female</label>
                                         </div>
                                     </div>
                                 </div>
-
+                                <!-- TODO Iterator for form REFACTOR -->
                                 <div class="form-group row label-align">
                                     <div class="col-sm-4">
                                         <label for="height">Height</label>
                                     </div>
                                     <div class="col-sm-4 stretch-it" id="height">
-                                        <input type="text" name="height" id="height">
+                                        <input type="number" name="height" id="height" value="@MockMealPlan.Height">
                                         <label for="height" class="label-absolute">cm</label>
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@
                                         <label for="weight">Weight</label>
                                     </div>
                                     <div class="col-sm-4 stretch-it" id="weight">
-                                        <input type="text" name="weight" id="weight">
+                                        <input type="text" name="weight" id="weight" value="@MockMealPlan.Weight">
                                         <label for="weight" class="label-absolute">kg</label>
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@
                                         <label for="height">Age</label>
                                     </div>
                                     <div class="col-sm-4 stretch-it" id="age">
-                                        <input type="text" name="height" id="age">
+                                        <input type="text" name="height" id="age" value="@MockMealPlan.Age">
                                         <label for="age" class="label-absolute">years</label>
                                     </div>
                                 </div>
@@ -123,16 +123,16 @@
                                     </div>
                                     <div class="col-sm-8 stretch-it" id="fat-radio">
                                         <div class="radio-flex">
-                                            <input type="radio" name="bodyfat" value="low" id="fat-1">
-                                            <label class="btn-sm" for="bodyfat-1">Low <14%</label>
+                                            <input type="radio" name="bodyfat" value="@MealManagerUtility.BodyFat.Low" id="fat-1">
+                                            <label class="btn-sm" for="bodyfat-1">Low < 14%</label>
                                         </div>
                                         <div class="radio-flex">
-                                            <input type="radio" name="bodyfat" value="medium" id="fat-2" checked>
+                                            <input type="radio" name="bodyfat" value="@MealManagerUtility.BodyFat.Medium" id="fat-2" checked>
                                             <label class="btn-sm" for="bodyfat-2">Medium 14%-22%</label>
                                         </div>
                                         <div class="radio-flex">
-                                            <input type="radio" name="bodyfat" value="high" id="fat-3">
-                                            <label class="btn-sm" for="bodyfat-3">High >22%</label>
+                                            <input type="radio" name="bodyfat" value="@MealManagerUtility.BodyFat.High" id="fat-3">
+                                            <label class="btn-sm" for="bodyfat-3">High > 22%</label>
                                         </div>
                                     </div>
                                 </div>
@@ -144,7 +144,7 @@
                                     <div class="col-sm-6 stretch-it" id="activity_level_dropdown">
                                         <select name="activity_level" class="form-control-act">
                                             <option value="Choose an option">-- choose an option --</option>
-                                            <option value="1.2">Sedentary</option>
+                                            <option value="1.2" selected>Sedentary</option>
                                             <option value="1.375">Lightly Active</option>
                                             <option value="1.55">Moderatly Active</option>
                                             <option value="1.725">Very Active</option>

@@ -58,6 +58,7 @@ namespace VLC.Controllers
         {
             if (ModelState.IsValid)
             {
+                mealManager.Age = 20;
                 _context.Add(mealManager);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
