@@ -1,28 +1,34 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using System.Web.Helpers;
 using VLC.Data;
 using VLC.Models.MealManager;
+using VLC.Services;
 
 namespace VLC.Controllers
 {
     public class MealManagersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _config;
 
-        public MealManagersController(ApplicationDbContext context)
+        public MealManagersController(ApplicationDbContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
 
         // GET: MealManagers
-        public async Task<IActionResult> Index()
+        public IActionResult Index() //async Task<IActionResult> Index()
         {
-              return View(await _context.MealManager.ToListAsync());
+            string recipesURL = GetEdamamRecipesAPI_URL_For(_config, "scrambled%20eggs");
+            return Redirect(recipesURL); // View(await _context.MealManager.ToListAsync());
         }
 
         // GET: MealManagers/Details/5
@@ -58,6 +64,7 @@ namespace VLC.Controllers
         {
             if (ModelState.IsValid)
             {
+                mealManager.Age = 20;
                 _context.Add(mealManager);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -148,14 +155,34 @@ namespace VLC.Controllers
             {
                 _context.MealManager.Remove(mealManager);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MealManagerExists(int id)
         {
-          return _context.MealManager.Any(e => e.Id == id);
+            return _context.MealManager.Any(e => e.Id == id);
+        }
+
+        /// <summary>
+        ///     Searches the Edamam recipes database Application Programming Interface v2.
+        ///     Documentation: https://developer.edamam.com/recipe-search-api-v2-changelog.
+        /// </summary>
+        /// <param name="search_query">
+        ///     Provide a search phrase with escaped whitespace.
+        /// </param>
+        /// <returns>
+        ///     URL string for Edamam Recipes Search API,
+        ///     Example:"https://api.edamam.com/api/recipes/v2?q=scrambled%20eggs&app_id=54fe811b&app_key=3dc43f24bc09518326e7783ceb08d984&type=public"
+        /// </returns>
+        private static string GetEdamamRecipesAPI_URL_For(IConfiguration config, string search_query)
+        {
+            string baseURL = "https://api.edamam.com/api/recipes/v2";
+            string app_id = config["EdamamRecipeSearch:app_id"];
+            string app_key = config["EdamamRecipeSearch:app_key"];
+            string type = "public";
+            return $"{baseURL}?q={search_query}&app_id={app_id}&app_key={app_key}&type={type}";
         }
     }
 }

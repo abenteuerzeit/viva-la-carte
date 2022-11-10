@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
-
-namespace VLC.Services
+﻿namespace VLC.Services
 {
     // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
     public class MealManagerService
