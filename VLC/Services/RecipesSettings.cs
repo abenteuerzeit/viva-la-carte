@@ -5,7 +5,7 @@ namespace VLC.Services
     public class RecipesSettings
     {
         public const string ServiceName = nameof(MealManagerService);
-        public static string app_id { get; set; }
-        public static string app_key { get; set; }
+        public static string? AppId { get; set; }
+        public static string? AppKey { get; set; }
     }
 }
