@@ -1,20 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.DotNet.MSIdentity.Shared;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using NuGet.Protocol;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Helpers;
 using VLC.Data;
+using VLC.Models.API;
 using VLC.Models.MealManager;
+using VLC.Models.Recipes;
 using VLC.Services;
 
 namespace VLC.Controllers
 {
     public class MealManagersController : Controller
     {
+        static readonly HttpClient client = new();
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _config;
         private readonly IMealManagerService _mealManagerService;
@@ -24,6 +26,32 @@ namespace VLC.Controllers
             _context = context;
             _config = config;
             _mealManagerService = mealManagerService;
+        }
+        /// <summary>
+        /// Action injection with FromServices
+        /// </summary>
+        /// <param name="service"></param>
+        /// <returns></returns>
+        // GET: MealManagers/SearchRecipesByQuery
+        [HttpGet]
+        public async Task<IActionResult> SearchRecipesByQuery(string query, [FromServices] IMealManagerService service)
+        {
+            string searchURL = service.GetEdamamRecipesAPI_URL_For(query);
+            try
+            {
+                // TODO: Fetch recipes by query and extract results.
+                // TODO: Provide user with search results
+                HttpResponseMessage responseBody = await client.GetAsync(searchURL);
+                responseBody.EnsureSuccessStatusCode();
+                string? data = await responseBody.Content.ReadAsStringAsync();
+                return Ok(Json(data));
+            }
+            catch (Exception err)
+            {
+                Console.Write($"\nException {nameof(err)} caught!");
+                Console.WriteLine(err);
+                return BadRequest();
+            }
         }
 
         // GET: MealManagers

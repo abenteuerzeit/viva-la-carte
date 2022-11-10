@@ -4,6 +4,14 @@
     ViewData["Title"] = "Viva La Carte!";
 }
 
+    <div class="input-group" id="development">
+    <form class="form-container" asp-action="SearchRecipesByQuery" asp-controller="MealManagers" method="get">
+        <label class="label" id="searchlabel" for="query">Find recipes</label>
+        <input class="input-group-text" id="query" name="query" type="text" placeholder="Enter search phrase" value="scrambled eggs" />
+        <input class="btn" type="submit" value="Fetch Api" />
+        </form>
+    
+    </div>
 
     <main>
         <div class="modal-container">
