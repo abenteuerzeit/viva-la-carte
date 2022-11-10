@@ -17,17 +17,19 @@ namespace VLC.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _config;
+        private readonly IMealManagerService _mealManagerService;
 
-        public MealManagersController(ApplicationDbContext context, IConfiguration config)
+        public MealManagersController(ApplicationDbContext context, IConfiguration config, IMealManagerService mealManagerService)
         {
             _context = context;
             _config = config;
+            _mealManagerService = mealManagerService;
         }
 
         // GET: MealManagers
         public IActionResult Index() //async Task<IActionResult> Index()
         {
-            string recipesURL = GetEdamamRecipesAPI_URL_For(_config, "scrambled%20eggs");
+            string recipesURL = _mealManagerService.GetEdamamRecipesAPI_URL_For("scrambled%20eggs");
             return Redirect(recipesURL); // View(await _context.MealManager.ToListAsync());
         }
 
@@ -165,24 +167,5 @@ namespace VLC.Controllers
             return _context.MealManager.Any(e => e.Id == id);
         }
 
-        /// <summary>
-        ///     Searches the Edamam recipes database Application Programming Interface v2.
-        ///     Documentation: https://developer.edamam.com/recipe-search-api-v2-changelog.
-        /// </summary>
-        /// <param name="search_query">
-        ///     Provide a search phrase with escaped whitespace.
-        /// </param>
-        /// <returns>
-        ///     URL string for Edamam Recipes Search API,
-        ///     Example:"https://api.edamam.com/api/recipes/v2?q=scrambled%20eggs&app_id=54fe811b&app_key=3dc43f24bc09518326e7783ceb08d984&type=public"
-        /// </returns>
-        private static string GetEdamamRecipesAPI_URL_For(IConfiguration config, string search_query)
-        {
-            string baseURL = "https://api.edamam.com/api/recipes/v2";
-            string app_id = config["EdamamRecipeSearch:app_id"];
-            string app_key = config["EdamamRecipeSearch:app_key"];
-            string type = "public";
-            return $"{baseURL}?q={search_query}&app_id={app_id}&app_key={app_key}&type={type}";
-        }
     }
 }
