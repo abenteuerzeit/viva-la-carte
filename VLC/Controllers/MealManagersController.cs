@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.DotNet.MSIdentity.Shared;
+using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using NuGet.Protocol;
+using RestSharp;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Helpers;
@@ -34,17 +36,18 @@ namespace VLC.Controllers
         /// <returns></returns>
         // GET: MealManagers/SearchRecipesByQuery
         [HttpGet]
-        public async Task<IActionResult> SearchRecipesByQuery(string query, [FromServices] IMealManagerService service)
+        public IActionResult SearchRecipesByQuery(string query, [FromServices] IMealManagerService service)
         {
-            string searchURL = service.GetEdamamRecipesAPI_URL_For(query);
+            // TODO: Fetch recipes by query and extract results.
+            // TODO: Provide user with search results
+            Uri searchURL = new(service.GetEdamamRecipesAPI_URL_For(query));
             try
             {
-                // TODO: Fetch recipes by query and extract results.
-                // TODO: Provide user with search results
-                HttpResponseMessage responseBody = await client.GetAsync(searchURL);
-                responseBody.EnsureSuccessStatusCode();
-                string? data = await responseBody.Content.ReadAsStringAsync();
-                return Ok(Json(data));
+                RestClient restClient = new RestClient(client);
+                restClient.Options.MaxTimeout = 30;
+                RestRequest request = new(searchURL) { AlwaysMultipartFormData = true };
+                JsonResult response = Json(restClient.Execute(request));
+                return Ok(response);
             }
             catch (Exception err)
             {
