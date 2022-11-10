@@ -24,7 +24,7 @@ namespace VLC.Models.MealManager
         [Required, Display(Name = "Number of meals"), BindProperty]
         public int MealCount { get; set; } = 3;
 
-        [Required, Display(Name = "Diet Preference"), BindProperty]
+        [Required, Display(Name = "Diet Preference"), BindProperty, ]
         public Diets Diet { get; set; }
         //public Diets Diet { get; set; } = Diets.Whatever;
 

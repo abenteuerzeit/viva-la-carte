@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using VLC.Data;
+using VLC.Services;
 
 namespace VLC
 {
@@ -70,6 +72,12 @@ namespace VLC
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
+
+            //var recipes = builder.Configuration.GetSection("EdamamRecipeSearch").Get<RecipesSettings>();
+
+            builder.Services.Configure<RecipesSettings>(
+                builder.Configuration.GetSection(RecipesSettings.ServiceName)
+                );
 
             var app = builder.Build();
 
