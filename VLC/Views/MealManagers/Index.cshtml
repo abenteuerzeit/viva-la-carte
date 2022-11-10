@@ -49,7 +49,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.TotalCalories)
+                @item.CountTotalCalories()
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MealCount)

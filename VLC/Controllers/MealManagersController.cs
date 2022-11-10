@@ -58,10 +58,11 @@ namespace VLC.Controllers
         }
 
         // GET: MealManagers
-        public IActionResult Index() //async Task<IActionResult> Index()
+        public async Task<IActionResult> Index() //async Task<IActionResult> Index()
         {
             string recipesURL = _mealManagerService.GetEdamamRecipesAPI_URL_For("scrambled%20eggs");
-            return Redirect(recipesURL); // View(await _context.MealManager.ToListAsync());
+            //return Redirect(recipesURL);
+            return View(await _context.MealManager.ToListAsync());
         }
 
         // GET: MealManagers/Details/5
@@ -97,7 +98,7 @@ namespace VLC.Controllers
         {
             if (ModelState.IsValid)
             {
-                mealManager.Age = 20;
+                //mealManager.Age = 20;
                 _context.Add(mealManager);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
