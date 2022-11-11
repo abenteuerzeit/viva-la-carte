@@ -27,7 +27,7 @@ namespace VLC.Models.Recipes
         public string Instructions { get; set; } = "Write how to make this here";
 
         [Display(Name = "Ingredients")]
-        public List<int>? ProductIdList { get; set; }
+        public List<Product>? ProductIdList { get; set; }
 
         [Display(Name = "Number of servings"), BindProperty]
         public int Portions { get; set; }
@@ -47,10 +47,10 @@ namespace VLC.Models.Recipes
         public int AuthorId { get; set; }
 
         [DataType(DataType.Duration), BindProperty]
-        public DateTime PreperationTime { get; set; }
+        public TimeSpan PreperationTime { get; set; }
 
         [DataType(DataType.Duration), BindProperty]
-        public DateTime CookingTime { get; set; }
+        public TimeSpan CookingTime { get; set; }
 
         [BindProperty]
         public Rating Rating { get; set; }

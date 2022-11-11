@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using VLC.Models.Recipes;
 
 namespace VLC.Models.Meals
 {
@@ -16,7 +18,7 @@ namespace VLC.Models.Meals
         public int NumberOfMeals { get; set; }
 
         [Display(Name = "Meals")]
-        public List<int> MealIds { get; set; } = new List<int>();
+        public List<Recipe> Recipes { get; set; } = new List<Recipe>();
 
     }
 }

@@ -61,18 +61,18 @@ namespace VLC.Controllers
         public IActionResult Index() //async Task<IActionResult> Index()
         {
             string recipesURL = _mealManagerService.GetEdamamRecipesAPI_URL_For("scrambled%20eggs");
-            return Redirect(recipesURL); // View(await _context.MealManager.ToListAsync());
+            return Redirect(recipesURL); // View(await _context.MealManagers.ToListAsync());
         }
 
         // GET: MealManagers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.MealManager == null)
+            if (id == null || _context.MealManagers == null)
             {
                 return NotFound();
             }
 
-            var mealManager = await _context.MealManager
+            var mealManager = await _context.MealManagers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (mealManager == null)
             {
@@ -97,10 +97,10 @@ namespace VLC.Controllers
         {
             if (ModelState.IsValid)
             {
-                mealManager.Age = 20;
-                _context.Add(mealManager);
+                //_context.Add(mealManager);
+                _context.Add(_mealManagerService.GetMealPlan(mealManager));
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Ok(_context.MealPlans.ToList());  //RedirectToAction(nameof(Index));
             }
             return View(mealManager);
         }
@@ -108,12 +108,12 @@ namespace VLC.Controllers
         // GET: MealManagers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.MealManager == null)
+            if (id == null || _context.MealManagers == null)
             {
                 return NotFound();
             }
 
-            var mealManager = await _context.MealManager.FindAsync(id);
+            var mealManager = await _context.MealManagers.FindAsync(id);
             if (mealManager == null)
             {
                 return NotFound();
@@ -159,12 +159,12 @@ namespace VLC.Controllers
         // GET: MealManagers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.MealManager == null)
+            if (id == null || _context.MealManagers == null)
             {
                 return NotFound();
             }
 
-            var mealManager = await _context.MealManager
+            var mealManager = await _context.MealManagers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (mealManager == null)
             {
@@ -179,14 +179,14 @@ namespace VLC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.MealManager == null)
+            if (_context.MealManagers == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.MealManager'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.MealManagers'  is null.");
             }
-            var mealManager = await _context.MealManager.FindAsync(id);
+            var mealManager = await _context.MealManagers.FindAsync(id);
             if (mealManager != null)
             {
-                _context.MealManager.Remove(mealManager);
+                _context.MealManagers.Remove(mealManager);
             }
 
             await _context.SaveChangesAsync();
@@ -195,7 +195,7 @@ namespace VLC.Controllers
 
         private bool MealManagerExists(int id)
         {
-            return _context.MealManager.Any(e => e.Id == id);
+            return _context.MealManagers.Any(e => e.Id == id);
         }
 
     }

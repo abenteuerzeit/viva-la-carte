@@ -267,10 +267,10 @@ namespace VLC.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MealManager");
+                    b.ToTable("MealManagers");
                 });
 
-            modelBuilder.Entity("VLC.Models.Meals.Meal", b =>
+            modelBuilder.Entity("VLC.Models.Meals.MealPlan", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -278,38 +278,97 @@ namespace VLC.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Description")
+                    b.Property<int>("Calories")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfMeals")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MealPlans");
+                });
+
+            modelBuilder.Entity("VLC.Models.Products.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsGlutenFree")
+                    b.Property<int?>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("VLC.Models.Recipes.Recipe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Calories")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("CookingTime")
+                        .HasColumnType("time");
+
+                    b.Property<double>("Grams")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Instructions")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsFavorite")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsLactoseFree")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsVegan")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsVegetarian")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("MainDishId")
+                    b.Property<int?>("MealPlanId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumberOfSides")
+                    b.Property<double>("PortionSize")
+                        .HasColumnType("float");
+
+                    b.Property<int>("PortionUnitOfMeasurment")
                         .HasColumnType("int");
+
+                    b.Property<int>("Portions")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("PreperationTime")
+                        .HasColumnType("time");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("meals");
+                    b.HasIndex("MealPlanId");
+
+                    b.ToTable("Recipe");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -361,6 +420,30 @@ namespace VLC.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("VLC.Models.Products.Product", b =>
+                {
+                    b.HasOne("VLC.Models.Recipes.Recipe", null)
+                        .WithMany("ProductIdList")
+                        .HasForeignKey("RecipeId");
+                });
+
+            modelBuilder.Entity("VLC.Models.Recipes.Recipe", b =>
+                {
+                    b.HasOne("VLC.Models.Meals.MealPlan", null)
+                        .WithMany("Recipes")
+                        .HasForeignKey("MealPlanId");
+                });
+
+            modelBuilder.Entity("VLC.Models.Meals.MealPlan", b =>
+                {
+                    b.Navigation("Recipes");
+                });
+
+            modelBuilder.Entity("VLC.Models.Recipes.Recipe", b =>
+                {
+                    b.Navigation("ProductIdList");
                 });
 #pragma warning restore 612, 618
         }

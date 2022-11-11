@@ -71,6 +71,11 @@ namespace VLC.Utils
             Whatever, Paleo, Vegetarian, Vegan, Keto, Mediterranean
         }
 
+        //public enum ProteinPlan
+        //{
+        //    A, B, C, D
+        //}
+
         public static double ConvertInchesToCm(double inches) => inches * 2.64;
         public static double ConvertFtToCm(double ft) => ft * 30.48;
 
