@@ -60,7 +60,7 @@ namespace VLC.Controllers
         // GET: MealManagers
         public async Task<IActionResult> Index() //async Task<IActionResult> Index()
         {
-            string recipesURL = _mealManagerService.GetEdamamRecipesAPI_URL_For("scrambled%20eggs");
+            //string recipesURL = _mealManagerService.GetEdamamRecipesAPI_URL_For("scrambled%20eggs");
             //return Redirect(recipesURL);
             return View(await _context.MealManager.ToListAsync());
         }

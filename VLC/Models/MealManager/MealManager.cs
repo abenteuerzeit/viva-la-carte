@@ -60,14 +60,6 @@ namespace VLC.Models.MealManager
         {
         }
 
-        // Constructor needed for counting TotalCalories
-        //public MealManager(double weight, double height, int age)
-        //{
-        //    this.Weight = weight;
-        //    this.Height = height;
-        //    this.Age = age;
-        //    this.TotalCalories = CountTotalCalories();
-        //}
 
         public int CountTotalCalories()
         {
