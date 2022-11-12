@@ -33,7 +33,7 @@ namespace VLC.Models.Recipes
         public HitsLinks Links { get; set; }
 
         [JsonProperty("hits")]
-        public List<Hit> HitsList { get; set; }
+        public List<Hit> HitsList { get; set; } = new List<Hit>();
     }
 
     public partial class Hit
