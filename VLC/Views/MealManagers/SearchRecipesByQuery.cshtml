@@ -34,3 +34,15 @@
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+<div>
+    <ul>
+    @foreach(var hit in Model.HitsList)
+    {
+        <li>Label: @hit.Recipe.Label</li>
+        <li>Share: @hit.Recipe.ShareAs</li>
+        <li>Calories: @hit.Recipe.Calories</li>
+        <li><a href="@hit.Links.Self.Href">Click me</a></li>
+    }
+    </ul>
+    <a href="@Model.Links.Next.Href" onclick="alert('TODO: Implement javascript module to load next set of paginated results')">Get next 20 results</a>
+</div>
