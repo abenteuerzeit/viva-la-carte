@@ -96,6 +96,15 @@
                             <!-- TODO Iterator for form REFACTOR -->
                             <div class="form-group row label-align">
                                 <div class="col-sm-4">
+                                    <label asp-for="MealCount">Number of meals</label>
+                                </div>
+                                <div class="col-sm-4 stretch-it" id="mealCount">
+                                    <input asp-for="MealCount" type="number" id="mealCount" value="@MockMealPlan.MealCount">
+                                    <label asp-for="MealCount" class="label-absolute">meals</label>
+                                </div>
+                            </div>
+                            <div class="form-group row label-align">
+                                <div class="col-sm-4">
                                     <label asp-for="Height">Height</label>
                                 </div>
                                 <div class="col-sm-4 stretch-it" id="height">
@@ -158,10 +167,10 @@
                                             </option>
                                         }
                                         @*<option value="1.2" selected>Sedentary</option>
-                                            <option value="1.375">Lightly Active</option>
-                                            <option value="1.55">Moderatly Active</option>
-                                            <option value="1.725">Very Active</option>
-                                            <option value="1.9">Extremely Active</option>*@
+                    <option value="1.375">Lightly Active</option>
+                    <option value="1.55">Moderatly Active</option>
+                    <option value="1.725">Very Active</option>
+                    <option value="1.9">Extremely Active</option>*@
                                     </select>
                                 </div>
                             </div>

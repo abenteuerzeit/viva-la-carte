@@ -1,17 +1,18 @@
 
-html, body {
+/*html, body {
     display: block;
     padding: 0;
     margin: 0;
-}
+}*/
 
 footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 1em;
-    margin: 1em;
-    border-top: 2px dashed;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(0, 100, 0);
+    color: white;
+    text-align: center;
 }
 
 /*html, body {
@@ -156,7 +157,7 @@ footer {
     }
 }
 
-/* Index page layout */
+/* MealManager Calculator layout */
 .modal-container {
     width: 600px;
     margin: 0 auto;
@@ -307,14 +308,15 @@ header {
     border-bottom: 2px dashed var(--red-hue);
 }
 
-footer {
+/*footer {
+    position: fixed;
     display: flex;
     flex-direction: row;
     justify-content: center;
     padding: 1em;
     margin: 1em;
     border-top: 2px dashed var(--red-hue);
-}
+}*/
 
 figure {
     margin: 0;
