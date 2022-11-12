@@ -177,7 +177,7 @@ namespace VLC.Models.Recipes
         public Unit Unit { get; set; }
 
         [JsonProperty("sub", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Digest> Sub { get; set; }
+        public Digest[] Sub { get; set; }
     }
 
     public partial class Images
@@ -266,9 +266,15 @@ namespace VLC.Models.Recipes
         public Next Next { get; set; }
     }
 
+
+    // TODO: Complete enums
     public enum Title { NextPage, Self };
 
-    public enum DietLabel { LowCarb, LowSodium };
+    public enum Caution { Eggs, Fodmap, Milk, Soy, Sulfites };
+
+    public enum CuisineType { Greek, Italian };
+
+    public enum DietLabel { Balanced, HighFiber, LowCarb, LowSodium };
 
     public enum SchemaOrgTag { CarbohydrateContent, CholesterolContent, FatContent, FiberContent, ProteinContent, SaturatedFatContent, SodiumContent, SugarContent, TransFatContent };
 
@@ -288,6 +294,8 @@ namespace VLC.Models.Recipes
         public static string ToJson(this Hits self) => JsonConvert.SerializeObject(self, VLC.Models.Recipes.Converter.Settings);
     }
 
+
+    // TODO: Build this class to service all enums 
     internal static class Converter
     {
         public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
@@ -297,6 +305,8 @@ namespace VLC.Models.Recipes
             Converters =
             {
                 TitleConverter.Singleton,
+                CautionConverter.Singleton,
+                CuisineTypeConverter.Singleton,
                 DietLabelConverter.Singleton,
                 SchemaOrgTagConverter.Singleton,
                 UnitConverter.Singleton,
@@ -348,6 +358,103 @@ namespace VLC.Models.Recipes
         public static readonly TitleConverter Singleton = new TitleConverter();
     }
 
+    internal class CautionConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(Caution) || t == typeof(Caution?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "Eggs":
+                    return Caution.Eggs;
+                case "FODMAP":
+                    return Caution.Fodmap;
+                case "Milk":
+                    return Caution.Milk;
+                case "Soy":
+                    return Caution.Soy;
+                case "Sulfites":
+                    return Caution.Sulfites;
+            }
+            throw new Exception("Cannot unmarshal type Caution");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (Caution)untypedValue;
+            switch (value)
+            {
+                case Caution.Eggs:
+                    serializer.Serialize(writer, "Eggs");
+                    return;
+                case Caution.Fodmap:
+                    serializer.Serialize(writer, "FODMAP");
+                    return;
+                case Caution.Milk:
+                    serializer.Serialize(writer, "Milk");
+                    return;
+                case Caution.Soy:
+                    serializer.Serialize(writer, "Soy");
+                    return;
+                case Caution.Sulfites:
+                    serializer.Serialize(writer, "Sulfites");
+                    return;
+            }
+            throw new Exception("Cannot marshal type Caution");
+        }
+
+        public static readonly CautionConverter Singleton = new CautionConverter();
+    }
+
+    internal class CuisineTypeConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(CuisineType) || t == typeof(CuisineType?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "greek":
+                    return CuisineType.Greek;
+                case "italian":
+                    return CuisineType.Italian;
+            }
+            throw new Exception("Cannot unmarshal type CuisineType");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (CuisineType)untypedValue;
+            switch (value)
+            {
+                case CuisineType.Greek:
+                    serializer.Serialize(writer, "greek");
+                    return;
+                case CuisineType.Italian:
+                    serializer.Serialize(writer, "italian");
+                    return;
+            }
+            throw new Exception("Cannot marshal type CuisineType");
+        }
+
+        public static readonly CuisineTypeConverter Singleton = new CuisineTypeConverter();
+    }
+
     internal class DietLabelConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(DietLabel) || t == typeof(DietLabel?);
@@ -358,6 +465,10 @@ namespace VLC.Models.Recipes
             var value = serializer.Deserialize<string>(reader);
             switch (value)
             {
+                case "Balanced":
+                    return DietLabel.Balanced;
+                case "High-Fiber":
+                    return DietLabel.HighFiber;
                 case "Low-Carb":
                     return DietLabel.LowCarb;
                 case "Low-Sodium":
@@ -376,6 +487,12 @@ namespace VLC.Models.Recipes
             var value = (DietLabel)untypedValue;
             switch (value)
             {
+                case DietLabel.Balanced:
+                    serializer.Serialize(writer, "Balanced");
+                    return;
+                case DietLabel.HighFiber:
+                    serializer.Serialize(writer, "High-Fiber");
+                    return;
                 case DietLabel.LowCarb:
                     serializer.Serialize(writer, "Low-Carb");
                     return;
