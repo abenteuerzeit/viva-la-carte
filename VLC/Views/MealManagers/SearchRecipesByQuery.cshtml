@@ -92,14 +92,14 @@
 
             @{
                 var btnId = $"btn-fav-{FAV_BTN_ID_COUNTER++}";
-                
-                <button id=@btnId onclick="ToggleFavorite(this.id)" value=@IS_FAVORITE>Add to favorites</button>
+
+                <button id=@btnId onclick="ToggleFavorite(this.id)" value=@IS_FAVORITE>Save to Cookbook</button>
             }
         </div>
         <script>
             const ToggleFavorite = (id) => {
                 let btn = document.getElementById(id);
-                btn.innerHTML = btn.innerText === "Add to favorites" ? btn.innerHTML = "&#128154; Favorited!" : btn.innerHTML = "Add to favorites";
+                btn.innerHTML = btn.innerText === "Save to Cookbook" ? btn.innerText = "&#128505; Recipe Saved!" : btn.innerText = "Save to Cookbook";
             };
 
         </script>
