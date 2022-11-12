@@ -16,6 +16,33 @@
     var FROM = Model.From;
     var TO = Model.To;
     var HITS = Model.HitsList;
+
+    ////////////////////////////////////////
+    ///*******Create HTML elements*******///
+    ////////////////////////////////////////
+
+    var query_string_value = Context.Request.Query["query"];
+    if (!string.IsNullOrWhiteSpace(query_string_value))
+    {
+        <h1>Recipe Search Results for @query_string_value</h1>
+    }
+    <nav id="@ID">
+        <dl>
+        <dt>
+                Recipes found:<strong>@COUNT;</strong>.<br/>
+                <em>Displaying from @FROM; hits to @TO; hits</em>
+        </dt>
+            <dd>
+                <a href="@LINKS.Next.Href" onclick="alert('TODO: Implement function to load more recipes 
+                                                    so that you scroll through the results like on a feed')">
+                Next page
+                </a>
+            </dd> @* <<< HTTP JSON TO RECIPE *@
+        </dl>
+    </nav>
+
+
+
     foreach (var hit in HITS)
     {
         ////////////////////////////////////////
@@ -25,6 +52,13 @@
         var HIT_LINKS = hit.Links;
         var HREF = HIT_LINKS.Self.Href;
         var TITLE = HIT_LINKS.Self.Title;
+
+        ////////////////////////////////////////
+        ///*******Create HTML elements*******///
+        ////////////////////////////////////////
+        <div id="@HIT_ID">
+           <h2> <a href="@HREF">@TITLE</a></h2>
+        </div>
         #endregion
 
         ////////////////////////////////////////
@@ -34,6 +68,13 @@
         var RECIPE_ID = RECIPE.Id;
         var RATING = RECIPE.Rating;
         var IS_FAVORITE = RECIPE.IsFavorite;
+
+        ////////////////////////////////////////
+        ///*******Create HTML elements*******///
+        ////////////////////////////////////////
+        <div id="@ID;" name="">
+        </div>
+
         #endregion
 
         ////////////////////////////////////////
