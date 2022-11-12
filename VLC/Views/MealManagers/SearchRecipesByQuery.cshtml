@@ -57,7 +57,7 @@
         ///*******Create HTML elements*******///
         ////////////////////////////////////////
         <div id="@HIT_ID">
-           <h2> <a href="@HREF">@TITLE</a></h2>
+           <h2> <a href="@HREF">@HIT_LINKS.Self</a></h2>
         </div>
         #endregion
 
@@ -72,8 +72,36 @@
         ////////////////////////////////////////
         ///*******Create HTML elements*******///
         ////////////////////////////////////////
-        <div id="@ID;" name="">
+        <div id="@RECIPE_ID;">
+        <p>@RATING</p>
+        <nav id="ratings">
+        <ul>
+        @{
+            var ratings = Enum.GetValues(typeof(VLC.Utils.MealManagerUtility.Rating));
+            foreach (var rating in ratings)
+            {
+              <li><button id="@rating" onclick="alert('TODO: Implement rating feature')"> @rating</button></li>
+            }
+        }
+        </ul>
+        </nav>
+
+        @if(IS_FAVORITE)
+        {
+            var token = "<3 Favorited!";
+            <button><strong>@token</strong></button>
+        } 
+        else
+        {
+              <button onclick="ToggleIsFavorite(@RECIPE_ID)">Add to favorites!</button>
+        }
         </div>
+              <script>
+              function ToggleFavorite(id){
+                  var div = document.getElementById(@RECIPE_ID);
+                  var 
+              }
+              </script>
 
         #endregion
 

@@ -22,7 +22,7 @@ namespace VLC.Utils
          */
         public enum Rating
         {
-            reject, dislike, like, love, favorite
+            none, reject, dislike, like, love, favorite
         }
 
         public enum WeightGoal
