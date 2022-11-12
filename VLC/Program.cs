@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using VLC.Data;
+using VLC.Services;
 
 namespace VLC
 {
@@ -15,6 +17,7 @@ namespace VLC
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+            builder.Services.AddScoped<IMealManagerService, MealManagerService>();
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -70,6 +73,12 @@ namespace VLC
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
+
+            //var recipes = builder.Configuration.GetSection("EdamamRecipeSearch").Get<RecipesSettings>();
+
+            builder.Services.Configure<RecipesSettings>(
+                builder.Configuration.GetSection(RecipesSettings.ServiceName)
+                );
 
             var app = builder.Build();
 

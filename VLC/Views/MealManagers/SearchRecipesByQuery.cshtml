@@ -1,0 +1,238 @@
+﻿@model VLC.Models.Recipes.Hits
+
+@{
+    ViewData["Title"] = "SearchRecipesByQuery";
+}
+
+@{
+    /// EXAMPLE OF HOW TO ACCESS MODEL DATA
+    /////////////////////////////////////
+    #region RECIPE SEARCH PAGE NAV
+    /////////////////////////////////////
+    var ID = Model.Id;
+    var LINKS = Model.Links;
+    var COUNT = Model.Count;
+    var FROM = Model.From;
+    var TO = Model.To;
+    var HITS = Model.HitsList;
+
+    ////////////////////////////////////////
+    ///*******Create HTML elements*******///
+    ////////////////////////////////////////
+
+    var query_string_value = Context.Request.Query["query"];
+    if (!string.IsNullOrWhiteSpace(query_string_value))
+    {
+        <h1>Recipe Search Results for @query_string_value</h1>
+    }
+    <nav id="@ID">
+        <dl>
+        <dt>
+                Recipes found:<strong>@COUNT;</strong>.<br/>
+                <em>Displaying from @FROM; hits to @TO; hits</em>
+        </dt>
+            <dd>
+                <a href="@LINKS.Next.Href" onclick="alert('TODO: Implement function to load more recipes 
+                                                    so that you scroll through the results like on a feed')">
+                Next page
+                </a>
+            </dd> @* <<< HTTP JSON TO RECIPE *@
+        </dl>
+    </nav>
+
+
+
+    int FAV_BTN_ID_COUNTER = 0;
+    foreach (var hit in HITS)
+    {
+        ////////////////////////////////////////
+        #region Hidden From Client
+        ////////////////////////////////////////
+        var HIT_ID = hit.Id;
+        var HIT_LINKS = hit.Links;
+        var HREF = HIT_LINKS.Self.Href;
+        var TITLE = HIT_LINKS.Self.Title;
+
+        ////////////////////////////////////////
+        ///*******Create HTML elements*******///
+        ////////////////////////////////////////
+        <div id="@HIT_ID">
+            <h2> <a href="@HREF">@HIT_LINKS.Self</a></h2>
+        </div>
+        #endregion
+
+        ////////////////////////////////////////
+        #region ProfileSettings
+        ////////////////////////////////////////
+        var RECIPE = hit.Recipe;
+        var RECIPE_ID = RECIPE.Id;
+        var RATING = RECIPE.Rating;
+        var IS_FAVORITE = RECIPE.IsFavorite;
+
+        ////////////////////////////////////////
+        ///*******Create HTML elements*******///
+        ////////////////////////////////////////
+        <div id="@RECIPE_ID;">
+            <p>@RATING</p>
+            <nav id="ratings">
+                <ul>
+                    @{
+                        var ratings = Enum.GetValues(typeof(VLC.Utils.MealManagerUtility.Rating));
+                        foreach (var rating in ratings)
+                        {
+                            <li>
+                                <button id="@rating" onclick="alert('TODO: Implement rating feature')"> @rating</button>
+                            </li>
+                        }
+                    }
+                </ul>
+            </nav>
+            @* TODO: Implement feature to add recipe to user favorites.
+               TODO: Remove from favs in profile settings *@
+
+            @{
+                var btnId = $"btn-fav-{FAV_BTN_ID_COUNTER++}";
+                
+                <button id=@btnId onclick="ToggleFavorite(this.id)" value=@IS_FAVORITE>Add to favorites</button>
+            }
+        </div>
+        <script>
+            const ToggleFavorite = (id) => {
+                let btn = document.getElementById(id);
+                btn.innerHTML = btn.innerText === "Add to favorites" ? btn.innerHTML = "&#128154; Favorited!" : btn.innerHTML = "Add to favorites";
+            };
+
+        </script>
+        #endregion
+
+        ////////////////////////////////////////
+        #region HTTP Data
+        ////////////////////////////////////////
+        var URI = RECIPE.Uri;
+        var URL = RECIPE.Url;
+        var SHARE_AS = RECIPE.ShareAs;
+        #endregion
+
+        ////////////////////////////////////////
+        #region Image Objects
+        ////////////////////////////////////////
+        var IMAGE = RECIPE.Image;
+        var IMAGES = RECIPE.Images;
+        var IMAGES_ARRAY_ID = IMAGES.Id;
+        var SMALL_IMAGE = IMAGES.Small;
+        var REGULAR_IMAGE = IMAGES.Regular;
+        var LARGE_IMAGE = IMAGES.Large;
+        var THUMBNAIL = IMAGES.Thumbnail;
+        var IMAGES_URL = RECIPE.ImageURL;
+        #endregion
+
+        ////////////////////////////////////////
+        #region Recipe Title Data
+        ////////////////////////////////////////
+        var AUTHOR_ID = RECIPE.AuthorId;
+        var LABEL = RECIPE.Label;
+        var NAME = RECIPE.Name;
+        #endregion
+
+        ////////////////////////////////////////
+        #region Recipe Categories
+        ////////////////////////////////////////
+        var DISH_TYPE = RECIPE.DishType;
+        var CUISINE_TYPE = RECIPE.CuisineType;
+        var MEAL_TYPE = RECIPE.MealType;
+        #endregion
+
+        ////////////////////////////////////////
+        #region Recipe Body
+        ////////////////////////////////////////
+        var TOTAL_TIME = RECIPE.TotalTime;
+        var COOKING_TIME = RECIPE.CookingTime;
+        var PREPERATION_TIME = RECIPE.PreperationTime;
+
+        var YIELD = RECIPE.Yield;
+        var TOTAL_WEIGHT = RECIPE.TotalWeight;
+
+        var INGREDIENTS = RECIPE.Ingredients;
+        foreach (var ingredient in INGREDIENTS)
+        {
+            // INGREDIENT OPTIONS
+            var INGREDIENT_ID = ingredient.Id;
+            var IS_INGREDIENT_IN_FOOD_MEASUREMENT_UNITS = ingredient.IsInFoodMeasurementUnits;
+            var IS_INGREDIENT_IN_METRIC_UNITS = ingredient.IsInMetricUnits;
+            var IS_INGREDIENT_PRODUCT_UNIT_OF_MEASUREMENT = ingredient.IsProductUnitOfMeasruement;
+            var INGREDIENT_IMAGE = ingredient.Image;
+
+            // INGREDIENT HEADER
+            var INGREDIENT_UNIT_VALUE = ingredient.IngredientUnitValue;
+            var INGREDIENT_WEIGHT = ingredient.Weight;
+            var INGREDIENT_MEASURE = ingredient.Measure;
+            var INGREDIENT_QUANTITY = ingredient.Quantity;
+
+            // INGREDIENT BODY
+            var INGREDIENT_FOOD_ID = ingredient.FoodId;
+            var INGREDIENT_FOOD = ingredient.Food;
+            var INGREDIENT_FOOD_CATEGORY = ingredient.FoodCategory;
+            var INGREDIENT_PRODUCT_ID = ingredient.ProductId;
+            var INGREDIENT_TEXT = ingredient.Text;
+        }
+
+        // RECIPE DETAILS
+        var PRODUCT_LIST = RECIPE.ProductIdList;
+        var INGREDIENT_LINES = RECIPE.IngredientLines;
+        var INSTRUCTIONS = RECIPE.Instructions;
+        #endregion
+
+        ////////////////////////////////////////
+        #region Recipe Dietary Objects
+        ////////////////////////////////////////
+        var CALORIES = RECIPE.Calories;
+        var GRAMS = RECIPE.Grams;
+        var PORTIONS = RECIPE.Portions;
+        var PORTION_SIZE = RECIPE.PortionSize;
+        var PORTION_UNIT_OF_MEASUREMENT = RECIPE.PortionUnitOfMeasurment;
+        var TOTAL_DAILY = RECIPE.TotalDaily;
+        var TOTAL_NUTRIENTS = RECIPE.TotalNutrients;
+        var DIGEST = RECIPE.Digest;
+        var CAUTIONS = RECIPE.Cautions;
+        var HEALTH_LABELS = RECIPE.HealthLabels;
+        var DIET_LABELS = RECIPE.DietLabels;
+        #endregion
+    }
+    #endregion
+}
+<h1>SearchRecipesByQuery</h1>
+
+<div>
+    <h4>Hits</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.From)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.From)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.To)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.To)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Count)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Count)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+<div>
+    <div>
+
+    </div>
+    <a href="@Model.Links.Next.Href" onclick="alert('TODO: Implement javascript module to load next set of paginated results')">Get next 20 results</a>
+</div>

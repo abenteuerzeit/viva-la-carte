@@ -1,10 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using static VLC.Models.Recipes.Utils;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VLC.Models.Recipes
 {
-    public class Ingredient
+    public partial class Ingredient
     {
         // Examples: 0: Egg, 1: Pepsi, 2: Pasta 3: Pasta Sauce 4: Rice
         // Add 1 egg(s); Add 1/2 cup of Pepsi; Add 100g of Pasta ; Add 10oz Pasta Sauce ; Add 0.25 kg Rice
