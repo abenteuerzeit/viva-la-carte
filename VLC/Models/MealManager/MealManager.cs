@@ -20,7 +20,8 @@ namespace VLC.Models.MealManager
 
         #region User Input
         [Required, Display(Name = "Total Calories"), BindProperty]
-        public int TotalCalories { get; set; } 
+        public int TotalCalories { get; set; }
+            
 
         [Required, Display(Name = "Number of meals"), BindProperty]
         public int MealCount { get; set; }
@@ -32,7 +33,7 @@ namespace VLC.Models.MealManager
         [Required, BindProperty]
         public WeightGoal Goal { get; set; }
 
-        [Required, BindProperty]
+        [Required, Display(Name = "Measurment System"), BindProperty]
         public MeasurementSystem MeasurementSystem { get; set; }
 
         

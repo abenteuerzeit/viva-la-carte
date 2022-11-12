@@ -267,7 +267,7 @@ namespace VLC.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MealManager");
+                    b.ToTable("MealManager", (string)null);
                 });
 
             modelBuilder.Entity("VLC.Models.Meals.Meal", b =>
@@ -309,7 +309,7 @@ namespace VLC.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("meals");
+                    b.ToTable("meals", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

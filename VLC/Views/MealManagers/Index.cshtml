@@ -43,7 +43,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ActivityLevel)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -53,31 +55,43 @@
                 @item.CountTotalCalories()
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MealCount)
+                @*<input type="hidden" asp-for="@item.MealCount" />*@
+                @item.MealCount
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Diet)
+                @*@Html.DisplayFor(modelItem => item.Diet)*@
+                @item.Diet
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Goal)
+                @*@Html.DisplayFor(modelItem => item.Goal)*@
+                @item.Goal
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MeasurementSystem)
+                @*@Html.DisplayFor(modelItem => item.MeasurementSystem)*@
+                @item.MeasurementSystem
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Height)
+                @*@Html.DisplayFor(modelItem => item.Height)*@
+                @item.Height
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Weight)
+                @*@Html.DisplayFor(modelItem => item.Weight)*@
+                @item.Weight
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Age)
+                @*@Html.DisplayFor(modelItem => item.Age)*@
+                @item.Age
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BodyFat)
+                @*@Html.DisplayFor(modelItem => item.BodyFat)*@
+                @item.BodyFat
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ActivityLevel)
+                @*@Html.DisplayFor(modelItem => item.ActivityLevel)*@
+                @item.ActivityLevel
+            </td>
+            <td>
+                @item.Gender
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
