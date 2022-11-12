@@ -13,7 +13,7 @@ namespace VLC.Models.MealManager
     {
         [Required, Key]
         public int Id { get; set; }
-
+        public DateTime Created => DateTime.Now;
         //[ForeignKey("MealPlan")]
         //public int MealPlanId { get; set; }
 

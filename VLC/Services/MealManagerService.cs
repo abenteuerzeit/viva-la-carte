@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis.Recommendations;
 using System;
 using System.Configuration;
 using System.Numerics;
+using System.Web.Mvc;
 using VLC.Data;
 using VLC.Models.MealManager;
 using VLC.Models.Meals;
@@ -26,6 +27,7 @@ namespace VLC.Services
             _config = config;
             //_next = next;
         }
+
         //public MealManagerService(RequestDelegate next)
         //{
         //    _next = next;
@@ -58,6 +60,7 @@ namespace VLC.Services
             return $"{baseURL}?q={search_query}&app_id={app_id}&app_key={app_key}&type={type}";
         }
 
+
         /// <summary>
         /// 1. Select recipes
         /// 2. Shop for ingredients
@@ -71,24 +74,24 @@ namespace VLC.Services
             //WeightGoal option = manager.Goal;
 
             MealPlan mealPlan = new() { NumberOfMeals = manager.MealCount, Calories = 0, Recipes = new List<Recipe>() };
-            Recipe recipe = new Recipe()
-            {
-                Name = "Adrian's Scrambled Eggs",
-                AuthorId = 0,
-                ProductIdList = new List<Product>() { new Product(), new Product() },
-                Instructions = "Just break some eggs in a frying pan and fry them for a few minutes while stirring the eggs. Plate them and your done! ",
-                Calories = 250,
-                PreperationTime = new TimeSpan(hours: 0, minutes: 3, seconds: 30),
-                CookingTime = new TimeSpan(hours: 0, minutes: 5, seconds: 0),
-                Grams = 200
-            };
+            //Recipe recipe = new Recipe()
+            //{
+            //    Name = "Adrian's Scrambled Eggs",
+            //    AuthorId = 0,
+            //    ProductIdList = new List<Product>() { new Product(), new Product() },
+            //    Instructions = "Just break some eggs in a frying pan and fry them for a few minutes while stirring the eggs. Plate them and your done! ",
+            //    Calories = 250,
+            //    PreperationTime = new TimeSpan(hours: 0, minutes: 3, seconds: 30),
+            //    CookingTime = new TimeSpan(hours: 0, minutes: 5, seconds: 0),
+            //    Grams = 200
+            //};
 
             while (mealPlan.Calories < manager.TotalCalories)
             {
-                mealPlan.Calories += recipe.Calories;
-                mealPlan.Recipes.Add(recipe);
-                Console.WriteLine($"{recipe.Name} with Id {recipe.Id} added to meal plan with Id {mealPlan.Id}");
-                Console.WriteLine($"The number of meals in this plan is: {mealPlan.Recipes.Count}");
+                //mealPlan.Calories += recipe.Calories;
+                //mealPlan.Recipes.Add(recipe);
+                //Console.WriteLine($"{recipe.Name} with Id {recipe.Id} added to meal plan with Id {mealPlan.Id}");
+                //Console.WriteLine($"The number of meals in this plan is: {mealPlan.Recipes.Count}");
             }
             return mealPlan;
 

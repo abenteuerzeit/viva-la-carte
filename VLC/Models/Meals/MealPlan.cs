@@ -20,5 +20,7 @@ namespace VLC.Models.Meals
         [Display(Name = "Meals")]
         public List<Recipe> Recipes { get; set; } = new List<Recipe>();
 
+        public DateTime Created => DateTime.Now;
+
     }
 }
