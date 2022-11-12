@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.DotNet.MSIdentity.Shared;
 using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
@@ -68,8 +68,14 @@ namespace VLC.Controllers
         // GET: MealManagers
         public async Task<IActionResult> Index() //async Task<IActionResult> Index()
         {
+
+            //string recipesURL = _mealManagerService.GetEdamamRecipesAPI_URL_For("scrambled%20eggs");
+            //return Redirect(recipesURL);
+            //return View(await _context.MealManager.ToListAsync());
+
             List<MealManager> mealManagers = await _context.MealManagers.ToListAsync();
             return View(mealManagers);
+
         }
 
         // GET: MealManagers/Details/5

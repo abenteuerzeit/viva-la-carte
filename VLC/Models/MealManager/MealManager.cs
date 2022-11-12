@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Transactions;
 using VLC.Models.Recipes;
 using static VLC.Utils.MealManagerUtility;
 
@@ -19,10 +20,10 @@ namespace VLC.Models.MealManager
 
         #region User Input
         [Required, Display(Name = "Total Calories"), BindProperty]
-        public int TotalCalories { get; set; } = 2000;
+        public int TotalCalories { get; set; } 
 
         [Required, Display(Name = "Number of meals"), BindProperty]
-        public int MealCount { get; set; } = 3;
+        public int MealCount { get; set; }
 
         [Required, Display(Name = "Diet Preference"), BindProperty,]
         public Diets Diet { get; set; }
@@ -57,7 +58,12 @@ namespace VLC.Models.MealManager
 
         public MealManager()
         {
+        }
 
+
+        public int CountTotalCalories()
+        {
+            return (int)((10 * Weight) + (6.25 * Height) - (5 * Age) + 5);
         }
     }
 }
