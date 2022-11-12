@@ -24,14 +24,19 @@ namespace VLC.Models.MealManager
         [Required, Display(Name = "Number of meals"), BindProperty]
         public int MealCount { get; set; } = 3;
 
-        [Required, Display(Name = "Diet Preference"), BindProperty]
-        public Diets Diet { get; set; } = Diets.Whatever;
+        [Required, Display(Name = "Diet Preference"), BindProperty, ]
+        public Diets Diet { get; set; }
+        //public Diets Diet { get; set; } = Diets.Whatever;
 
         [Required, BindProperty]
         public WeightGoal Goal { get; set; }
 
         [Required, BindProperty]
         public MeasurementSystem MeasurementSystem { get; set; }
+
+        
+        [Required, BindProperty]
+        public Gender Gender { get; set; }
 
         [BindProperty]
         public double Height { get; set; }
@@ -49,5 +54,10 @@ namespace VLC.Models.MealManager
         [BindProperty]
         public ActivityLevel ActivityLevel { get; set; }
         #endregion
+
+        public MealManager()
+        {
+
+        }
     }
 }

@@ -214,10 +214,11 @@ footer {
     padding: 8px;
 }
 
-input[type=text] {
+input[type=text], input[type=number] {
     border: none;
     padding: 8px;
 }
+
 
 .label-absolute {
     display: inline-block;

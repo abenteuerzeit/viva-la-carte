@@ -1,28 +1,36 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using System.Web.Helpers;
 using VLC.Data;
 using VLC.Models.MealManager;
+using VLC.Services;
 
 namespace VLC.Controllers
 {
     public class MealManagersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _config;
+        private readonly IMealManagerService _mealManagerService;
 
-        public MealManagersController(ApplicationDbContext context)
+        public MealManagersController(ApplicationDbContext context, IConfiguration config, IMealManagerService mealManagerService)
         {
             _context = context;
+            _config = config;
+            _mealManagerService = mealManagerService;
         }
 
         // GET: MealManagers
-        public async Task<IActionResult> Index()
+        public IActionResult Index() //async Task<IActionResult> Index()
         {
-              return View(await _context.MealManager.ToListAsync());
+            string recipesURL = _mealManagerService.GetEdamamRecipesAPI_URL_For("scrambled%20eggs");
+            return Redirect(recipesURL); // View(await _context.MealManager.ToListAsync());
         }
 
         // GET: MealManagers/Details/5
@@ -58,6 +66,7 @@ namespace VLC.Controllers
         {
             if (ModelState.IsValid)
             {
+                mealManager.Age = 20;
                 _context.Add(mealManager);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -148,14 +157,15 @@ namespace VLC.Controllers
             {
                 _context.MealManager.Remove(mealManager);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MealManagerExists(int id)
         {
-          return _context.MealManager.Any(e => e.Id == id);
+            return _context.MealManager.Any(e => e.Id == id);
         }
+
     }
 }
