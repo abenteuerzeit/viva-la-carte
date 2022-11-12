@@ -9,7 +9,7 @@ namespace VLC.Utils
         public static string Name => "Scrambled Eggs with Avocado Toast and Orange Juice";
         public static List<Recipe> Recipes => new();
 
-        //public static List<Recipe> GetRecipes()
+        //public static List<Recipe> AddRecipesToViewBag()
         //{
         //    // TODO Service Recipes
         //    var Recipes = new List<Recipe>();

@@ -10,7 +10,7 @@ namespace VLC.Data.Migrations
         {
             migrationBuilder.AddColumn<int>(
                 name: "Gender",
-                table: "MealManager",
+                table: "MealManagers",
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
@@ -20,7 +20,7 @@ namespace VLC.Data.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "Gender",
-                table: "MealManager");
+                table: "MealManagers");
         }
     }
 }

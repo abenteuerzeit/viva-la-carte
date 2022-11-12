@@ -226,7 +226,7 @@ namespace VLC.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("VLC.Models.MealManager.MealManager", b =>
+            modelBuilder.Entity("VLC.Models.MealManagers.MealManagers", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -269,7 +269,7 @@ namespace VLC.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MealManager");
+                    b.ToTable("MealManagers");
                 });
 
             modelBuilder.Entity("VLC.Models.Meals.Meal", b =>

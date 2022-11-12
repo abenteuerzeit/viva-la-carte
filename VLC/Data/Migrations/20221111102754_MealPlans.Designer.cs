@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VLC.Data;
 
@@ -11,9 +12,10 @@ using VLC.Data;
 namespace VLC.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221111102754_MealPlans")]
+    partial class MealPlans
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -311,228 +313,6 @@ namespace VLC.Data.Migrations
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("VLC.Models.Recipes.Hit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("HitsId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LinksId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RecipeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HitsId");
-
-                    b.HasIndex("LinksId");
-
-                    b.HasIndex("RecipeId");
-
-                    b.ToTable("Hit");
-                });
-
-            modelBuilder.Entity("VLC.Models.Recipes.HitLinks", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("SelfId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SelfId");
-
-                    b.ToTable("HitLinks");
-                });
-
-            modelBuilder.Entity("VLC.Models.Recipes.Hits", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<long>("Count")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("From")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("LinksId")
-                        .HasColumnType("int");
-
-                    b.Property<long>("To")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LinksId");
-
-                    b.ToTable("RecipeSearches");
-                });
-
-            modelBuilder.Entity("VLC.Models.Recipes.HitsLinks", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("NextId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NextId");
-
-                    b.ToTable("HitsLinks");
-                });
-
-            modelBuilder.Entity("VLC.Models.Recipes.Images", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("LargeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RegularId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SmallId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ThumbnailId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LargeId");
-
-                    b.HasIndex("RegularId");
-
-                    b.HasIndex("SmallId");
-
-                    b.HasIndex("ThumbnailId");
-
-                    b.ToTable("Images");
-                });
-
-            modelBuilder.Entity("VLC.Models.Recipes.Ingredient", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Food")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FoodCategory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FoodId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("IngredientUnitValue")
-                        .HasColumnType("float");
-
-                    b.Property<bool>("IsInFoodMeasurementUnits")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsInMetricUnits")
-                        .HasColumnType("bit");
-
-                    b.Property<double>("IsProductUnitOfMeasruement")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Measure")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Quantity")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("RecipeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Weight")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RecipeId");
-
-                    b.ToTable("Ingredient");
-                });
-
-            modelBuilder.Entity("VLC.Models.Recipes.Large", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<long>("Height")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("Width")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Large");
-                });
-
-            modelBuilder.Entity("VLC.Models.Recipes.Next", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Href")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Title")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Next");
-                });
-
             modelBuilder.Entity("VLC.Models.Recipes.Recipe", b =>
                 {
                     b.Property<int>("Id")
@@ -544,8 +324,8 @@ namespace VLC.Data.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Calories")
-                        .HasColumnType("float");
+                    b.Property<int>("Calories")
+                        .HasColumnType("int");
 
                     b.Property<TimeSpan>("CookingTime")
                         .HasColumnType("time");
@@ -553,15 +333,9 @@ namespace VLC.Data.Migrations
                     b.Property<double>("Grams")
                         .HasColumnType("float");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ImageURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ImagesId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Instructions")
                         .IsRequired()
@@ -569,9 +343,6 @@ namespace VLC.Data.Migrations
 
                     b.Property<bool>("IsFavorite")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Label")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("MealPlanId")
                         .HasColumnType("int");
@@ -595,34 +366,11 @@ namespace VLC.Data.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<string>("ShareAs")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Source")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("TotalTime")
-                        .HasColumnType("bigint");
-
-                    b.Property<double>("TotalWeight")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Uri")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("Yield")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ImagesId");
 
                     b.HasIndex("MealPlanId");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Recipe");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -683,97 +431,11 @@ namespace VLC.Data.Migrations
                         .HasForeignKey("RecipeId");
                 });
 
-            modelBuilder.Entity("VLC.Models.Recipes.Hit", b =>
-                {
-                    b.HasOne("VLC.Models.Recipes.Hits", null)
-                        .WithMany("HitsList")
-                        .HasForeignKey("HitsId");
-
-                    b.HasOne("VLC.Models.Recipes.HitLinks", "Links")
-                        .WithMany()
-                        .HasForeignKey("LinksId");
-
-                    b.HasOne("VLC.Models.Recipes.Recipe", "Recipe")
-                        .WithMany()
-                        .HasForeignKey("RecipeId");
-
-                    b.Navigation("Links");
-
-                    b.Navigation("Recipe");
-                });
-
-            modelBuilder.Entity("VLC.Models.Recipes.HitLinks", b =>
-                {
-                    b.HasOne("VLC.Models.Recipes.Next", "Self")
-                        .WithMany()
-                        .HasForeignKey("SelfId");
-
-                    b.Navigation("Self");
-                });
-
-            modelBuilder.Entity("VLC.Models.Recipes.Hits", b =>
-                {
-                    b.HasOne("VLC.Models.Recipes.HitsLinks", "Links")
-                        .WithMany()
-                        .HasForeignKey("LinksId");
-
-                    b.Navigation("Links");
-                });
-
-            modelBuilder.Entity("VLC.Models.Recipes.HitsLinks", b =>
-                {
-                    b.HasOne("VLC.Models.Recipes.Next", "Next")
-                        .WithMany()
-                        .HasForeignKey("NextId");
-
-                    b.Navigation("Next");
-                });
-
-            modelBuilder.Entity("VLC.Models.Recipes.Images", b =>
-                {
-                    b.HasOne("VLC.Models.Recipes.Large", "Large")
-                        .WithMany()
-                        .HasForeignKey("LargeId");
-
-                    b.HasOne("VLC.Models.Recipes.Large", "Regular")
-                        .WithMany()
-                        .HasForeignKey("RegularId");
-
-                    b.HasOne("VLC.Models.Recipes.Large", "Small")
-                        .WithMany()
-                        .HasForeignKey("SmallId");
-
-                    b.HasOne("VLC.Models.Recipes.Large", "Thumbnail")
-                        .WithMany()
-                        .HasForeignKey("ThumbnailId");
-
-                    b.Navigation("Large");
-
-                    b.Navigation("Regular");
-
-                    b.Navigation("Small");
-
-                    b.Navigation("Thumbnail");
-                });
-
-            modelBuilder.Entity("VLC.Models.Recipes.Ingredient", b =>
-                {
-                    b.HasOne("VLC.Models.Recipes.Recipe", null)
-                        .WithMany("Ingredients")
-                        .HasForeignKey("RecipeId");
-                });
-
             modelBuilder.Entity("VLC.Models.Recipes.Recipe", b =>
                 {
-                    b.HasOne("VLC.Models.Recipes.Images", "Images")
-                        .WithMany()
-                        .HasForeignKey("ImagesId");
-
                     b.HasOne("VLC.Models.Meals.MealPlan", null)
                         .WithMany("Recipes")
                         .HasForeignKey("MealPlanId");
-
-                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("VLC.Models.Meals.MealPlan", b =>
@@ -781,15 +443,8 @@ namespace VLC.Data.Migrations
                     b.Navigation("Recipes");
                 });
 
-            modelBuilder.Entity("VLC.Models.Recipes.Hits", b =>
-                {
-                    b.Navigation("HitsList");
-                });
-
             modelBuilder.Entity("VLC.Models.Recipes.Recipe", b =>
                 {
-                    b.Navigation("Ingredients");
-
                     b.Navigation("ProductIdList");
                 });
 #pragma warning restore 612, 618
