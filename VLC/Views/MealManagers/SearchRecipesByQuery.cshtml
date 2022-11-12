@@ -5,7 +5,6 @@
 }
 
 @{
-
     /// EXAMPLE OF HOW TO ACCESS MODEL DATA
     /////////////////////////////////////
     #region RECIPE SEARCH PAGE NAV
@@ -43,6 +42,7 @@
 
 
 
+    int FAV_BTN_ID_COUNTER = 0;
     foreach (var hit in HITS)
     {
         ////////////////////////////////////////
@@ -57,7 +57,7 @@
         ///*******Create HTML elements*******///
         ////////////////////////////////////////
         <div id="@HIT_ID">
-           <h2> <a href="@HREF">@HIT_LINKS.Self</a></h2>
+            <h2> <a href="@HREF">@HIT_LINKS.Self</a></h2>
         </div>
         #endregion
 
@@ -73,36 +73,36 @@
         ///*******Create HTML elements*******///
         ////////////////////////////////////////
         <div id="@RECIPE_ID;">
-        <p>@RATING</p>
-        <nav id="ratings">
-        <ul>
-        @{
-            var ratings = Enum.GetValues(typeof(VLC.Utils.MealManagerUtility.Rating));
-            foreach (var rating in ratings)
-            {
-              <li><button id="@rating" onclick="alert('TODO: Implement rating feature')"> @rating</button></li>
+            <p>@RATING</p>
+            <nav id="ratings">
+                <ul>
+                    @{
+                        var ratings = Enum.GetValues(typeof(VLC.Utils.MealManagerUtility.Rating));
+                        foreach (var rating in ratings)
+                        {
+                            <li>
+                                <button id="@rating" onclick="alert('TODO: Implement rating feature')"> @rating</button>
+                            </li>
+                        }
+                    }
+                </ul>
+            </nav>
+            @* TODO: Implement feature to add recipe to user favorites.
+               TODO: Remove from favs in profile settings *@
+
+            @{
+                var btnId = $"btn-fav-{FAV_BTN_ID_COUNTER++}";
+                
+                <button id=@btnId onclick="ToggleFavorite(this.id)" value=@IS_FAVORITE>Add to favorites</button>
             }
-        }
-        </ul>
-        </nav>
-
-        @if(IS_FAVORITE)
-        {
-            var token = "<3 Favorited!";
-            <button><strong>@token</strong></button>
-        } 
-        else
-        {
-              <button onclick="ToggleIsFavorite(@RECIPE_ID)">Add to favorites!</button>
-        }
         </div>
-              <script>
-              function ToggleFavorite(id){
-                  var div = document.getElementById(@RECIPE_ID);
-                  var 
-              }
-              </script>
+        <script>
+            const ToggleFavorite = (id) => {
+                let btn = document.getElementById(id);
+                btn.innerHTML = btn.innerText === "Add to favorites" ? btn.innerHTML = "&#128154; Favorited!" : btn.innerHTML = "Add to favorites";
+            };
 
+        </script>
         #endregion
 
         ////////////////////////////////////////
@@ -153,7 +153,7 @@
         var TOTAL_WEIGHT = RECIPE.TotalWeight;
 
         var INGREDIENTS = RECIPE.Ingredients;
-        foreach(var ingredient in INGREDIENTS)
+        foreach (var ingredient in INGREDIENTS)
         {
             // INGREDIENT OPTIONS
             var INGREDIENT_ID = ingredient.Id;
@@ -178,26 +178,26 @@
 
         // RECIPE DETAILS
         var PRODUCT_LIST = RECIPE.ProductIdList;
-        var INGREDIENT_LINES = RECIPE.IngredientLines;        
+        var INGREDIENT_LINES = RECIPE.IngredientLines;
         var INSTRUCTIONS = RECIPE.Instructions;
-            #endregion
+        #endregion
 
         ////////////////////////////////////////
-            #region Recipe Dietary Objects
+        #region Recipe Dietary Objects
         ////////////////////////////////////////
-            var CALORIES = RECIPE.Calories;
-            var GRAMS = RECIPE.Grams;
-            var PORTIONS = RECIPE.Portions;
-            var PORTION_SIZE = RECIPE.PortionSize;
-            var PORTION_UNIT_OF_MEASUREMENT = RECIPE.PortionUnitOfMeasurment;
-            var TOTAL_DAILY = RECIPE.TotalDaily;
-            var TOTAL_NUTRIENTS = RECIPE.TotalNutrients;
-            var DIGEST = RECIPE.Digest;
-            var CAUTIONS = RECIPE.Cautions;
-            var HEALTH_LABELS = RECIPE.HealthLabels;
-            var DIET_LABELS = RECIPE.DietLabels;
-            #endregion
-        }
+        var CALORIES = RECIPE.Calories;
+        var GRAMS = RECIPE.Grams;
+        var PORTIONS = RECIPE.Portions;
+        var PORTION_SIZE = RECIPE.PortionSize;
+        var PORTION_UNIT_OF_MEASUREMENT = RECIPE.PortionUnitOfMeasurment;
+        var TOTAL_DAILY = RECIPE.TotalDaily;
+        var TOTAL_NUTRIENTS = RECIPE.TotalNutrients;
+        var DIGEST = RECIPE.Digest;
+        var CAUTIONS = RECIPE.Cautions;
+        var HEALTH_LABELS = RECIPE.HealthLabels;
+        var DIET_LABELS = RECIPE.DietLabels;
+        #endregion
+    }
     #endregion
 }
 <h1>SearchRecipesByQuery</h1>
