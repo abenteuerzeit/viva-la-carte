@@ -138,6 +138,13 @@
         var AUTHOR_ID = RECIPE.AuthorId;
         var LABEL = RECIPE.Label;
         var NAME = RECIPE.Name;
+        ////////////////////////////////////////
+        ///*******Create HTML elements*******///
+        ////////////////////////////////////////
+        <div id='@{_ = $"title-{BTN_ID_COUNTER++}";}'>
+            <h3 id="@AUTHOR_ID">@LABEL</h3>
+            <small>Name: @NAME</small>
+        </div>
         #endregion
         ////////////////////////////////////////
         #region Recipe Categories
@@ -145,6 +152,23 @@
         var DISH_TYPE = RECIPE.DishType;
         var CUISINE_TYPE = RECIPE.CuisineType;
         var MEAL_TYPE = RECIPE.MealType;
+        ////////////////////////////////////////
+        ///*******Create HTML elements*******///
+        ////////////////////////////////////////
+        <ul>
+            @foreach(var dt in DISH_TYPE)
+            {
+                <li># @dt</li>
+            }
+            @foreach (var ct in CUISINE_TYPE)
+            {
+                <li># @ct</li>
+            }
+            @foreach (var mt in MEAL_TYPE)
+            {
+                <li># @mt</li>
+            }
+        </ul>
         #endregion
         ////////////////////////////////////////
         #region Recipe Body
@@ -157,7 +181,36 @@
         var TOTAL_WEIGHT = RECIPE.TotalWeight;
         //
         var INGREDIENTS = RECIPE.Ingredients;
-        foreach (var ingredient in INGREDIENTS)
+        ////////////////////////////////////////
+        ///*******Create HTML elements*******///
+        ////////////////////////////////////////
+        <table class="table">
+        <tcaption class="caption-top">Times</tcaption>
+        <thead>
+            <tr class="d-table-row">
+                <th>Total</th>
+                <th>Preperation</th>
+                <th>Cooking</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="d-table-row">
+                <td class="d-table-cell">@TOTAL_TIME</td>
+                <td class="d-table-cell">@PREPERATION_TIME</td>
+                <td class="d-table-cell">@COOKING_TIME</td>
+            </tr>
+        </tbody>
+        <tfoot class="card-footer">
+            <tr class="d-table-row">
+            <td class="d-sm-table-cell">Yields: @YIELD</td>
+            <td class="d-sm-table-cell">Mass: @TOTAL_WEIGHT</td>
+            <td class="d-sm-table-cell">Number of ingredients: @INGREDIENTS.Count</td>
+            </tr>
+        </tfoot>
+        </table>
+        /////////////////////////////////////////
+        <div class="flex-row card flex-sm-wrap">
+        @foreach (var ingredient in INGREDIENTS)
         {
             // INGREDIENT OPTIONS
             var INGREDIENT_ID = ingredient.Id;
@@ -178,7 +231,21 @@
             var INGREDIENT_FOOD_CATEGORY = ingredient.FoodCategory;
             var INGREDIENT_PRODUCT_ID = ingredient.ProductId;
             var INGREDIENT_TEXT = ingredient.Text;
+            ////////////////////////////////////////
+            ///*******Create HTML elements*******///
+            ////////////////////////////////////////
+            <figure>
+            <img src="@INGREDIENT_IMAGE.AbsoluteUri" alt="Ingredient image" width="150" height="150" />
+            </figure>
+            <dl>
+            <dt>@INGREDIENT_FOOD</dt>
+            <dd>@INGREDIENT_TEXT</dd>
+            <dd>@INGREDIENT_WEIGHT @INGREDIENT_QUANTITY @INGREDIENT_UNIT_VALUE @INGREDIENT_MEASURE</dd>
+            <dd>@INGREDIENT_PRODUCT_ID</dd>
+            <dd>@INGREDIENT_FOOD_CATEGORY</dd>
+            </dl>
         }
+        </div>
         // RECIPE DETAILS
         var PRODUCT_LIST = RECIPE.ProductIdList;
         var INGREDIENT_LINES = RECIPE.IngredientLines;
@@ -198,7 +265,75 @@
         var CAUTIONS = RECIPE.Cautions;
         var HEALTH_LABELS = RECIPE.HealthLabels;
         var DIET_LABELS = RECIPE.DietLabels;
-        #endregion
+        ////////////////////////////////////////
+        ///*******Create HTML elements*******///
+        ////////////////////////////////////////
+        <h4>@CALORIES calories</h4>
+        <dl>
+        <dt>@PORTIONS</dt>
+        <dd>@GRAMS g</dd>
+        <dd>@PORTION_SIZE @PORTION_UNIT_OF_MEASUREMENT</dd>
+        </dl>
+
+        <ul>
+        @foreach(var d in TOTAL_DAILY)
+        {
+            <li id="@d.Value.Id">@d.Key: @d.Value.Label, @d.Value.Quantity, @d.Value.Unit</li>
+        }
+        </ul>
+
+        <ul>
+            @foreach (var d in TOTAL_NUTRIENTS)
+            {
+                <li id="@d.Value.Id">@d.Key: @d.Value.Label @d.Value.Quantity @d.Value.Unit</li>
+            }
+        </ul>
+
+        <ul>
+            @foreach (var d in DIGEST)
+            {
+                <li>Id: @d.Id, LabeL: @d.Label, schema org tag: @d.SchemaOrgTag, tag: @d.Tag, sub: @d.Sub, daily: @d.Daily,has rdi: @d.HasRdi, total: @d.Total, unit: @d.Unit </li>
+            }
+        </ul>
+
+        <ol>
+        @foreach(var ing in INGREDIENT_LINES)
+        {
+           <li> @ing</li>
+        }
+        </ol>
+        <ol>
+            <li>@INSTRUCTIONS.ToString()</li>
+        </ol>
+        <select>
+        @if(PRODUCT_LIST != null && PRODUCT_LIST.Count > 0)
+            {
+                @foreach (var pro in PRODUCT_LIST)
+                {
+                    <option>@pro</option>
+                }
+            }
+           
+        </select>
+        <small class="alert-warning">
+            @foreach (var c in CAUTIONS)
+            {
+                _ = c + ", ";   
+            }
+        </small>
+        <small class="badge-info">
+            @foreach (var h in HEALTH_LABELS)
+            {
+                _ = h + ", ";   
+            }
+        </small>
+        <small class="alert-info">
+            @foreach (var d in DIET_LABELS)
+            {
+                _ = d + ", ";
+            }
+        </small>
+        #endregion    
     }
 }
 <h1>SearchRecipesByQuery</h1>
