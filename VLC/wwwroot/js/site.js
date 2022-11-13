@@ -68,6 +68,16 @@ function ToggleFavorite(id) {
 
 }
 
+function GetCookbookById() {
+    try {
+        throw Error("Not implemented");
+
+    } catch (err) {
+        alertWhenErrorCaught(GetCookbook, err);
+    }
+}
+
+
 
 function SaveToCookbook(recipeJsonObject, url) {
     try {
