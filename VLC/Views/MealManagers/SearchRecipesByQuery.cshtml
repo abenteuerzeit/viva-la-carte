@@ -5,6 +5,10 @@
 }
 
 @{
+    // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ||
+    // TODO: build(SearchRecipesView): change regions to partials. (Refactor page so that it loads partials in place of each region).||
+    // TODO: build(HTML):redesign layout. (Remarkup the semantic HTML with appropraite sections for the page's design).              ||
+    // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ || 
     /// EXAMPLE OF HOW TO ACCESS MODEL DATA
     /////////////////////////////////////
     #region RECIPE SEARCH PAGE NAV
@@ -82,8 +86,11 @@
                 </ul>
             </nav>
             @{
-                // TODO: Implement feature to add recipe to user favorites.
-                // TODO: Remove from favs in profile settings
+                // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ||
+                // TODO: Implement feature to add recipe to user favorites.          ||
+                // TODO: Remove from favs in profile settings                        ||
+                // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ||
+
                 var btnId = $"btn-fav-{BTN_ID_COUNTER++}";
                 <button id=@btnId onclick="ToggleFavorite(this.id)" value=@IS_FAVORITE>Save to Cookbook</button>
             }
