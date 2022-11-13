@@ -22,11 +22,10 @@ namespace VLC.Models.MealManager
         [Required, Display(Name = "Total Calories"), BindProperty]
         public int TotalCalories { get; set; }
             
-
         [Required, Display(Name = "Number of meals"), BindProperty]
         public int MealCount { get; set; }
 
-        [Required, Display(Name = "Diet Preference"), BindProperty, ]
+        [Required, Display(Name = "Diet Preference"), BindProperty]
         public Diets Diet { get; set; }
         //public Diets Diet { get; set; } = Diets.Whatever;
 
@@ -64,7 +63,7 @@ namespace VLC.Models.MealManager
 
         public int CountTotalCalories()
         {
-            return (int)((10 * Weight) + (6.25 * Height) - (5 * Age) + 5);
+            return (int)(10 * Weight + 6.25 * Height - 5 * Age + 5);
         }
     }
 }
