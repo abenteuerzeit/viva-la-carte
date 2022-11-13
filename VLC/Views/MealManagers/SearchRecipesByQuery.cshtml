@@ -10,6 +10,11 @@
     // TODO: build(HTML):redesign layout. (Remarkup the semantic HTML with appropraite sections for the page's design).              ||
     // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ || 
     /// EXAMPLE OF HOW TO ACCESS MODEL DATA
+    
+    // CONSTANTS
+    // Saves all view data for use in Javascript
+    var ALL_DATA_JS = Json.Serialize(Model).ToString();
+   
     /////////////////////////////////////
     #region RECIPE SEARCH PAGE NAV
     /////////////////////////////////////
@@ -88,11 +93,18 @@
             @{
                 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ||
                 // TODO: Implement feature to add recipe to user favorites.          ||
-                // TODO: Remove from favs in profile settings                        ||
+                // TODO: Remove from favs in profile settings
+                // TODO: https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/cross-site-scripting.md                        ||
                 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ||
 
                 var btnId = $"btn-fav-{BTN_ID_COUNTER++}";
                 <button id=@btnId onclick="ToggleFavorite(this.id)" value=@IS_FAVORITE>Save to Cookbook</button>
+
+                var recipeData = Json.Serialize(RECIPE).ToString();
+
+                //var fixJsonXssVulnerability = new JsonSerializerSettings { StringEscapeHandling = StringEscapeHandling.EscapeHtml };
+                <button id="dev_@btnId" class="alert-warning" onclick='SaveToCookbook(@recipeData, @Url.Action("Action", "Controller"))'>Save to cookbook </button>
+
             }
         </div>
         #endregion
