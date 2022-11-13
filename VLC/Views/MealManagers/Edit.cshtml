@@ -4,71 +4,119 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Meal Manager</h1>
 
-<h4>MealManager</h4>
+<h4>Edit your preferences</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="TotalCalories" class="control-label"></label>
-                <input asp-for="TotalCalories" class="form-control" />
-                <span asp-validation-for="TotalCalories" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MealCount" class="control-label"></label>
-                <input asp-for="MealCount" class="form-control" />
-                <span asp-validation-for="MealCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Diet" class="control-label"></label>
-                <select asp-for="Diet" class="form-control"></select>
-                <span asp-validation-for="Diet" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Goal" class="control-label"></label>
-                <select asp-for="Goal" class="form-control"></select>
-                <span asp-validation-for="Goal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MeasurementSystem" class="control-label"></label>
-                <select asp-for="MeasurementSystem" class="form-control"></select>
-                <span asp-validation-for="MeasurementSystem" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Height" class="control-label"></label>
-                <input asp-for="Height" class="form-control" />
-                <span asp-validation-for="Height" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Weight" class="control-label"></label>
-                <input asp-for="Weight" class="form-control" />
-                <span asp-validation-for="Weight" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Age" class="control-label"></label>
-                <input asp-for="Age" class="form-control" />
-                <span asp-validation-for="Age" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BodyFat" class="control-label"></label>
-                <select asp-for="BodyFat" class="form-control"></select>
-                <span asp-validation-for="BodyFat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ActivityLevel" class="control-label"></label>
-                <select asp-for="ActivityLevel" class="form-control"></select>
-                <span asp-validation-for="ActivityLevel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+
+<div class="edit-container">
+    <form class="input-group g-2 needs-validation" asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="input-group mb-3">
+            <input type="hidden" asp-for="@this.Model.Id" />
+            <label asp-for="MealCount" class="input-group-text col-4"></label>
+            <input type="number" asp-for="MealCount" class="form-control col-6" value="@this.Model.MealCount" />
+            <span asp-validation-for="MealCount" class="text-danger"></span>
+        </div>
+
+
+        <div class="input-group mb-3">
+
+            <label asp-for="Diet" class="input-group-text col-4"></label>
+            <select asp-for="Diet" class="form-select col-6" id="current-preset-diet">
+                @foreach (var diet in Enum.GetNames(typeof(MealManagerUtility.Diets)))
+                {
+                    <option value="@diet">
+                        @diet.ToString()
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="Diet" class="text-danger"></span>
+
+        </div>
+        <div class="input-group mb-3">
+            <label asp-for="Goal" class="input-group-text col-4"></label>
+            <select asp-for="Goal" class="form-select col-6">
+                @foreach (var goal in Enum.GetNames(typeof(MealManagerUtility.WeightGoal)))
+                {
+                    <option value="@goal">
+                        @goal.ToString()
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="Goal" class="text-danger"></span>
+        </div>
+        <div class="input-group mb-3">
+            <label asp-for="MeasurementSystem" class="input-group-text col-4"></label>
+            <select asp-for="MeasurementSystem" class="form-select col-6">
+                @foreach (var measurement in Enum.GetNames(typeof(MealManagerUtility.MeasurementSystem)))
+                {
+                    <option value="@measurement">
+                        @measurement.ToString()
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="MeasurementSystem" class="text-danger"></span>
+        </div>
+        <div class="input-group mb-3">
+            <label asp-for="Gender" class="input-group-text col-4"></label>
+            <select asp-for="Gender" class="form-select col-6">
+                @foreach (var gender in Enum.GetNames(typeof(MealManagerUtility.Gender)))
+                {
+                    <option value="@gender">
+                        @gender.ToString()
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+        <div class="input-group mb-3">
+            <label asp-for="Height" class="input-group-text col-4"></label>
+            <input type="number" asp-for="Height" class="form-control col-6" value="@this.Model.Height" />
+            <span asp-validation-for="Height" class="text-danger"></span>
+        </div>
+        <div class="input-group mb-3">
+            <label asp-for="Weight" class="input-group-text col-4"></label>
+            <input type="number" asp-for="Weight" class="form-control col-6" value="@this.Model.Weight" />
+            <span asp-validation-for="Weight" class="text-danger"></span>
+        </div>
+        <div class="input-group mb-3">
+            <label asp-for="Age" class="input-group-text col-4"></label>
+            <input type="number" asp-for="Age" class="form-control col-6" value="@this.Model.Age" />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+        <div class="input-group mb-3">
+            <label asp-for="BodyFat" class="input-group-text col-4"></label>
+            <select asp-for="BodyFat" class="form-select col-6">
+                @foreach (var fat in Enum.GetNames(typeof(MealManagerUtility.BodyFat)))
+                {
+                    <option value="@fat">
+                        @fat.ToString()
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="BodyFat" class="text-danger"></span>
+        </div>
+        <div class="input-group mb-3">
+            <label asp-for="ActivityLevel" class="input-group-text col-4"></label>
+            <select asp-for="ActivityLevel" class="form-select col-6">
+                @foreach (var activity in Enum.GetNames(typeof(MealManagerUtility.ActivityLevel)))
+                {
+                    <option value="@activity" selected="@activity">
+                        @activity.ToString()
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="ActivityLevel" class="text-danger"></span>
+        </div>
+        <div class="input-group mb-3">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
 </div>
+
+
 
 <div>
     <a asp-action="Index">Back to List</a>

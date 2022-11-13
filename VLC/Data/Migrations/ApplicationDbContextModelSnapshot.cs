@@ -270,6 +270,8 @@ namespace VLC.Data.Migrations
                     b.ToTable("MealManagers");
                 });
 
+//<<<<<<< Meal-Manager-Design
+//=======
             modelBuilder.Entity("VLC.Models.Meals.MealPlan", b =>
                 {
                     b.Property<int>("Id")
@@ -625,6 +627,7 @@ namespace VLC.Data.Migrations
                     b.ToTable("Recipes");
                 });
 
+// >>>>>>> develop
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
