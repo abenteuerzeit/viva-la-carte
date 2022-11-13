@@ -149,7 +149,7 @@ namespace VLC.Controllers
                 return NotFound();
             }
 
-            var mealManager = await _context.MealManager.FindAsync(id);
+            var mealManager = await _context.MealManagers.FindAsync(id);
             await _context.SaveChangesAsync();
 
             if (mealManager == null)
