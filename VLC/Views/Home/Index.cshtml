@@ -38,16 +38,20 @@
                                     </p>
                                 </div>
 
-                                <div class="row label-align">
-                                    <label asp-for="Diet" class="col-sm-4 col-form-label">Current diet type</label>
-                                    <select asp-for="Diet" class="col-sm-8" id="current-preset-diet">
-                                        @foreach (var diet in Enum.GetNames(typeof(MealManagerUtility.Diets)))
-                                        {
-                                            <option value="@diet">
-                                                @diet.ToString()
-                                            </option>
-                                        }
-                                    </select>
+                                <div class="form-group row label-align">
+                                    <div class="col-sm-4">
+                                        <label asp-for="Diet" class="col-sm-4 col-form-label">Current diet type</label>
+                                    </div>
+                                    <div class="col-sm-6 stretch-it" id="diet_type_dropdown">
+                                        <select asp-for="Diet" class="form-control-act" id="current-preset-diet">
+                                            @foreach (var diet in Enum.GetNames(typeof(MealManagerUtility.Diets)))
+                                            {
+                                                <option value="@diet">
+                                                    @diet.ToString()
+                                                </option>
+                                            }
+                                        </select>
+                                    </div>
                                     <span asp-validation-for="Diet" class="text-danger"></span>
                                 </div>
 
@@ -108,7 +112,7 @@
                                         <label asp-for="Height">Height</label>
                                     </div>
                                     <div class="col-sm-4 stretch-it" id="height">
-                                        <input asp-for="Height" type="number" id="height" value="@MockMealPlan.Height">
+                                        <input asp-for="Height" type="number" class="input-no-border" id="height" value="@MockMealPlan.Height">
                                         <label asp-for="Height" class="label-absolute">cm</label>
                                     </div>
                                 </div>
@@ -118,7 +122,7 @@
                                         <label asp-for="Weight">Weight</label>
                                     </div>
                                     <div class="col-sm-4 stretch-it" id="weight">
-                                        <input asp-for="Weight" type="text" id="weight" value="@MockMealPlan.Weight">
+                                        <input asp-for="Weight" type="text" class="input-no-border" id="weight" value="@MockMealPlan.Weight">
                                         <label asp-for="Weight" class="label-absolute">kg</label>
                                     </div>
                                 </div>
@@ -128,7 +132,7 @@
                                         <label asp-for="Age">Age</label>
                                     </div>
                                     <div class="col-sm-4 stretch-it" id="age">
-                                        <input asp-for="Age" type="text" id="age" value="@MockMealPlan.Age">
+                                        <input asp-for="Age" type="text" class="input-no-border" id="age" value="@MockMealPlan.Age">
                                         <label asp-for="Age" class="label-absolute">years</label>
                                     </div>
                                 </div>
