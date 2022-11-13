@@ -95,12 +95,6 @@
                 <button id=@btnId onclick="ToggleFavorite(this.id)" value=@IS_FAVORITE>Save to Cookbook</button>
             }
         </div>
-        <script>
-            const ToggleFavorite = (id) => {
-            let btn = document.getElementById(id);
-            btn.innerHTML = btn.innerText === "Save to Cookbook" ? btn.innerText = "&#128505; Recipe Saved!" : btn.innerText = "Save to Cookbook";
-            };
-        </script>
         #endregion
         ////////////////////////////////////////
         #region HTTP Data
