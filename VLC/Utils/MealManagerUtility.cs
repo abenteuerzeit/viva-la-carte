@@ -1,4 +1,7 @@
-﻿namespace VLC.Utils
+﻿using Humanizer;
+using System.Reflection.Metadata;
+
+namespace VLC.Utils
 {
     public class MealManagerUtility
     {        /*
@@ -19,7 +22,7 @@
          */
         public enum Rating
         {
-            reject, dislike, like, love, favorite
+            none, reject, dislike, like, love, favorite
         }
 
         public enum WeightGoal
@@ -66,6 +69,32 @@
         public enum Diets
         {
             Whatever, Paleo, Vegetarian, Vegan, Keto, Mediterranean
+        }
+
+        //public enum ProteinPlan
+        //{
+        //    A, B, C, D
+        //}
+
+        public static double ConvertInchesToCm(double inches) => inches * 2.64;
+        public static double ConvertFtToCm(double ft) => ft * 30.48;
+
+
+        /// <summary>
+        /// Use a space to seperate feet and inches. For example: 5' 11".
+        /// </summary>
+        /// <param name="feetAndInches"></param>
+        /// <returns></returns>
+        public static double ConvertHeightToCm(string feetAndInches)
+        {
+            var result = feetAndInches.Split(' ');
+            bool isFeetParsed = int.TryParse(result[0].Replace("'", "").Trim(), out int feet);
+            bool isInchesParsed = int.TryParse(result[1].Replace("\"", "").Trim(), out int inches);
+            if (!isFeetParsed || !isInchesParsed)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            return ConvertFtToCm(feet) + ConvertInchesToCm(inches);
         }
 
     }

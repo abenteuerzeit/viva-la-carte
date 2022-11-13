@@ -1,16 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.DotNet.MSIdentity.Shared;
 using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using NuGet.Packaging;
 using NuGet.Protocol;
 using RestSharp;
+using RestSharp.Extensions;
+using RestSharp.Serializers.Json;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using System.Web.Helpers;
 using VLC.Data;
 using VLC.Models.API;
 using VLC.Models.MealManager;
+using VLC.Models.Meals;
 using VLC.Models.Recipes;
 using VLC.Services;
 
@@ -36,7 +43,7 @@ namespace VLC.Controllers
         /// <returns></returns>
         // GET: MealManagers/SearchRecipesByQuery
         [HttpGet]
-        public IActionResult SearchRecipesByQuery(string query, [FromServices] IMealManagerService service)
+        public async Task<IActionResult> SearchRecipesByQuery(string query, [FromServices] IMealManagerService service)
         {
             // TODO: Fetch recipes by query and extract results.
             // TODO: Provide user with search results
@@ -46,34 +53,40 @@ namespace VLC.Controllers
                 RestClient restClient = new RestClient(client);
                 restClient.Options.MaxTimeout = 30;
                 RestRequest request = new(searchURL) { AlwaysMultipartFormData = true };
-                JsonResult response = Json(restClient.Execute(request));
-                return Ok(response);
+                var cancellationTokenSource = new CancellationTokenSource();
+                var response = await restClient.ExecuteAsync(request, cancellationTokenSource.Token);
+                var res = string.IsNullOrWhiteSpace(response.Content) ? throw new TypeLoadException() : response.Content;
+                var hits = Hits.FromJson(res);
+                return View(hits); //View("RecipeSearchResults", hits);
             }
             catch (Exception err)
             {
-                Console.Write($"\nException {nameof(err)} caught!");
-                Console.WriteLine(err);
-                return BadRequest();
+                return BadRequest(err);
             }
         }
 
         // GET: MealManagers
         public async Task<IActionResult> Index() //async Task<IActionResult> Index()
         {
+
             //string recipesURL = _mealManagerService.GetEdamamRecipesAPI_URL_For("scrambled%20eggs");
             //return Redirect(recipesURL);
-            return View(await _context.MealManager.ToListAsync());
+            //return View(await _context.MealManager.ToListAsync());
+
+            List<MealManager> mealManagers = await _context.MealManagers.ToListAsync();
+            return View(mealManagers);
+
         }
 
         // GET: MealManagers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.MealManager == null)
+            if (id == null || _context.MealManagers == null)
             {
                 return NotFound();
             }
 
-            var mealManager = await _context.MealManager
+            var mealManager = await _context.MealManagers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (mealManager == null)
             {
@@ -82,6 +95,26 @@ namespace VLC.Controllers
 
             return View(mealManager);
         }
+
+        // GET: MealManagers/NewMealPlan/3
+        public async Task<IActionResult> NewMealPlan(int id)
+        {
+            MealPlan mealPlan = await _context.FindMealPlanAsync(id);
+            if (mealPlan == null)
+            {
+                return NotFound();
+            }
+
+            ViewData.Add("MealPlanId", mealPlan.Id);
+            List<Recipe> recipeIds = mealPlan.Recipes;
+            foreach (Recipe recipeId in recipeIds)
+            {
+            }
+
+
+            return View(mealPlan);
+        }
+
 
         // GET: MealManagers/Create
         public IActionResult Create()
@@ -98,24 +131,27 @@ namespace VLC.Controllers
         {
             if (ModelState.IsValid)
             {
-                //mealManager.Age = 20;
+                MealPlan mealPlan = _mealManagerService.GetMealPlan(mealManager);
                 _context.Add(mealManager);
+                _context.Add(mealPlan);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(nameof(NewMealPlan), mealPlan);
+                //Ok(_context.MealPlans.ToList());  //RedirectToAction(nameof(Index));
             }
-            return View(mealManager);
+            return View();
         }
 
         // GET: MealManagers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.MealManager == null)
+            if (id == null || _context.MealManagers == null)
             {
                 return NotFound();
             }
 
             var mealManager = await _context.MealManager.FindAsync(id);
             await _context.SaveChangesAsync();
+
             if (mealManager == null)
             {
                 return NotFound();
@@ -161,12 +197,12 @@ namespace VLC.Controllers
         // GET: MealManagers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.MealManager == null)
+            if (id == null || _context.MealManagers == null)
             {
                 return NotFound();
             }
 
-            var mealManager = await _context.MealManager
+            var mealManager = await _context.MealManagers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (mealManager == null)
             {
@@ -181,14 +217,14 @@ namespace VLC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.MealManager == null)
+            if (_context.MealManagers == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.MealManager'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.MealManagers'  is null.");
             }
-            var mealManager = await _context.MealManager.FindAsync(id);
+            var mealManager = await _context.MealManagers.FindAsync(id);
             if (mealManager != null)
             {
-                _context.MealManager.Remove(mealManager);
+                _context.MealManagers.Remove(mealManager);
             }
 
             await _context.SaveChangesAsync();
@@ -197,7 +233,7 @@ namespace VLC.Controllers
 
         private bool MealManagerExists(int id)
         {
-            return _context.MealManager.Any(e => e.Id == id);
+            return _context.MealManagers.Any(e => e.Id == id);
         }
 
     }
