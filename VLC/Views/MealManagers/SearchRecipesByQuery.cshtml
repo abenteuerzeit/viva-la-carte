@@ -42,7 +42,7 @@
 
 
 
-    int FAV_BTN_ID_COUNTER = 0;
+    int BTN_ID_COUNTER = 0;
     foreach (var hit in HITS)
     {
         ////////////////////////////////////////
@@ -80,7 +80,7 @@
                         var ratings = Enum.GetValues(typeof(VLC.Utils.MealManagerUtility.Rating));
                         foreach (var rating in ratings)
                         {
-                            <li>
+                            <li> 
                                 <button id="@rating" onclick="alert('TODO: Implement rating feature')"> @rating</button>
                             </li>
                         }
@@ -91,7 +91,7 @@
                TODO: Remove from favs in profile settings *@
 
             @{
-                var btnId = $"btn-fav-{FAV_BTN_ID_COUNTER++}";
+                var btnId = $"btn-fav-{BTN_ID_COUNTER++}";
 
                 <button id=@btnId onclick="ToggleFavorite(this.id)" value=@IS_FAVORITE>Save to Cookbook</button>
             }
@@ -111,6 +111,23 @@
         var URI = RECIPE.Uri;
         var URL = RECIPE.Url;
         var SHARE_AS = RECIPE.ShareAs;
+
+        ////////////////////////////////////////
+        ///*******Create HTML elements*******///
+        ////////////////////////////////////////
+        <div class="HTTP">
+        <ul>
+            <li><a href="@URI">URI</a></li>
+            <li><a href="@URL">URL</a></li>
+            @{
+                var shareId = $"share-{BTN_ID_COUNTER++}";
+            }
+            <li><a id="@shareId" href="@SHARE_AS">Share</a></li>
+        </ul>
+        </div>
+            
+       
+
         #endregion
 
         ////////////////////////////////////////
