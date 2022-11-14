@@ -8,16 +8,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using VLC.Data;
 using VLC.Models.Recipes;
+using VLC.Services;
 
 namespace VLC.Controllers
 {
     public class RecipesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IRecipesService _service;
 
-        public RecipesController(ApplicationDbContext context)
+        public RecipesController(ApplicationDbContext context, IRecipesService service)
         {
             _context = context;
+            _service = service;
         }
 
         // GET: Recipes
@@ -26,23 +29,19 @@ namespace VLC.Controllers
             return Ok(await _context.Recipes.ToListAsync());
         }
 
-        // POST: Recipes/SaveToCookbook
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult SaveToCookbook([FromBody, Bind("Uri,Label,Image,Source,Url,ShareAs,Yield,Calories,TotalWeight,TotalTime,Id,Name,Instructions,Portions,PortionSize,PortionUnitOfMeasurment,Grams,AuthorId,PreperationTime,CookingTime,Rating,IsFavorite,ImageURL")] Recipe recipe)
-        //{
-        //    return Ok(recipe);
-        //}
+
         [HttpPost]
         public async Task<IActionResult> SaveToCookBook([FromBody] Recipe data)
         {
             // Todo return ID of new recipe? 
             // Refactor: add cookbooks service. 
-            var recipe = new Recipe();
-            recipe = data;
-            _context.Recipes.Add(recipe);
-            await _context.SaveChangesAsync();
-            return Ok(data);
+            if (_service.AddToCookbook(data, out Recipe recipe))
+            {
+                _context.Recipes.Add(recipe);
+                await _context.SaveChangesAsync();
+                return Ok(data);
+            }
+            return BadRequest(data);
         }
 
         // GET: Recipes/Details/5

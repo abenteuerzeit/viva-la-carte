@@ -14,9 +14,12 @@
 
     var ALL_DATA_JS = Json.Serialize(Model).ToString();
     <partial name="_RecipeSearchPageNav" model="Model" />
-    foreach (var hit in Model.HitsList)
+    for(int i=0; i<Model.HitsList.Count; i++) 
+    //hit in Model.HitsList)
     {
-        <partial name="_Hit" model="hit" />
+        ViewData["hit-iterator-value"] = i;
+        //<partial name="_Hit" model="hit" />
+        @await Html.PartialAsync("_Hit.cshtml", Model.HitsList[i]);
     }
 
 <h1>SearchRecipesByQuery</h1>
