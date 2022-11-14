@@ -7,6 +7,8 @@ using VLC.Models.Products;
 //using static VLC.Models.API.RecipeSearch;
 using static VLC.Utils.MealManagerUtility;
 
+// TODO: Map unmapped values.
+
 namespace VLC.Models.Recipes
 {
     public partial class Recipe

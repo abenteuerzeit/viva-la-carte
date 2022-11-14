@@ -36,11 +36,13 @@ namespace VLC.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveToCookBook([FromBody] Recipe data)
         {
+            // Todo return ID of new recipe? 
+            // Refactor: add cookbooks service. 
             var recipe = new Recipe();
             recipe = data;
             _context.Recipes.Add(recipe);
             await _context.SaveChangesAsync();
-            return Ok($"Succesfully added the recipe \"{data.Label}\" to your defualt cookbook!");
+            return Ok(data);
         }
 
         // GET: Recipes/Details/5
