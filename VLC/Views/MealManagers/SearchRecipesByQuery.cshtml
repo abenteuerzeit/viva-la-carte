@@ -14,41 +14,12 @@
     // CONSTANTS
     // Saves all view data for use in Javascript
     var ALL_DATA_JS = Json.Serialize(Model).ToString();
+
+    <partial name="_RecipeSearchPageNav" model="Model" />
    
-    /////////////////////////////////////
-    #region RECIPE SEARCH PAGE NAV
-    /////////////////////////////////////
-    var ID = Model.Id;
-    var LINKS = Model.Links;
-    var COUNT = Model.Count;
-    var FROM = Model.From;
-    var TO = Model.To;
-    var HITS = Model.HitsList;
-    ////////////////////////////////////////
-    ///*******Create HTML elements*******///
-    ////////////////////////////////////////
-    var query_string_value = Context.Request.Query["query"];
-    if (!string.IsNullOrWhiteSpace(query_string_value))
-    {
-        <h1>Recipe Search Results for @query_string_value</h1>
-    }
-    <nav id="@ID">
-        <dl>
-        <dt>
-                Recipes found:<strong>@COUNT;</strong>.<br/>
-                <em>Displaying from @FROM; hits to @TO; hits</em>
-        </dt>
-            <dd>
-                <a href="@LINKS.Next.Href" onclick="alert('TODO: Implement function to load more recipes 
-                                                    so that you scroll through the results like on a feed')">
-                Next page
-                </a>
-            </dd> @* <<< HTTP JSON TO RECIPE *@
-        </dl>
-    </nav>
-    #endregion
+   
     int BTN_ID_COUNTER = 0;
-    foreach (var hit in HITS)
+    foreach (var hit in Model.HitsList)
     {
         ////////////////////////////////////////
         #region Hidden From Client
@@ -94,17 +65,16 @@
                 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ||
                 // TODO: Implement feature to add recipe to user favorites.          ||
                 // TODO: Remove from favs in profile settings
-                // TODO: https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/cross-site-scripting.md                        ||
+                // TODO: https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/cross-site-scripting.md
+                // var fixJsonXssVulnerability = new JsonSerializerSettings { StringEscapeHandling = StringEscapeHandling.EscapeHtml };
                 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ||
 
+                // <<< SAVE TO COOKBOOK BUTTON DATA >>> //
                 var btnId = $"btn-fav-{BTN_ID_COUNTER++}";
-                <button id=@btnId onclick="ToggleFavorite(this.id)" value=@IS_FAVORITE>Save to Cookbook</button>
-
-                var recipeData = Json.Serialize(RECIPE).ToString();
-
-                //var fixJsonXssVulnerability = new JsonSerializerSettings { StringEscapeHandling = StringEscapeHandling.EscapeHtml };
-                <button id="dev_@btnId" class="alert-warning" onclick='SaveToCookbook(@recipeData, @Url.Action("Action", "Controller"))'>Save to cookbook </button>
-
+                var route = Json.Serialize(Url.Action("SaveToCookbook", "Recipes"));
+                var recipeData = Json.Serialize(RECIPE);
+                //=====================================//
+                <button id="@btnId" class="alert-warning" onclick='saveToCookbook(@recipeData, @route );toggleAddToCookbookButton(this.id);'>Save to Cookbook</button>
             }
         </div>
         #endregion

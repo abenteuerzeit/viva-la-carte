@@ -5,8 +5,8 @@
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  ~ ~ ~ ~ ||
 //                  TODO
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  ~ ~ ~ ~ ||
-// 1. Send Recipe data to controller
-//
+// 1. Get user cookbook from server
+// 2. send recipe data to controller
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  ~ ~ ~ ~ ||
 
 
@@ -21,6 +21,7 @@ function alertWhenErrorCaught(functionName, errorData) {
         console.error(errorData);
         console.error(functionName);
         alert(
+            errorData + "\n" +
             functionName
         );
     } catch (err) {
@@ -35,18 +36,24 @@ function alertWhenErrorCaught(functionName, errorData) {
 
 function sendToServer(data, url) {
     try {
+        //$.ajax({
+        //    type: "POST",
+        //    data: JSON.stringify(data),
+        //    url: url,
+        //    contentType: "application/json"
+        //});
+
         let xhr = new XMLHttpRequest();
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log(this.responseText);
-
+                alert(xhr.responseText);
+                console.info(this.responseText);
             }
         };
-        var strigifiedData = JSON.stringify(data);
-        console.log(strigifiedData);
-        xhr.send(strigifiedData);
+        var stringifiedData = JSON.stringify(data);
+        xhr.send(stringifiedData);
     } catch (err) {
         alertWhenErrorCaught(sendDataToServer, err);
     }
@@ -58,44 +65,62 @@ function sendToServer(data, url) {
 // # region RECIPES SEARCH RESULTS PAGE
 //////////////////////////////////////////////////////////////
 
-function ToggleFavorite(id) {
+function toggleAddToCookbookButton(id) {
     try {
+
         let btn = document.getElementById(id);
-        btn.innerHTML = btn.innerText === "Save to Cookbook" ? btn.innerText = "&#128505; Recipe Saved!" : btn.innerText = "Save to Cookbook";
+        var added = "Recipe Saved!";
+        var notAdded = "Save to Cookbook";
+
+        if (btn.innerHTML === added) {
+            throw Error("Remove recipe funciton not implemened!\n");
+        }
+
+        btn.innerHTML = btn.innerText === notAdded ? btn.innerText = added : btn.innerText = notAdded;
+
     } catch (err) {
-        alertWhenErrorCaught(ToogleFavorite, err);
+        alertWhenErrorCaught(toggleAddToCookbookButton, err);
     }
 
 }
 
-
-function SaveToCookbook(recipeJsonObject, url) {
+function getCookbookById() {
     try {
-        console.log(recipeJsonObject);
+        throw Error("Not implemented");
+
+    } catch (err) {
+        alertWhenErrorCaught(GetCookbook, err);
+    }
+}
+
+
+
+function saveToCookbook(recipeJsonObject, url) {
+    try {
         sendToServer(recipeJsonObject, url)
     }
     catch (err) {
-        alertWhenErrorCaught(SaveToCookbook, err);
+        alertWhenErrorCaught(saveToCookbook, err);
     }
 }
 
 
-function DeleteFromCookbook() {
+function deleteFromCookbook() {
     try {
         throw Error("Not implemented");
 
     } catch (err) {
-        alertWhenErrorCaught(DeleteFromCookbook, err);
+        alertWhenErrorCaught(deleteFromCookbook, err);
     }
 }
 
 
-function UpdateIsFavoriteProperty() {
+function updateIsFavoriteProperty() {
     try {
         throw Error("Not implemented");
 
     } catch (err) {
-        alertWhenErrorCaught(UpdateIsFavoriteProperty, err);
+        alertWhenErrorCaught(updateIsFavoriteProperty, err);
     }
 }
 

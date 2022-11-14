@@ -1,6 +1,10 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 
 namespace VLC.Models.Recipes
 {
@@ -8,16 +12,13 @@ namespace VLC.Models.Recipes
     {
         [Key]
         [JsonProperty("id")]
-        [JsonPropertyName("id")]
         public int Id { get; set; }
 
         [Required]
         [JsonProperty("recipes")]
-        [JsonPropertyName("recipes")]
         public List<Recipe> Recipes { get; set; } = new List<Recipe>();
 
         [JsonProperty("label")]
-        [JsonPropertyName("label")]
         public string Label { get; set; } = "My Cookbook";
 
     }

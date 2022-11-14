@@ -1,0 +1,148 @@
+﻿@model VLC.Models.Recipes.Recipe
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+<h4>Recipe</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Uri" class="control-label"></label>
+                <input asp-for="Uri" class="form-control" />
+                <span asp-validation-for="Uri" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Label" class="control-label"></label>
+                <input asp-for="Label" class="form-control" />
+                <span asp-validation-for="Label" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Source" class="control-label"></label>
+                <input asp-for="Source" class="form-control" />
+                <span asp-validation-for="Source" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Url" class="control-label"></label>
+                <input asp-for="Url" class="form-control" />
+                <span asp-validation-for="Url" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShareAs" class="control-label"></label>
+                <input asp-for="ShareAs" class="form-control" />
+                <span asp-validation-for="ShareAs" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Yield" class="control-label"></label>
+                <input asp-for="Yield" class="form-control" />
+                <span asp-validation-for="Yield" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Calories" class="control-label"></label>
+                <input asp-for="Calories" class="form-control" />
+                <span asp-validation-for="Calories" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalWeight" class="control-label"></label>
+                <input asp-for="TotalWeight" class="form-control" />
+                <span asp-validation-for="TotalWeight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalTime" class="control-label"></label>
+                <input asp-for="TotalTime" class="form-control" />
+                <span asp-validation-for="TotalTime" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Instructions" class="control-label"></label>
+                <textarea asp-for="Instructions" class="form-control"></textarea>
+                <span asp-validation-for="Instructions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Portions" class="control-label"></label>
+                <input asp-for="Portions" class="form-control" />
+                <span asp-validation-for="Portions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PortionSize" class="control-label"></label>
+                <input asp-for="PortionSize" class="form-control" />
+                <span asp-validation-for="PortionSize" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PortionUnitOfMeasurment" class="control-label"></label>
+                <input asp-for="PortionUnitOfMeasurment" class="form-control" />
+                <span asp-validation-for="PortionUnitOfMeasurment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Grams" class="control-label"></label>
+                <input asp-for="Grams" class="form-control" />
+                <span asp-validation-for="Grams" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AuthorId" class="control-label"></label>
+                <input asp-for="AuthorId" class="form-control" />
+                <span asp-validation-for="AuthorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PreperationTime" class="control-label"></label>
+                <input asp-for="PreperationTime" class="form-control" />
+                <span asp-validation-for="PreperationTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CookingTime" class="control-label"></label>
+                <input asp-for="CookingTime" class="form-control" />
+                <span asp-validation-for="CookingTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <select asp-for="Rating" class="form-control"></select>
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsFavorite" /> @Html.DisplayNameFor(model => model.IsFavorite)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageURL" class="control-label"></label>
+                <input asp-for="ImageURL" class="form-control" />
+                <span asp-validation-for="ImageURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+</body>
+</html>
