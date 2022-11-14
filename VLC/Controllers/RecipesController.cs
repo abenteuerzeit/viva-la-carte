@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using VLC.Data;
 using VLC.Models.Recipes;
 
@@ -22,7 +23,24 @@ namespace VLC.Controllers
         // GET: Recipes
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Recipes.ToListAsync());
+            return Ok(await _context.Recipes.ToListAsync());
+        }
+
+        // POST: Recipes/SaveToCookbook
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult SaveToCookbook([FromBody, Bind("Uri,Label,Image,Source,Url,ShareAs,Yield,Calories,TotalWeight,TotalTime,Id,Name,Instructions,Portions,PortionSize,PortionUnitOfMeasurment,Grams,AuthorId,PreperationTime,CookingTime,Rating,IsFavorite,ImageURL")] Recipe recipe)
+        //{
+        //    return Ok(recipe);
+        //}
+        [HttpPost]
+        public async Task<IActionResult> SaveToCookBook([FromBody] Recipe data)
+        {
+            var recipe = new Recipe();
+            recipe = data;
+            _context.Recipes.Add(recipe);
+            await _context.SaveChangesAsync();
+            return Ok($"Succesfully added the recipe \"{data.Label}\" to your defualt cookbook!");
         }
 
         // GET: Recipes/Details/5
@@ -148,14 +166,14 @@ namespace VLC.Controllers
             {
                 _context.Recipes.Remove(recipe);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RecipeExists(int id)
         {
-          return _context.Recipes.Any(e => e.Id == id);
+            return _context.Recipes.Any(e => e.Id == id);
         }
     }
 }

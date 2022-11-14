@@ -36,19 +36,24 @@ function alertWhenErrorCaught(functionName, errorData) {
 
 function sendToServer(data, url) {
     try {
-        alert(sendToServer);
+        //$.ajax({
+        //    type: "POST",
+        //    data: JSON.stringify(data),
+        //    url: url,
+        //    contentType: "application/json"
+        //});
+
         let xhr = new XMLHttpRequest();
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log(this.responseText);
-
+                alert(xhr.responseText);
+                console.info(this.responseText);
             }
         };
-        var strigifiedData = JSON.stringify(data);
-        console.log(strigifiedData);
-        xhr.send(strigifiedData);
+        var stringifiedData = JSON.stringify(data);
+        xhr.send(stringifiedData);
     } catch (err) {
         alertWhenErrorCaught(sendDataToServer, err);
     }
@@ -92,10 +97,6 @@ function getCookbookById() {
 
 function saveToCookbook(recipeJsonObject, url) {
     try {
-        console.log(url);
-        console.log(recipeJsonObject);
-
-
         sendToServer(recipeJsonObject, url)
     }
     catch (err) {
