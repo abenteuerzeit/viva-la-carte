@@ -21,6 +21,7 @@ function alertWhenErrorCaught(functionName, errorData) {
         console.error(errorData);
         console.error(functionName);
         alert(
+            errorData + "\n" +
             functionName
         );
     } catch (err) {
@@ -35,6 +36,7 @@ function alertWhenErrorCaught(functionName, errorData) {
 
 function sendToServer(data, url) {
     try {
+        alert(sendToServer);
         let xhr = new XMLHttpRequest();
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -58,17 +60,26 @@ function sendToServer(data, url) {
 // # region RECIPES SEARCH RESULTS PAGE
 //////////////////////////////////////////////////////////////
 
-function ToggleFavorite(id) {
+function toggleAddToCookbookButton(id) {
     try {
+
         let btn = document.getElementById(id);
-        btn.innerHTML = btn.innerText === "Save to Cookbook" ? btn.innerText = "&#128505; Recipe Saved!" : btn.innerText = "Save to Cookbook";
+        var added = "Recipe Saved!";
+        var notAdded = "Save to Cookbook";
+
+        if (btn.innerHTML === added) {
+            throw Error("Remove recipe funciton not implemened!\n");
+        }
+
+        btn.innerHTML = btn.innerText === notAdded ? btn.innerText = added : btn.innerText = notAdded;
+
     } catch (err) {
-        alertWhenErrorCaught(ToogleFavorite, err);
+        alertWhenErrorCaught(toggleAddToCookbookButton, err);
     }
 
 }
 
-function GetCookbookById() {
+function getCookbookById() {
     try {
         throw Error("Not implemented");
 
@@ -79,33 +90,36 @@ function GetCookbookById() {
 
 
 
-function SaveToCookbook(recipeJsonObject, url) {
+function saveToCookbook(recipeJsonObject, url) {
     try {
+        console.log(url);
         console.log(recipeJsonObject);
+
+
         sendToServer(recipeJsonObject, url)
     }
     catch (err) {
-        alertWhenErrorCaught(SaveToCookbook, err);
+        alertWhenErrorCaught(saveToCookbook, err);
     }
 }
 
 
-function DeleteFromCookbook() {
+function deleteFromCookbook() {
     try {
         throw Error("Not implemented");
 
     } catch (err) {
-        alertWhenErrorCaught(DeleteFromCookbook, err);
+        alertWhenErrorCaught(deleteFromCookbook, err);
     }
 }
 
 
-function UpdateIsFavoriteProperty() {
+function updateIsFavoriteProperty() {
     try {
         throw Error("Not implemented");
 
     } catch (err) {
-        alertWhenErrorCaught(UpdateIsFavoriteProperty, err);
+        alertWhenErrorCaught(updateIsFavoriteProperty, err);
     }
 }
 
