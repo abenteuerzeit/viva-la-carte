@@ -125,3 +125,13 @@ function updateIsFavoriteProperty() {
 }
 
 
+function calculate() {
+    try {
+        var inputs = document.getElementsByTagName('input');
+        inputs[14].value = Math.ceil(((10 * inputs[9].value) + (6.25 * inputs[8].value) - (5 * inputs[10].value) + 5));
+    } catch (err) {
+        alertWhenErrorCaught(calculate, err);
+    }
+    
+
+}
