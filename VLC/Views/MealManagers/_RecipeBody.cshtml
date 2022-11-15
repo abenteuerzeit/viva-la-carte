@@ -1,0 +1,153 @@
+﻿@model VLC.Models.Recipes.Recipe
+
+<h1>Recipe Body Partial</h1>
+
+@{
+
+    ////////////////////////////////////////
+    #region Recipe Categories
+    ////////////////////////////////////////
+    var DISH_TYPE = Model.DishType;
+    var CUISINE_TYPE = Model.CuisineType;
+    var MEAL_TYPE = Model.MealType;
+    ////////////////////////////////////////
+    ///*******Create HTML elements*******///
+    ////////////////////////////////////////
+    <ul>
+        @foreach (var dt in DISH_TYPE)
+        {
+                        <li># @dt</li>
+        }
+        @foreach (var ct in CUISINE_TYPE)
+        {
+                        <li># @ct</li>
+        }
+        @foreach (var mt in MEAL_TYPE)
+        {
+                        <li># @mt</li>
+        }
+    </ul>
+    #endregion
+
+     ////////////////////////////////////////
+    #region Image Objects
+    ////////////////////////////////////////
+    var IMAGE = Model.Image;
+    var IMAGES = Model.Images;
+    var IMAGES_ARRAY_ID = IMAGES.Id;
+    var SMALL_IMAGE = IMAGES.Small;
+    var REGULAR_IMAGE = IMAGES.Regular;
+    var LARGE_IMAGE = IMAGES.Large;
+    var THUMBNAIL = IMAGES.Thumbnail;
+    var IMAGE_URL = Model.ImageURL;
+    ////////////////////////////////////////
+    ///*******Create HTML elements*******///
+    ////////////////////////////////////////
+    var thumbmailId = $"img-{THUMBNAIL.Id}";
+    <img id="@thumbmailId" src="@THUMBNAIL.Url" alt="Recipe thumbnail" height="@THUMBNAIL.Height" width="@THUMBNAIL.Width" />
+    #endregion
+    // =======================================================//
+   
+    #region Recipe Body
+    ////////////////////////////////////////
+    var TOTAL_TIME = Model.TotalTime;
+    var COOKING_TIME = Model.CookingTime;
+    var PREPERATION_TIME = Model.PreperationTime;
+    //
+    var YIELD = Model.Yield;
+    var TOTAL_WEIGHT = Model.TotalWeight;
+    //
+    var INGREDIENTS = Model.Ingredients;
+    ////////////////////////////////////////
+    ///*******Create HTML elements*******///
+    ////////////////////////////////////////
+    <table class="table">
+        <tcaption class="caption-top">Times</tcaption>
+        <thead>
+            <tr class="d-table-row">
+                <th>Total</th>
+                <th>Preperation</th>
+                <th>Cooking</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="d-table-row">
+                <td class="d-table-cell">@TOTAL_TIME</td>
+                <td class="d-table-cell">@PREPERATION_TIME</td>
+                <td class="d-table-cell">@COOKING_TIME</td>
+            </tr>
+        </tbody>
+        <tfoot class="card-footer">
+            <tr class="d-table-row">
+                <td class="d-sm-table-cell">Yields: @YIELD</td>
+                <td class="d-sm-table-cell">Mass: @TOTAL_WEIGHT</td>
+                <td class="d-sm-table-cell">Number of ingredients: @INGREDIENTS.Count</td>
+            </tr>
+        </tfoot>
+    </table>
+    /////////////////////////////////////////
+    <div class="flex-row card flex-sm-wrap">
+        @foreach (var ingredient in INGREDIENTS)
+        {
+            // INGREDIENT OPTIONS
+            var INGREDIENT_ID = ingredient.Id;
+            var IS_INGREDIENT_IN_FOOD_MEASUREMENT_UNITS = ingredient.IsInFoodMeasurementUnits;
+            var IS_INGREDIENT_IN_METRIC_UNITS = ingredient.IsInMetricUnits;
+            var IS_INGREDIENT_PRODUCT_UNIT_OF_MEASUREMENT = ingredient.IsProductUnitOfMeasruement;
+            var INGREDIENT_IMAGE = ingredient.Image;
+
+            // INGREDIENT HEADER
+            var INGREDIENT_UNIT_VALUE = ingredient.IngredientUnitValue;
+            var INGREDIENT_WEIGHT = ingredient.Weight;
+            var INGREDIENT_MEASURE = ingredient.Measure;
+            var INGREDIENT_QUANTITY = ingredient.Quantity;
+
+            // INGREDIENT BODY
+            var INGREDIENT_FOOD_ID = ingredient.FoodId;
+            var INGREDIENT_FOOD = ingredient.Food;
+            var INGREDIENT_FOOD_CATEGORY = ingredient.FoodCategory;
+            var INGREDIENT_PRODUCT_ID = ingredient.ProductId;
+            var INGREDIENT_TEXT = ingredient.Text;
+            ////////////////////////////////////////
+            ///*******Create HTML elements*******///
+            ////////////////////////////////////////
+            <figure>
+                <img src="@INGREDIENT_IMAGE.AbsoluteUri" alt="Ingredient image" width="150" height="150" />
+            </figure>
+            <dl>
+                <dt>@INGREDIENT_FOOD</dt>
+                <dd>@INGREDIENT_TEXT</dd>
+                <dd>@INGREDIENT_WEIGHT @INGREDIENT_QUANTITY @INGREDIENT_UNIT_VALUE @INGREDIENT_MEASURE</dd>
+                <dd>@INGREDIENT_PRODUCT_ID</dd>
+                <dd>@INGREDIENT_FOOD_CATEGORY</dd>
+            </dl>
+        }
+    </div>
+    // Model DETAILS
+    var PRODUCT_LIST = Model.ProductIdList;
+    var INGREDIENT_LINES = Model.IngredientLines;
+    var INSTRUCTIONS = Model.Instructions;
+    #endregion
+    }
+
+        <ol>
+    @foreach (var ing in INGREDIENT_LINES)
+    {
+                       <li> @ing</li>
+    }
+    </ol>
+    <ol>
+                <li>@INSTRUCTIONS.ToString()</li>
+    </ol>
+    <select>
+    @if (PRODUCT_LIST != null && PRODUCT_LIST.Count > 0)
+    {
+                <option>TODO: Add product lookup for ingredients</option>
+        @foreach (var pro in PRODUCT_LIST)
+        {
+                                        <option>@pro</option>
+        }
+    }
+
+    </select>
+}

@@ -1,0 +1,69 @@
+﻿@model VLC.Models.Recipes.Recipe
+
+@{
+    ////////////////////////////////////////
+    #region Recipe Dietary Objects
+    ////////////////////////////////////////
+    var CALORIES = Model.Calories;
+    var GRAMS = Model.Grams;
+    var PORTIONS = Model.Portions;
+    var PORTION_SIZE = Model.PortionSize;
+    var PORTION_UNIT_OF_MEASUREMENT = Model.PortionUnitOfMeasurment;
+    var TOTAL_DAILY = Model.TotalDaily;
+    var TOTAL_NUTRIENTS = Model.TotalNutrients;
+    var DIGEST = Model.Digest;
+    var CAUTIONS = Model.Cautions;
+    var HEALTH_LABELS = Model.HealthLabels;
+    var DIET_LABELS = Model.DietLabels;
+    ////////////////////////////////////////
+    ///*******Create HTML elements*******///
+    ////////////////////////////////////////
+    <h4>@CALORIES calories</h4>
+    <dl>
+        <dt>@PORTIONS</dt>
+        <dd>@GRAMS g</dd>
+        <dd>@PORTION_SIZE @PORTION_UNIT_OF_MEASUREMENT</dd>
+    </dl>
+
+    <ul>
+        @foreach (var d in TOTAL_DAILY)
+        {
+            <li id="@d.Value.Id">@d.Key: @d.Value.Label, @d.Value.Quantity, @d.Value.Unit</li>
+        }
+    </ul>
+
+    <ul>
+        @foreach (var d in TOTAL_NUTRIENTS)
+        {
+            <li id="@d.Value.Id">@d.Key: @d.Value.Label @d.Value.Quantity @d.Value.Unit</li>
+        }
+    </ul>
+
+    <ul>
+        @foreach (var d in DIGEST)
+        {
+            <li>Id: @d.Id, LabeL: @d.Label, schema org tag: @d.SchemaOrgTag, tag: @d.Tag, sub: @d.Sub, daily: @d.Daily,has rdi: @d.HasRdi, total: @d.Total, unit: @d.Unit </li>
+        }
+    </ul>
+
+
+    <smaller class="alert-warning">
+        @foreach (var caution in CAUTIONS)
+        {
+            <span>@caution</span>
+        }
+    </smaller>
+    <smaller class="badge-info">
+        @foreach (var label in HEALTH_LABELS)
+        {
+            <span>@label</span>
+        }
+    </smaller>
+    <smaller class="alert-info">
+        @foreach (var diet in DIET_LABELS)
+        {
+            <span>@diet</span>
+        }
+    </smaller>
+    #endregion
+}
