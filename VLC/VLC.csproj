@@ -27,7 +27,6 @@
 	<ItemGroup>
 		<Folder Include="Models\Addresses\" />
 		<Folder Include="Models\UserRoles\" />
-		<Folder Include="BussinessLogic\" />
 	</ItemGroup>
 
   <ItemGroup>
