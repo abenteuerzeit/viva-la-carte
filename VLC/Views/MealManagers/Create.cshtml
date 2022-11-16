@@ -188,11 +188,41 @@
                                 </div>
 
                                 <div class="offset">
+<<<<<<< HEAD
                                     <input type="submit" class="btn-green" id="calculate_button" />
                                         @*<i class="fa fa-calculator" aria-hidden="true"></i>*@
                                         Submit
                                     
                                 </div>
+=======
+                                    <button type="submit" class="btn-green" id="submit_button" >
+                                        @*<i class="fa fa-calculator" aria-hidden="true"></i>*@
+                                        Submit
+                                    </button>
+                                </div>
+                            <script>
+                                function calculate() {
+                                    try {
+                                        var calculateButton = document.getElementById('calculate-button');
+                                        var weight = 75;//inputs[8].value;
+                                        var height = 170;//inputs[9].value;
+                                        var age = 34; //inputs[10].value;
+                                        var inputs = document.getElementByTagName('input');
+                                        //inputs[14].innerText
+                                        alert(
+                                            (10 * inputs[9].value) + (6.25 * inputs[8].value) - (5 * inputs[10].value) + 5);
+                                        );
+                                    } catch (err) {
+                                        alert("An error was thrown!" + calculate);
+                                        console.error(err);
+                                    }
+                                }
+
+                                
+                                
+                            </script>
+
+>>>>>>> 5b860d3c4c462cc75f042c9988c6c38db7b774f2
 </fieldset>
                     </form>
                 </div>

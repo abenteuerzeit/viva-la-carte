@@ -135,13 +135,6 @@ namespace VLC.Controllers
                 
                 if (ModelState.IsValid)
                 {
-                    //var manager = mealManager.TotalCalories;
-
-                    //var model = ModelState.TryGetValue("TotalCalories", out var totalCalories);
-                    //var ex = totalCalories.AttemptedValue;
-                    //double number = double.Parse(ex);
-                    //mealManager.TotalCalories = (int)number;
-
                     //MealPlan mealPlan = _mealManagerService.GetMealPlan(mealManager);
                     _context.Add(mealManager);
                     //_context.Add(mealPlan);

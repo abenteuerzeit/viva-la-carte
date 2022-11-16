@@ -1,0 +1,119 @@
+﻿@model VLC.Models.Recipes.Hit
+
+<div>
+    <h4>Hit Page Id (results 1 - 20): @Model.Id and iterator value: @ViewData["hit-iterator-value"]</h4>
+    <hr />
+    <dl class="row">
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@{
+    ////////////////////////////////////////
+    #region Hidden From Client
+    ////////////////////////////////////////
+    var HIT_ID = Model.Id;
+    var HIT_LINKS = Model.Links;
+    var HREF = HIT_LINKS.Self.Href;
+    var TITLE = HIT_LINKS.Self.Title;
+    var i = @ViewData["hit-iterator-value"];
+    ////////////////////////////////////////
+    ///*******Create HTML elements*******///
+    ////////////////////////////////////////
+    <div id='hit-item-@i'>
+        <h2> <a href="@HREF">@HIT_LINKS.Self</a></h2>
+    </div>
+    #endregion
+
+
+    ////////////////////////////////////////
+    #region ProfileSettings
+    ////////////////////////////////////////
+    var RECIPE = Model.Recipe;
+    var RECIPE_ID = RECIPE.Id; // is always 0 for each recipe on the page
+    var RATING = RECIPE.Rating;
+    var IS_FAVORITE = RECIPE.IsFavorite; // TODO: change value when toggeled
+
+    ////////////////////////////////////////
+    ///*******Create HTML elements*******///
+    ////////////////////////////////////////
+
+    <div id="hit-rating-@i">
+        <p>@RATING</p>
+        <nav id="hit-nav-@i">
+           <ul>
+            @{
+                var ratings = Enum.GetValues(typeof(VLC.Utils.MealManagerUtility.Rating));
+                foreach (var rating in ratings)
+                {
+                    <li> 
+                        <button id="@rating" onclick="alert('TODO: Implement rating feature')"> @rating</button>
+                    </li>
+                }
+            }
+            </ul>
+        </nav>
+        @{
+            // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
+            // TODO: Remove from favs in profile settings
+            // TODO: https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/cross-site-scripting.md
+            // var fixJsonXssVulnerability = new JsonSerializerSettings { StringEscapeHandling = StringEscapeHandling.EscapeHtml };
+            // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ||
+
+            // <<< SAVE TO COOKBOOK BUTTON DATA >>> //
+            var btnId = $"btn-fav-{i}";
+            var route = Json.Serialize(Url.Action("SaveToCookbook", "Recipes"));
+            var recipeData = Json.Serialize(RECIPE);
+            //=====================================//
+           <button id="@btnId" class="alert-warning" 
+                   onclick='saveToCookbook(
+                   @recipeData, @route );toggleAddToCookbookButton(this.id);'>Save to Cookbook</button>
+        }
+    </div>
+    #endregion
+
+
+    ////////////////////////////////////////
+    #region HTTP Data
+    ////////////////////////////////////////
+    var URI = RECIPE.Uri;
+    var URL = RECIPE.Url;
+    var SHARE_AS = RECIPE.ShareAs;
+    ////////////////////////////////////////
+    ///*******Create HTML elements*******///
+    ////////////////////////////////////////
+    <div class="HTTP">
+                <ul>
+                    <li><a href="@URI">URI</a></li>
+                    <li><a href="@URL">URL</a></li>
+            @{
+                var shareId = $"share-{i}";
+            }
+                    <li><a id="@shareId" href="@SHARE_AS">Share</a></li>
+                </ul>
+    </div>
+    #endregion
+
+   
+    ////////////////////////////////////////
+    #region Recipe Title Data
+    ////////////////////////////////////////
+    var AUTHOR_ID = RECIPE.AuthorId;
+    var LABEL = RECIPE.Label;
+    var NAME = RECIPE.Name;
+    ////////////////////////////////////////
+    ///*******Create HTML elements*******///
+    ////////////////////////////////////////
+    <h3 id="recipe-author-@AUTHOR_ID">@LABEL</h3>
+    <small>Name: @NAME</small>
+    #endregion
+
+
+    }
+    @{
+    <partial name="_RecipeBody" model="RECIPE" />
+    <partial name="_RecipeNutritionFacts" model="RECIPE" />
+}
