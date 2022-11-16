@@ -468,3 +468,26 @@ nav {
     font-size: small;
 }
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*   QUERY SEARCH RESULT PAGE     */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.top-line {
+    width: 100%;
+    left: 0px;
+    top: 51px;
+    border-top: 1px solid #FFF;
+    border-bottom: 1px solid #FFF;
+}
+
+    .top-line .inner {
+        height: auto;
+        border-bottom: 1px solid #D9D9D9;
+        background: url(https://www.edamam.com/images/pattern-bgr-site.jpg) repeat center center;
+    }
+
+        .top-line .inner dl {
+            text-align: right;
+            font-size: 12px;
+            margin-right: 30px;
+        }
