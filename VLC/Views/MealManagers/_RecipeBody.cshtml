@@ -1,8 +1,38 @@
 ﻿@model VLC.Models.Recipes.Recipe
 
 <h1>Recipe Body Partial</h1>
-
 @{
+    ////////////////////////////////////////
+    #region Recipe Title Data
+    ////////////////////////////////////////
+    var AUTHOR_ID = Model.AuthorId;
+    var LABEL = Model.Label;
+    var NAME = Model.Name;
+    #endregion
+
+    #region
+    var IMAGES = Model.Images;
+    var REGULAR_IMAGE = IMAGES.Regular;
+    var regularImageId = $"img-{REGULAR_IMAGE.Id}";
+    #endregion
+
+    ////////////////////////////////////////
+    ///*******Create HTML elements*******///
+    ////////////////////////////////////////
+
+    <div class="row" style="border-bottom: 1px solid black">
+        <div class="col-4">
+            <img id="@regularImageId" src="@REGULAR_IMAGE.Url" alt="Regular Image recipe" height="@REGULAR_IMAGE.Height" width="@REGULAR_IMAGE.Width" />
+        </div>
+        <div class="col-8 recipe-right">
+            <div class="recipe-header" id="recipe-author-@AUTHOR_ID">@LABEL</div>
+                
+            <small>Name: @NAME</small>
+        </div>
+        
+    </div>
+
+
 
     ////////////////////////////////////////
     #region Recipe Categories
@@ -16,38 +46,38 @@
     <ul>
         @foreach (var dt in DISH_TYPE)
         {
-                        <li># @dt</li>
+            <li># @dt</li>
         }
         @foreach (var ct in CUISINE_TYPE)
         {
-                        <li># @ct</li>
+            <li># @ct</li>
         }
         @foreach (var mt in MEAL_TYPE)
         {
-                        <li># @mt</li>
+            <li># @mt</li>
         }
     </ul>
     #endregion
 
-     ////////////////////////////////////////
+    ////////////////////////////////////////
     #region Image Objects
     ////////////////////////////////////////
     var IMAGE = Model.Image;
-    var IMAGES = Model.Images;
+    //var IMAGES = Model.Images;
     var IMAGES_ARRAY_ID = IMAGES.Id;
     var SMALL_IMAGE = IMAGES.Small;
-    var REGULAR_IMAGE = IMAGES.Regular;
+    //var REGULAR_IMAGE = IMAGES.Regular;
     var LARGE_IMAGE = IMAGES.Large;
     var THUMBNAIL = IMAGES.Thumbnail;
     var IMAGE_URL = Model.ImageURL;
     ////////////////////////////////////////
     ///*******Create HTML elements*******///
     ////////////////////////////////////////
-    var thumbmailId = $"img-{THUMBNAIL.Id}";
-    <img id="@thumbmailId" src="@THUMBNAIL.Url" alt="Recipe thumbnail" height="@THUMBNAIL.Height" width="@THUMBNAIL.Width" />
+    @*var thumbmailId = $"img-{THUMBNAIL.Id}";
+        <img id="@thumbmailId" src="@THUMBNAIL.Url" alt="Recipe thumbnail" height="@THUMBNAIL.Height" width="@THUMBNAIL.Width" />*@
     #endregion
     // =======================================================//
-   
+
     #region Recipe Body
     ////////////////////////////////////////
     var TOTAL_TIME = Model.TotalTime;
@@ -128,26 +158,26 @@
     var INGREDIENT_LINES = Model.IngredientLines;
     var INSTRUCTIONS = Model.Instructions;
     #endregion
-    }
 
-        <ol>
-    @foreach (var ing in INGREDIENT_LINES)
-    {
-                       <li> @ing</li>
-    }
+
+    <ol>
+        @foreach (var ing in INGREDIENT_LINES)
+        {
+            <li> @ing</li>
+        }
     </ol>
     <ol>
-                <li>@INSTRUCTIONS.ToString()</li>
+        <li>@INSTRUCTIONS.ToString()</li>
     </ol>
     <select>
-    @if (PRODUCT_LIST != null && PRODUCT_LIST.Count > 0)
-    {
-                <option>TODO: Add product lookup for ingredients</option>
-        @foreach (var pro in PRODUCT_LIST)
+        @if (PRODUCT_LIST != null && PRODUCT_LIST.Count > 0)
         {
-                                        <option>@pro</option>
+            <option>TODO: Add product lookup for ingredients</option>
+            @foreach (var pro in PRODUCT_LIST)
+            {
+                <option>@pro</option>
+            }
         }
-    }
 
     </select>
 }

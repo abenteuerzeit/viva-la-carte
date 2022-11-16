@@ -98,22 +98,15 @@
     #endregion
 
    
-    ////////////////////////////////////////
-    #region Recipe Title Data
-    ////////////////////////////////////////
-    var AUTHOR_ID = RECIPE.AuthorId;
-    var LABEL = RECIPE.Label;
-    var NAME = RECIPE.Name;
-    ////////////////////////////////////////
-    ///*******Create HTML elements*******///
-    ////////////////////////////////////////
-    <h3 id="recipe-author-@AUTHOR_ID">@LABEL</h3>
-    <small>Name: @NAME</small>
-    #endregion
+    
 
 
     }
     @{
-    <partial name="_RecipeBody" model="RECIPE" />
-    <partial name="_RecipeNutritionFacts" model="RECIPE" />
-}
+        <div id="main">
+            <div id="recipe-data" class="col-12">
+                <partial name="_RecipeBody" model="RECIPE" />
+                <partial name="_RecipeNutritionFacts" model="RECIPE" />
+            </div>
+        </div>
+    }

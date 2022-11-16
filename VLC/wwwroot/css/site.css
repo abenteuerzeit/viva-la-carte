@@ -472,6 +472,17 @@ nav {
 /*   QUERY SEARCH RESULT PAGE     */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
+section #main {
+    padding-top: 15px;
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    min-width: 600px;
+    max-width: 80%;
+    flex-direction: initial;
+}
+
 .top-line {
     width: 100%;
     left: 0px;
@@ -491,3 +502,28 @@ nav {
             font-size: 12px;
             margin-right: 30px;
         }
+
+#recipe-data {
+    width: 80%;
+    border: 1px solid grey;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 20px black;
+}
+
+    #recipe-data img {
+        padding: 10px;
+    }
+
+.recipe-right {
+    text-align: center;
+}
+
+.recipe-header {
+    padding: 20px 10px 0px 10px;
+    flex-wrap: wrap;
+}
+
+.alert-warning {
+    margin: 10px 0 10px 0;
+}
