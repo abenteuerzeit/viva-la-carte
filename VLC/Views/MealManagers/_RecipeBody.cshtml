@@ -20,6 +20,8 @@
     var i = @ViewData["hit-iterator-value"];
     #endregion
 
+    
+
 
     ////////////////////////////////////////
     ///*******Create HTML elements*******///
@@ -52,6 +54,9 @@
                     </button>
                 }
             </div>
+            @{
+                // <<< RATING BUTTONS >>>
+            }
             <div id="hit-rating-@i" class="row rating-buttons mt-8 ">
                 <ul>
                     @{
@@ -68,19 +73,44 @@
         </div>
         
     </div>
+        // <<< INGREDIENTS AND NUTRIENTS PART >>>
+    var INGREDIENTS = Model.Ingredients;
+    var INGREDIENT_LINES = Model.IngredientLines;
+    var TOTAL_NUTRIENTS = Model.TotalNutrients;
 
+    <div class="d-flex flex-row row col-12">
+        <div class="col-6 ml-5 p-3">
+            
+            <p style="margin-left: 20px;">@INGREDIENTS.Count INGREDIENTS:</p>
+            <ol>
+                @foreach (var ing in INGREDIENTS)
+                {
+                    <li class="p-2"> @ing.Text</li>
+                }
+            </ol>
+        </div>
+        <div class="col-6 p-3">
+            <p style="margin-left: 20px;">@TOTAL_NUTRIENTS.Count NUTRIENTS</p>
+            <ul style="list-style: none;">
+                @foreach (var d in TOTAL_NUTRIENTS)
+                {
+                    <li class="p-2" id="@d.Value.Id">@d.Value.Label : @((int)d.Value.Quantity) @d.Value.Unit</li>
+                }
+            </ul>
+        </div>
 
+    </div>
 
     ////////////////////////////////////////
     #region Recipe Categories
     ////////////////////////////////////////
-    var DISH_TYPE = Model.DishType;
-    var CUISINE_TYPE = Model.CuisineType;
-    var MEAL_TYPE = Model.MealType;
+    //var DISH_TYPE = Model.DishType;
+    //var CUISINE_TYPE = Model.CuisineType;
+    //var MEAL_TYPE = Model.MealType;
     ////////////////////////////////////////
     ///*******Create HTML elements*******///
     ////////////////////////////////////////
-    <ul>
+    @*<ul>
         @foreach (var dt in DISH_TYPE)
         {
             <li># @dt</li>
@@ -93,20 +123,20 @@
         {
             <li># @mt</li>
         }
-    </ul>
-    #endregion
+    </ul>*@
+                        #endregion
 
     ////////////////////////////////////////
     #region Image Objects
     ////////////////////////////////////////
-    var IMAGE = Model.Image;
+    //var IMAGE = Model.Image;
     //var IMAGES = Model.Images;
-    var IMAGES_ARRAY_ID = IMAGES.Id;
-    var SMALL_IMAGE = IMAGES.Small;
+    //var IMAGES_ARRAY_ID = IMAGES.Id;
+    //var SMALL_IMAGE = IMAGES.Small;
     //var REGULAR_IMAGE = IMAGES.Regular;
-    var LARGE_IMAGE = IMAGES.Large;
-    var THUMBNAIL = IMAGES.Thumbnail;
-    var IMAGE_URL = Model.ImageURL;
+    //var LARGE_IMAGE = IMAGES.Large;
+    //var THUMBNAIL = IMAGES.Thumbnail;
+    //var IMAGE_URL = Model.ImageURL;
     ////////////////////////////////////////
     ///*******Create HTML elements*******///
     ////////////////////////////////////////
@@ -124,11 +154,11 @@
     var YIELD = Model.Yield;
     var TOTAL_WEIGHT = Model.TotalWeight;
     //
-    var INGREDIENTS = Model.Ingredients;
+    //var INGREDIENTS = Model.Ingredients;
     ////////////////////////////////////////
     ///*******Create HTML elements*******///
     ////////////////////////////////////////
-    <table class="table">
+    @*<table class="table">
         <tcaption class="caption-top">Times</tcaption>
         <thead>
             <tr class="d-table-row">
@@ -151,9 +181,9 @@
                 <td class="d-sm-table-cell">Number of ingredients: @INGREDIENTS.Count</td>
             </tr>
         </tfoot>
-    </table>
+    </table>*@
     /////////////////////////////////////////
-    <div class="flex-row card flex-sm-wrap">
+    @*<div class="flex-row card flex-sm-wrap">
         @foreach (var ingredient in INGREDIENTS)
         {
             // INGREDIENT OPTIONS
@@ -189,15 +219,15 @@
                 <dd>@INGREDIENT_FOOD_CATEGORY</dd>
             </dl>
         }
-    </div>
-    // Model DETAILS
-    var PRODUCT_LIST = Model.ProductIdList;
-    var INGREDIENT_LINES = Model.IngredientLines;
-    var INSTRUCTIONS = Model.Instructions;
-    #endregion
+    </div>*@
+            // Model DETAILS
+            var PRODUCT_LIST = Model.ProductIdList;
+            //var INGREDIENT_LINES = Model.IngredientLines;
+            var INSTRUCTIONS = Model.Instructions;
+            #endregion
 
 
-    <ol>
+    @*<ol>
         @foreach (var ing in INGREDIENT_LINES)
         {
             <li> @ing</li>
@@ -216,5 +246,5 @@
             }
         }
 
-    </select>
+    </select>*@
 }

@@ -6,10 +6,10 @@
     <dl class="row">
     </dl>
 </div>
-<div>
+@*<div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@
 
 @{
     ////////////////////////////////////////
@@ -41,7 +41,7 @@
     ///*******Create HTML elements*******///
     ////////////////////////////////////////
 
-    <div id="hit-rating-@i">
+    @*<div id="hit-rating-@i">
         <p>@RATING</p>
         <nav id="hit-nav-@i">
            <ul>
@@ -55,8 +55,8 @@
                 }
             }
             </ul>
-        </nav>
-        @{
+        </nav>*@
+        @*@{*@
             // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
             // TODO: Remove from favs in profile settings
             // TODO: https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/cross-site-scripting.md
@@ -71,8 +71,8 @@
            @*<button id="@btnId" class="alert-warning" 
                    onclick='saveToCookbook(
                    @recipeData, @route );toggleAddToCookbookButton(this.id);'>Save to Cookbook</button>*@
-        }
-    </div>
+        @*}*@
+    @*</div>*@
     #endregion
 
 
@@ -101,12 +101,12 @@
     
 
 
-    }
+}
     @{
         <div id="main">
             <div id="recipe-data" class="col-12">
                 <partial name="_RecipeBody" model="RECIPE" />
-                <partial name="_RecipeNutritionFacts" model="RECIPE" />
+                @*<partial name="_RecipeNutritionFacts" model="RECIPE" />*@
             </div>
         </div>
     }

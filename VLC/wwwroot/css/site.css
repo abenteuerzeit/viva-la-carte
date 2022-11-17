@@ -536,8 +536,6 @@ section #main {
     justify-content: space-between;
     width: 100%;
     flex-wrap: wrap;
-    border: 1px solid black;
-    border-radius: 5px;
 }
 
     .rating-buttons ul {
