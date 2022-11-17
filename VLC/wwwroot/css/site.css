@@ -117,12 +117,12 @@ figcaption {
 
 
 /* NAVIGATION BAR */
-nav {
+/*nav {
     display: flex;
     flex-direction: row-reverse;
     flex-wrap: wrap;
     width: 100%;
-}
+}*/
     /*
     nav img {
         height: 100px;
@@ -130,7 +130,7 @@ nav {
         margin: 0.5rem;
     }*/
 
-    nav ul {
+    /*nav ul {
         height: 50px;
         list-style-type: none;
         display: flex;
@@ -169,7 +169,7 @@ nav {
 
                 nav ul li a:link {
                     color: white;
-                }
+                }*/
 
 
 /* Login Page and Registration container */
@@ -524,6 +524,29 @@ section #main {
     flex-wrap: wrap;
 }
 
-.alert-warning {
-    margin: 10px 0 10px 0;
+.save-button {
+    margin: 20px 0px 40px 0px;
 }
+
+.rating-buttons {
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+    .rating-buttons ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 10px;
+    }
+
+    .rating-buttons li {
+        align-self: center;
+        display: inline;
+    }

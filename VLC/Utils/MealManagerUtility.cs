@@ -20,6 +20,11 @@ namespace VLC.Utils
         Weight Change Rate: double Lose X kgs per week
          
          */
+        public enum Difficulty
+        {
+            easy, normal, hard
+        }
+
         public enum Rating
         {
             none, reject, dislike, like, love, favorite

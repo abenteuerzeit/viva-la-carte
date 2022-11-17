@@ -1,6 +1,6 @@
 ﻿@model VLC.Models.Recipes.Recipe
 
-<h1>Recipe Body Partial</h1>
+
 @{
     ////////////////////////////////////////
     #region Recipe Title Data
@@ -25,15 +25,14 @@
     ///*******Create HTML elements*******///
     ////////////////////////////////////////
 
-    <div class="row" style="border-bottom: 1px solid black">
-        <div class="col-4">
+    <div class="d-flex" style="border-bottom: 1px solid black">
+        <div class="flex-shrink-0">
             <img id="@regularImageId" src="@REGULAR_IMAGE.Url" alt="Regular Image recipe" height="@REGULAR_IMAGE.Height" width="@REGULAR_IMAGE.Width" />
         </div>
-        <div class="col-8 recipe-right">
+        <div class="recipe-right flex-grow-1 ms-3 position-relative">
             <div class="recipe-header" id="recipe-author-@AUTHOR_ID">@LABEL</div>
                 
-            <small>Name: @NAME</small>
-            <div>
+            <div class="align-items-center">
                 @{
                     // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
                     // TODO: Remove from favs in profile settings
@@ -46,12 +45,25 @@
                     var route = Json.Serialize(Url.Action("SaveToCookbook", "Recipes"));
                     var recipeData = Json.Serialize(Model);
                     //=====================================//
-                    <button id="@btnId" class="alert-warning"
+                    <button id="@btnId" class="btn btn-success p-2 save-button"
                             onclick='saveToCookbook(
                    @recipeData, @route );toggleAddToCookbookButton(this.id);'>
                         Save to Cookbook
                     </button>
                 }
+            </div>
+            <div id="hit-rating-@i" class="row rating-buttons mt-8 ">
+                <ul>
+                    @{
+                    var ratings = Enum.GetValues(typeof(VLC.Utils.MealManagerUtility.Rating));
+                    foreach (var rating in ratings)
+                    {
+                        <li>
+                            <button id="@rating" onclick="alert('TODO: Implement rating feature')">@rating</button>
+                        </li>
+                    }
+                    }
+                </ul>
             </div>
         </div>
         
