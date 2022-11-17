@@ -3,65 +3,84 @@
 @{
     ViewData["Title"] = "Viva La Carte!";
 }
+    <main>
 
-    <header>
-        <h1>Custom Meal Plans</h1>
-    </header>
-
-    <main class="card">
-    @*
-    The <main> HTML element represents the dominant content of the <body> of a document. 
-    The main content area consists of content that is directly related to or expands upon the central topic of a document, or the central functionality of an application.
-    Examples include: a forum post, a magazine or newspaper article, or a blog entry, a product card, a user-submitted comment, an interactive widget or gadget, or any other independent item of content.
-    *@
-        <article class="card-body">
-        @*
-        The <article> HTML element represents a self-contained composition in a document, page, application, or site, which is intended to be independently distributable or reusable (e.g., in syndication). 
-        Examples include: a forum post, a magazine or newspaper article, or a blog entry, a product card, a user-submitted comment, an interactive widget or gadget, or any other independent item of content.
-        *@        
-        <section id="hook">
-
-            <h2 class="card-title">Meet the future of grocery shoppping</h2>
-        <p>
-            Reach nutrition goals for free with our smart specialist meal plans.
-            Now, you can do your groceries fast, and track your health and diet automatically.
-
-        </p>
-        </section>
-        <section id="sales-pitch">
-            <h2>Make positive food choices tailored to your nutrional goals</h2>
-            <p> 
-                Our meal manager helps you create a custom food list that meet specified nutritional needs. 
-                Dieticians can use this tool to making a meal plan to help people with special dietary needs,
-                such as <em>diabetes</em>, <em>allergies</em>, or other <em>food sensitivies</em>.
-            </p>
-            <h2> Your personal dietician and grocery shopper </h2>
-            <p>
-                Our awesome algorithm takes into account your specific nutritional requirements,
-                unlike <strong>EatThisMuch</strong> or <strong>Custom Meal Planner</strong>. 
-
-                <h3>What our generated list of meals includes: </h3>
-                <ul>
-                    <li>Food rating from less to more healthy</li>
-                    <li>Generate customizable plans based on the number of calories, how many meals, and macronutrient (protein, carbs, and fat) targets</li>
-                    <li>Generate customizable plans based on the BMR (Basal Metabolic Rate) and activity levels, diet type, and goal</li>
-                    <li>Meet certain diet types like paleo, vegan, or keto</li>
-                    <li><strong>Take into account the different macros, micros and vitamins and mineral requirements needed to be healthy</strong></li>
-                    <li><strong>Limit or increase the micronutrient makeup of the meals</strong></li>
-                </ul>
-            </p>
-        </section>
-        </article>
-        <aside>
-        <h2>Find something to eat</h2>
-        <div class="input-group" id="development">
-            <form class="form-container" asp-action="SearchRecipesByQuery" asp-controller="MealManagers" method="get">
-                <label class="label" id="searchlabel" for="query">Find recipes</label>
-                <input class="input-group-text" id="query" name="query" type="text" placeholder="Enter search phrase" value="scrambled eggs" />
-                <input class="btn" type="submit" value="Fetch Api" />
-            </form>
+        <div class="container h-100">
+            <aside class="card w-100 m-lg-1 row h-100 justify-content-center align-items-center">
+                <div class="card-header">
+                    <h3>Look up recipes</h3>
+                </div>
+                <form id="recipe-search" class="card-body input-group form-container form p-4 m-4 flex-nowrap" asp-action="SearchRecipesByQuery" asp-controller="MealManagers" method="get">
+                    <label class="col-form-label p-2" id="query-label" for="query">
+                        What do you want to eat? 
+                    </label>
+                    <input class="input-group-text form-control" id="query" name="query" type="text" placeholder="Enter search phrase" value="scrambled eggs" />
+                    <input class="btn btn-secondary" type="submit" value="Search" />
+                </form>
+            </aside>
         </div>
-        </aside>
+
+        <article class="card-deck d-flex m-2 p-lg-2">
+
+            <section id="hook" class="card m-2 p-lg-2 w-100">
+                <div class="card-body">
+                    <h2 class="card-title">
+                        Meet the future of grocery shoppping
+                    </h2>
+                    <p class="lead card-text">
+                        Reach nutrition goals for free with our smart specialist meal plans.
+                        Now, you can do your groceries fast, and track your health and diet automatically.
+                    </p>
+                </div>
+            </section>
+
+            <section id="sales-pitch" class="card m-2 p-lg-2 w-100">
+                <div class="card-body">
+                    <h2 class="card-title">
+                        Make positive food choices tailored to your nutrional goals
+                    </h2>
+                    <p class="lead">  
+                        Our meal manager helps you create a custom food list that meet specified nutritional needs. 
+                        Dieticians can use this tool to making a meal plan to help people with special dietary needs,
+                        such as <em>diabetes</em>, <em>allergies</em>, or other <em>food sensitivies</em>.
+                    </p>
+                </div>
+            </section>
+
+            <section id="description" class="card m-2 p-lg-2 w-100">
+                <div class="card-body">
+                    <h2 class="card-title"> 
+                    Your personal dietician & grocery shopper
+                </h2>
+                    <p class="lead">
+                        Our awesome algorithm takes into account your specific nutritional requirements,
+                        unlike <strong>EatThisMuch</strong> or <strong>Custom Meal Planner</strong>. 
+                    </p>
+                    <p clas="lead">
+                        Account for nutrient deficiencies or excesses to acheive better health outcomes.
+                        For example, a nursing mother will require a different set of nutrients than a pregnant mother. 
+                    </p>
+                </div>
+            </section>
+        </article>
+
+        <article class="m-2 p-lg-2">
+            <section id="benefits">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Features
+                    </h3>
+                    <ul class="list-group list-group-flush p-1 m-1">
+                        <li class="list-group-item p-1 m-1">View food ratings from less to more healthy</li>
+                        <li class="list-group-item p-1 m-1">Generate customizable plans based on the number of calories, how many meals, and macronutrient (protein, carbs, and fat) targets</li>
+                        <li class="list-group-item p-1 m-1">Generate customizable plans based on the BMR (Basal Metabolic Rate) and activity levels, diet type, and goal</li>
+                        <li class="list-group-item p-1 m-1">Meet certain diet types like paleo, vegan, or keto</li>
+                        <li class="list-group-item p-1 m-1"><strong>Take into account the different macros, micros and vitamins and mineral requirements needed to be healthy</strong></li>
+                        <li class="list-group-item p-1 m-1"><strong>Limit or increase the micronutrient makeup of the meals</strong></li>
+                    </ul>
+                </div>
+            </section>
+        </article>
     </main>
 
 
