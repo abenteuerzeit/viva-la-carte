@@ -18,9 +18,13 @@ html, body {
     margin: 0;
 }
 
-header {
+.container-fluid {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
+}
+
+#logo:hover {
+    transform: scale(1.1);
 }
 
 footer {
@@ -149,26 +153,26 @@ nav {
         }
 
             nav ul li:hover {
-/*                background-color: var(--light-green-hue);
-*/                border-top: 5px groove var(--light-green-hue);
-                  transform: translateY(0.5em);
+                /*                background-color: var(--light-green-hue);
+*/ border-top: 5px groove var(--light-green-hue);
+                transform: translateY(0.5em);
             }
 
             nav ul li a:hover {
                 color: white;
             }
 
-                nav ul li a:active {
-                    color: red;
-                }
+            nav ul li a:active {
+                color: red;
+            }
 
-                nav ul li a:visited {
-                    color: sandybrown;
-                }
+            nav ul li a:visited {
+                color: sandybrown;
+            }
 
-                nav ul li a:link {
-                    color: white;
-                }
+            nav ul li a:link {
+                color: white;
+            }
 
 
 /* Login Page and Registration container */
@@ -506,4 +510,3 @@ nav {
         font-weight: bold;
     }
 }
- 

@@ -6,7 +6,7 @@
     <main>
 
         <div class="container h-100">
-            <aside class="card w-100 m-lg-1 row h-100 justify-content-center align-items-center">
+            <aside class="card w-100 m-lg-1 row h-100 justify-content-center align-items-center shadow">
                 <div class="card-header">
                     <h3>Look up recipes</h3>
                 </div>
@@ -15,14 +15,14 @@
                         What do you want to eat? 
                     </label>
                     <input class="input-group-text form-control" id="query" name="query" type="text" placeholder="Enter search phrase" value="scrambled eggs" />
-                    <input class="btn btn-secondary" type="submit" value="Search" />
+                    <input class="btn btn-success" type="submit" value="Search" />
                 </form>
             </aside>
         </div>
 
-    <article id="welcome" class="card-deck d-flex m-2 p-lg-2">
+    <article id="welcome" class="card-deck d-flex m-2 p-lg-2 shadow">
 
-            <section id="hook" class="card m-2 p-lg-2 w-100">
+        <section id="hook" class="card m-2 p-lg-2 w-100 border-success">
                 <div class="card-body">
                     <h2 class="card-title">
                         Meet the future of grocery shoppping
@@ -34,7 +34,7 @@
                 </div>
             </section>
 
-            <section id="sales-pitch" class="card m-2 p-lg-2 w-100">
+        <section id="sales-pitch" class="card m-2 p-lg-2 w-100 border-success">
                 <div class="card-body">
                     <h2 class="card-title">
                         Make positive food choices tailored to your nutrional goals
@@ -47,7 +47,7 @@
                 </div>
             </section>
 
-            <section id="description" class="card m-2 p-lg-2 w-100">
+        <section id="description" class="card m-2 p-lg-2 w-100 border-success">
                 <div class="card-body">
                     <h2 class="card-title"> 
                     Your personal dietician & grocery shopper
@@ -65,7 +65,7 @@
         </article>
 
         <article class="m-2 p-lg-2">
-            <section id="benefits">
+            <section class="card border-0 shadow" id="benefits">
                 <div class="card-body">
                     <h3 class="card-title">
                         Features
@@ -82,6 +82,9 @@
             </section>
         </article>
     </main>
+    <div id="bottom-seperator" style="height: 5em;">
+
+    </div>
     <script>
     window.addEventListener("resize", function () {
         if (window.innerWidth < 1000) {
