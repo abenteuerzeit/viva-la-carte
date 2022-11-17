@@ -20,7 +20,7 @@
             </aside>
         </div>
 
-        <article class="card-deck d-flex m-2 p-lg-2">
+    <article id="welcome" class="card-deck d-flex m-2 p-lg-2">
 
             <section id="hook" class="card m-2 p-lg-2 w-100">
                 <div class="card-body">
@@ -82,5 +82,15 @@
             </section>
         </article>
     </main>
+    <script>
+    window.addEventListener("resize", function () {
+        if (window.innerWidth < 1000) {
+            document.getElementById('welcome').classList.remove('d-flex');
+            document.getElementsByTagName('aside')[0].hidden = true;
+        } else {
+            document.getElementById('welcome').classList.add('d-flex'); document.getElementsByTagName('aside')[0].hidden = false;
 
+        }
+    });
+    </script>
 

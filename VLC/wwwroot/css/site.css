@@ -21,7 +21,6 @@ html, body {
 header {
     display: flex;
     flex-direction: row-reverse;
-    /*border-bottom: 2px dashed var(--red-hue);*/
 }
 
 footer {
@@ -116,6 +115,11 @@ figcaption {
 }
 
 
+.section {
+    flex-wrap: wrap;
+}
+
+
 /* NAVIGATION BAR */
 nav {
     display: flex;
@@ -123,12 +127,6 @@ nav {
     flex-wrap: wrap;
     width: 100%;
 }
-    /*
-    nav img {
-        height: 100px;
-        border-radius: 50%;
-        margin: 0.5rem;
-    }*/
 
     nav ul {
         height: 50px;
@@ -136,27 +134,28 @@ nav {
         display: flex;
         flex-direction: row;
         align-items: center;
+        align-content: center;
         flex-grow: 1;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         margin: auto;
         padding: 0.5em;
-        background-color: darkgreen;
     }
 
         nav ul li {
             padding: 0.5em;
             flex-grow: inherit;
-            text-transform: uppercase;
             align-self: center;
-            border-radius: 15px;
+            text-align: center;
         }
 
-            nav ul li a:hover {
-                text-decoration: overline solid red 2px;
+            nav ul li:hover {
+/*                background-color: var(--light-green-hue);
+*/                border-top: 5px groove var(--light-green-hue);
+                  transform: translateY(0.5em);
             }
 
-            nav ul li a {
-                text-decoration: none;
+            nav ul li a:hover {
+                color: white;
             }
 
                 nav ul li a:active {
@@ -467,3 +466,44 @@ nav {
     margin-bottom: 10px;
     font-size: small;
 }
+
+
+@media (max-width: 576px) {
+    .xs {
+        color: red;
+        font-weight: bold;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width:768px) {
+    .sm {
+        color: red;
+        font-weight: bold;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) and (max-width:992px) {
+    .md {
+        color: red;
+        font-weight: bold;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width:1200px) {
+    .lg {
+        color: red;
+        font-weight: bold;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .xl {
+        color: red;
+        font-weight: bold;
+    }
+}
+ 
