@@ -16,6 +16,11 @@
     var regularImageId = $"img-{REGULAR_IMAGE.Id}";
     #endregion
 
+    #region Hidden From Client
+    var i = @ViewData["hit-iterator-value"];
+    #endregion
+
+
     ////////////////////////////////////////
     ///*******Create HTML elements*******///
     ////////////////////////////////////////
@@ -28,6 +33,26 @@
             <div class="recipe-header" id="recipe-author-@AUTHOR_ID">@LABEL</div>
                 
             <small>Name: @NAME</small>
+            <div>
+                @{
+                    // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
+                    // TODO: Remove from favs in profile settings
+                    // TODO: https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/cross-site-scripting.md
+                    // var fixJsonXssVulnerability = new JsonSerializerSettings { StringEscapeHandling = StringEscapeHandling.EscapeHtml };
+                    // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ||
+
+                    // <<< SAVE TO COOKBOOK BUTTON DATA >>> //
+                    var btnId = $"btn-fav-{i}";
+                    var route = Json.Serialize(Url.Action("SaveToCookbook", "Recipes"));
+                    var recipeData = Json.Serialize(Model);
+                    //=====================================//
+                    <button id="@btnId" class="alert-warning"
+                            onclick='saveToCookbook(
+                   @recipeData, @route );toggleAddToCookbookButton(this.id);'>
+                        Save to Cookbook
+                    </button>
+                }
+            </div>
         </div>
         
     </div>
