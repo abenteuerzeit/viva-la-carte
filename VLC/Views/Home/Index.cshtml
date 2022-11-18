@@ -6,11 +6,11 @@
     <main>
 
         <div class="container h-100">
-            <aside class="card w-100 m-lg-1 row h-100 justify-content-center align-items-center shadow">
+            <aside class="card row h-100 justify-content-center align-items-center shadow">
                 <div class="card-header">
-                    <h3>Look up recipes</h3>
+                    <h4>Look up recipes</h4>
                 </div>
-                <form id="recipe-search" class="card-body input-group form-container form p-4 m-4 flex-nowrap" asp-action="SearchRecipesByQuery" asp-controller="MealManagers" method="get">
+                <form id="recipe-search" class="card-body input-group form-container form flex-nowrap" asp-action="SearchRecipesByQuery" asp-controller="MealManagers" method="get">
                     <label class="col-form-label p-2" id="query-label" for="query">
                         What do you want to eat? 
                     </label>
@@ -20,26 +20,26 @@
             </aside>
         </div>
 
-    <article id="welcome" class="card-deck d-flex m-2 p-lg-2 shadow">
+    <article id="welcome" class="card-deck d-flex shadow">
 
-        <section id="hook" class="card m-2 p-lg-2 w-100 border-success">
+        <section id="hook" class="card border-success">
                 <div class="card-body">
-                    <h2 class="card-title">
+                    <h4 class="card-title">
                         Meet the future of grocery shoppping
-                    </h2>
-                    <p class="lead card-text">
+                    </h4>
+                    <p class="card-text">
                         Reach nutrition goals for free with our smart specialist meal plans.
                         Now, you can do your groceries fast, and track your health and diet automatically.
                     </p>
                 </div>
             </section>
 
-        <section id="sales-pitch" class="card m-2 p-lg-2 w-100 border-success">
+        <section id="sales-pitch" class="card border-success">
                 <div class="card-body">
-                    <h2 class="card-title">
+                    <h4 class="card-title">
                         Make positive food choices tailored to your nutrional goals
-                    </h2>
-                    <p class="lead">  
+                    </h4>
+                    <p class="card-text">  
                         Our meal manager helps you create a custom food list that meet specified nutritional needs. 
                         Dieticians can use this tool to making a meal plan to help people with special dietary needs,
                         such as <em>diabetes</em>, <em>allergies</em>, or other <em>food sensitivies</em>.
@@ -47,16 +47,15 @@
                 </div>
             </section>
 
-        <section id="description" class="card m-2 p-lg-2 w-100 border-success">
+        <section id="description" class="card border-success">
                 <div class="card-body">
-                    <h2 class="card-title"> 
+                    <h4 class="card-title"> 
                     Your personal dietician & grocery shopper
-                </h2>
-                    <p class="lead">
+                    </h4>
+                    <p class="card-text">
                         Our awesome algorithm takes into account your specific nutritional requirements,
                         unlike <strong>EatThisMuch</strong> or <strong>Custom Meal Planner</strong>. 
-                    </p>
-                    <p clas="lead">
+
                         Account for nutrient deficiencies or excesses to acheive better health outcomes.
                         For example, a nursing mother will require a different set of nutrients than a pregnant mother. 
                     </p>
@@ -64,19 +63,19 @@
             </section>
         </article>
 
-        <article class="m-2 p-lg-2">
+        <article class="card-group">
             <section class="card border-0 shadow" id="benefits">
                 <div class="card-body">
                     <h3 class="card-title">
                         Features
                     </h3>
-                    <ul class="list-group list-group-flush p-1 m-1">
-                        <li class="list-group-item p-1 m-1">View food ratings from less to more healthy</li>
-                        <li class="list-group-item p-1 m-1">Generate customizable plans based on the number of calories, how many meals, and macronutrient (protein, carbs, and fat) targets</li>
-                        <li class="list-group-item p-1 m-1">Generate customizable plans based on the BMR (Basal Metabolic Rate) and activity levels, diet type, and goal</li>
-                        <li class="list-group-item p-1 m-1">Meet certain diet types like paleo, vegan, or keto</li>
-                        <li class="list-group-item p-1 m-1"><strong>Take into account the different macros, micros and vitamins and mineral requirements needed to be healthy</strong></li>
-                        <li class="list-group-item p-1 m-1"><strong>Limit or increase the micronutrient makeup of the meals</strong></li>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item ">View food ratings from less to more healthy</li>
+                        <li class="list-group-item">Generate customizable plans based on the number of calories, how many meals, and macronutrient (protein, carbs, and fat) targets</li>
+                        <li class="list-group-item ">Generate customizable plans based on the BMR (Basal Metabolic Rate) and activity levels, diet type, and goal</li>
+                        <li class="list-group-item ">Meet certain diet types like paleo, vegan, or keto</li>
+                        <li class="list-group-item "><strong>Take into account the different macros, micros and vitamins and mineral requirements needed to be healthy</strong></li>
+                        <li class="list-group-item "><strong>Limit or increase the micronutrient makeup of the meals</strong></li>
                     </ul>
                 </div>
             </section>

@@ -27,6 +27,23 @@ html, body {
     transform: scale(1.1);
 }
 
+.card-deck {
+    margin: 3em;
+    padding: 1em;
+    align-items: stretch;
+    align-content: space-between;
+    min-width: 80%;
+}
+
+
+.card {
+    margin: 1em;
+    padding: 2em;
+}
+
+main {
+    margin-top: 4em;
+}
 footer {
     position: fixed;
     left: 0;
