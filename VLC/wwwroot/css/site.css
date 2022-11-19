@@ -6,6 +6,7 @@
     --brown-hue: #a4561d;
     --light-green-hue: #52882e;
     --green-hue: #00ba3f;
+    --font-size: 16px;
 }
 
 html, body {
@@ -150,14 +151,22 @@ figcaption {
 
 
 /* NAVIGATION BAR */
-nav {
+/*nav {
     display: flex;
     flex-direction: row-reverse;
     flex-wrap: wrap;
     width: 100%;
-}
 
-    nav ul {
+}*/
+/*
+    nav img {
+        height: 100px;
+        border-radius: 50%;
+        margin: 0.5rem;
+    }*/
+
+
+/*nav ul {
         height: 50px;
         list-style-type: none;
         display: flex;
@@ -195,9 +204,10 @@ nav {
                 color: sandybrown;
             }
 
-            nav ul li a:link {
-                color: white;
-            }
+                nav ul li a:link {
+                    color: white;
+                }*/
+
 
 
 /* Login Page and Registration container */
@@ -497,6 +507,150 @@ nav {
 }
 
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*   QUERY SEARCH RESULT PAGE     */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+section #main {
+    padding-top: 15px;
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    min-width: 600px;
+    max-width: 80%;
+    flex-direction: initial;
+}
+
+.top-line {
+    width: 100%;
+    left: 0px;
+    top: 51px;
+    border-top: 1px solid #FFF;
+    border-bottom: 1px solid #FFF;
+}
+
+    .top-line .inner {
+        height: auto;
+        border-bottom: 1px solid #D9D9D9;
+        background: url(https://www.edamam.com/images/pattern-bgr-site.jpg) repeat center center;
+    }
+
+        .top-line .inner dl {
+            text-align: right;
+            font-size: 12px;
+            margin-right: 30px;
+        }
+
+#recipe-data {
+    width: 90%;
+    border: 1px solid grey;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 20px black;
+}
+
+    #recipe-data img {
+        padding: 10px;
+    }
+
+.recipe-right {
+    text-align: center;
+}
+
+.recipe-header {
+    padding: 20px 10px 0px 10px;
+    flex-wrap: wrap;
+}
+
+.save-button {
+    margin-left: 70px;
+}
+
+.rating-buttons {
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+    .rating-buttons ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 10px;
+    }
+
+    .rating-buttons li {
+        align-self: center;
+        display: inline;
+    }
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*   QUERY SEARCH RECIPE HEADER NUTRITION   */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.recipe-nutrition {
+    margin-top: 0;
+    border-top: 1px solid #cbc0aa;
+}
+
+    .recipe-nutrition ul {
+        width: 100%;
+        float: left;
+        clear: both;
+    }
+
+        .recipe-nutrition ul li {
+            margin: 0 !important;
+            display: inline-block;
+            float: left;
+        }
+
+            .recipe-nutrition ul li .nutrients-inner {
+                padding: 6px;
+                display: flex;
+                flex-direction: column;
+                border-radius: 2px;
+                border: 1px solid #1e282f;
+                text-align: center;
+                width: 70px;
+                cursor: pointer;
+            }
+
+            .recipe-nutrition ul li .title {
+                font-size: 12px;
+            }
+
+            .recipe-nutrition ul li .top {
+                font-size: var(--font-size);
+                border-bottom: 1px solid #dcdcdc;
+            }
+
+            .recipe-nutrition ul li .bottom {
+                font-size: var(--font-size);
+            }
+
+            .recipe-nutrition ul li .span {
+                padding-bottom: 6px;
+                line-height: 1;
+            }
+
+        .per-serving {
+            font-size: 12px;
+            line-height: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding-right: 15px;
+        }
+
+.nutrients {
+    display: block;
+    min-height: auto;
+}
+
 @media (max-width: 576px) {
     .xs {
         color: red;
@@ -535,3 +689,5 @@ nav {
         font-weight: bold;
     }
 }
+
+
