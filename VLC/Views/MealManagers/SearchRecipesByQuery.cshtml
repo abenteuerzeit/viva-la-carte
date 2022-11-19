@@ -2,53 +2,12 @@
 
 @{
     ViewData["Title"] = "SearchRecipesByQuery";
-
-    // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ||
-    // TODO: build(SearchRecipesView): change regions to partials. (Refactor page so that it loads partials in place of each region).||
-    // TODO: build(HTML):redesign layout. (Remarkup the semantic HTML with appropraite sections for the page's design).              ||
-    // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ||
-
-    <div>
-        <a asp-action="Index">Meal Managers</a>
-    </div>
-
-    var ALL_DATA_JS = Json.Serialize(Model).ToString();
+}
     <section>
         <partial name="_RecipeSearchPageNav" model="Model" />
         @for(int i=0; i<Model.HitsList.Count; i++)
-                                             //hit in Model.HitsList)
-                                             {
-                                             ViewData["hit-iterator-value"]=i;
-                                             //<partial name="_Hit" model="hit" />
+        {
+            ViewData["hit-iterator-value"] = i;
             @await Html.PartialAsync("_Hit.cshtml", Model.HitsList[i]);
         }
     </section>
-
-    <h1>SearchRecipesByQuery</h1>
-
-    <div>
-        <h4>Hits</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.From)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.From)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.To)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.To)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Count)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Count)
-            </dd>
-        </dl>
-    </div>
-
-}
