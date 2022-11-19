@@ -20,63 +20,131 @@
     var i = @ViewData["hit-iterator-value"];
     #endregion
 
-    
+    var INGREDIENTS = Model.Ingredients;
+    var INGREDIENT_LINES = Model.IngredientLines;
+    var TOTAL_NUTRIENTS = Model.TotalNutrients;
+    //var TOTAL_DAILY_KCAL = Model.TotalDaily["ENERC_KCAL"];
+
+
 
 
     ////////////////////////////////////////
     ///*******Create HTML elements*******///
     ////////////////////////////////////////
 
+    <!-- <<< HEADER ROW >>> -->
     <div class="d-flex" style="border-bottom: 1px solid black">
+        <!-- <<< LEFT SIDE OF RECIPE >>> - IMAGE -->
         <div class="flex-shrink-0">
             <img id="@regularImageId" src="@REGULAR_IMAGE.Url" alt="Regular Image recipe" height="@REGULAR_IMAGE.Height" width="@REGULAR_IMAGE.Width" />
         </div>
+        <!-- RIGHT SIDE OF RECIPE - HEADER -->
         <div class="recipe-right flex-grow-1 ms-3 position-relative">
             <div class="recipe-header" id="recipe-author-@AUTHOR_ID">@LABEL</div>
-                
-            <div class="align-items-center">
-                @{
-                    // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
-                    // TODO: Remove from favs in profile settings
-                    // TODO: https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/cross-site-scripting.md
-                    // var fixJsonXssVulnerability = new JsonSerializerSettings { StringEscapeHandling = StringEscapeHandling.EscapeHtml };
-                    // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ||
 
-                    // <<< SAVE TO COOKBOOK BUTTON DATA >>> //
-                    var btnId = $"btn-fav-{i}";
-                    var route = Json.Serialize(Url.Action("SaveToCookbook", "Recipes"));
-                    var recipeData = Json.Serialize(Model);
-                    //=====================================//
-                    <button id="@btnId" class="btn btn-success p-2 save-button"
-                            onclick='saveToCookbook(
-                   @recipeData, @route );toggleAddToCookbookButton(this.id);'>
-                        Save to Cookbook
-                    </button>
-                }
+
+            <div class="recipe-nutrition">
+                <h6 class="per-serving">NUTRITION PER SERVING</h6>
+                <div class="nutrients">
+                    <ul>
+                        <li class="no-weight" title="calories">
+                            <div class="nutrients-inner">
+                                <span class="title">Calories</span>
+                                <span class="top">@((int)Model.Calories)</span>
+                                <span class="bottom">@((int)Model.TotalDaily["ENERC_KCAL"].Quantity) %</span>
+                                
+                            </div>
+                        </li>
+                        <li class="no-weight" title="fat">
+                            <div class="nutrients-inner">
+                                <span class="title">Fat</span>
+                                <span class="top">15 g</span>
+                                <span class="bottom">12 %</span>
+                            </div>
+                        </li>
+                        <li class="no-weight" title="Saturates">
+                            <div class="nutrients-inner">
+                                <span class="title">Saturates</span>
+                                <span class="top">71 g</span>
+                                <span class="bottom">15 %</span>
+                            </div>
+                        </li>
+                        <li class="no-weight" title="Sugars">
+                            <div class="nutrients-inner">
+                                <span class="title">Sugars</span>
+                                <span class="top">12 g</span>
+                                <span class="bottom">10 %</span>
+                            </div>
+                        </li>
+                        <li class="no-weight" title="Salt">
+                            <div class="nutrients-inner">
+                                <span class="title">Salt</span>
+                                <span class="top">12 g</span>
+                                <span class="bottom">10 %</span>
+                            </div>
+                        </li>
+                        <li class="no-weight" title="Protein">
+                            <div class="nutrients-inner">
+                                <span class="title">Protein</span>
+                                <span class="top">12 g</span>
+                                <span class="bottom">10 %</span>
+                            </div>
+                        </li>
+                        <li class="no-weight" title="Carbs">
+                            <div class="nutrients-inner">
+                                <span class="title">Carbs</span>
+                                <span class="top">12 g</span>
+                                <span class="bottom">10 %</span>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
             </div>
-            @{
-                // <<< RATING BUTTONS >>>
-            }
+
+            <!-- <<< RATING BUTTONS >>> -->
+
             <div id="hit-rating-@i" class="row rating-buttons mt-8 ">
                 <ul>
                     @{
-                    var ratings = Enum.GetValues(typeof(VLC.Utils.MealManagerUtility.Rating));
-                    foreach (var rating in ratings)
-                    {
-                        <li>
-                            <button id="@rating" onclick="alert('TODO: Implement rating feature')">@rating</button>
-                        </li>
-                    }
+                        var ratings = Enum.GetValues(typeof(VLC.Utils.MealManagerUtility.Rating));
+                        foreach (var rating in ratings)
+                        {
+                            <li>
+                                <button id="@rating" onclick="alert('TODO: Implement rating feature')">@rating</button>
+                            </li>
+                        }
                     }
                 </ul>
             </div>
         </div>
         
     </div>
+    <div class="d-flex" style="50px;">
+        <!-- BUTTON SAVE TO COOKBOOK -->
+        <div class="m-2">
+            @{
+                // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
+                // TODO: Remove from favs in profile settings
+                // TODO: https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/cross-site-scripting.md
+                // var fixJsonXssVulnerability = new JsonSerializerSettings { StringEscapeHandling = StringEscapeHandling.EscapeHtml };
+                // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ||
+
+                // <<< SAVE TO COOKBOOK BUTTON DATA >>> //
+                var btnId = $"btn-fav-{i}";
+                var route = Json.Serialize(Url.Action("SaveToCookbook", "Recipes"));
+                var recipeData = Json.Serialize(Model);
+                //=====================================//
+                <button id="@btnId" class="btn btn-success p-2 save-button position-relative float-left"
+                        onclick='saveToCookbook(
+                   @recipeData, @route );toggleAddToCookbookButton(this.id);'>
+                    Save to Cookbook
+                </button>
+            }
+        </div>
+    </div>
         // <<< INGREDIENTS AND NUTRIENTS PART >>>
-    var INGREDIENTS = Model.Ingredients;
-    var INGREDIENT_LINES = Model.IngredientLines;
-    var TOTAL_NUTRIENTS = Model.TotalNutrients;
 
     <div class="d-flex flex-row row col-12">
         <div class="col-6 ml-5 p-3">

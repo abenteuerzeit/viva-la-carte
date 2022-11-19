@@ -6,6 +6,7 @@
     --brown-hue: #a4561d;
     --light-green-hue: #52882e;
     --green-hue: #00ba3f;
+    --font-size: 16px;
 }
 
 html, body {
@@ -123,14 +124,14 @@ figcaption {
     flex-wrap: wrap;
     width: 100%;
 }*/
-    /*
+/*
     nav img {
         height: 100px;
         border-radius: 50%;
         margin: 0.5rem;
     }*/
 
-    /*nav ul {
+/*nav ul {
         height: 50px;
         list-style-type: none;
         display: flex;
@@ -435,23 +436,23 @@ figcaption {
     margin-bottom: 8px;
 }
 
-.simple-form .input-label-postal-city .input-fields-postal {
-    width: 30%;
-    padding: 10px;
-    font-size: 16px;
-    font-family: inherit;
-    border-radius: 4px;
-    border: 1px solid black;
-}
+    .simple-form .input-label-postal-city .input-fields-postal {
+        width: 30%;
+        padding: 10px;
+        font-size: 16px;
+        font-family: inherit;
+        border-radius: 4px;
+        border: 1px solid black;
+    }
 
-.simple-form .input-label-postal-city .input-fields-city {
-    width: 70%;
-    padding: 10px;
-    font-size: 16px;
-    font-family: inherit;
-    border-radius: 4px;
-    border: 1px solid black;
-}
+    .simple-form .input-label-postal-city .input-fields-city {
+        width: 70%;
+        padding: 10px;
+        font-size: 16px;
+        font-family: inherit;
+        border-radius: 4px;
+        border: 1px solid black;
+    }
 
 .simple-form .select-country {
     border-radius: 4px;
@@ -504,7 +505,7 @@ section #main {
         }
 
 #recipe-data {
-    width: 80%;
+    width: 90%;
     border: 1px solid grey;
     display: flex;
     flex-direction: column;
@@ -525,7 +526,7 @@ section #main {
 }
 
 .save-button {
-    margin: 20px 0px 40px 0px;
+    margin-left: 70px;
 }
 
 .rating-buttons {
@@ -548,3 +549,66 @@ section #main {
         align-self: center;
         display: inline;
     }
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*   QUERY SEARCH RECIPE HEADER NUTRITION   */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.recipe-nutrition {
+    margin-top: 0;
+    border-top: 1px solid #cbc0aa;
+}
+
+    .recipe-nutrition ul {
+        width: 100%;
+        float: left;
+        clear: both;
+    }
+
+        .recipe-nutrition ul li {
+            margin: 0 !important;
+            display: inline-block;
+            float: left;
+        }
+
+            .recipe-nutrition ul li .nutrients-inner {
+                padding: 6px;
+                display: flex;
+                flex-direction: column;
+                border-radius: 2px;
+                border: 1px solid #1e282f;
+                text-align: center;
+                width: 70px;
+                cursor: pointer;
+            }
+
+            .recipe-nutrition ul li .title {
+                font-size: 12px;
+            }
+
+            .recipe-nutrition ul li .top {
+                font-size: var(--font-size);
+                border-bottom: 1px solid #dcdcdc;
+            }
+
+            .recipe-nutrition ul li .bottom {
+                font-size: var(--font-size);
+            }
+
+            .recipe-nutrition ul li .span {
+                padding-bottom: 6px;
+                line-height: 1;
+            }
+
+        .per-serving {
+            font-size: 12px;
+            line-height: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding-right: 15px;
+        }
+
+.nutrients {
+    display: block;
+    min-height: auto;
+}
