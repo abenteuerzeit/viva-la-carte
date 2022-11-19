@@ -28,202 +28,174 @@
                                     provider.
                                 </p>
                             </div>
+                            <div class="form-group row label-align">
+                                <div class="col-sm-4">
+                                    <label asp-for="Diet" class="col-sm-4 col-form-label">Current diet type</label>
+                                </div>
+                                <div class="col-sm-6 stretch-it" id="diet_type_dropdown">
+                                    <select asp-for="Diet" class="form-control-act" id="current-preset-diet">
+                                        @foreach (var diet in Enum.GetNames(typeof(MealManagerUtility.Diets)))
+                                        {
+                                            <option value="@diet">
+                                                @diet.ToString()
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
 
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label asp-for="Diet" class="col-sm-4 col-form-label">Current diet type</label>
+                            <div class="form-group row label-align">
+                                <div class="col-sm-4">
+                                    <label for="Goal">I want to</label>
+                                </div>
+                                <div class="col-sm-8 stretch-it" id="goals-radio">
+                                    <div class="radio-flex">
+                                        <input asp-for="Goal" type="radio" value="@MealManagerUtility.WeightGoal.Lose" id="goal-1">
+                                        <label asp-for="Goal" class="btn-sm" for="goal-1">Lose weight</label>
                                     </div>
-                                    <div class="col-sm-6 stretch-it" id="diet_type_dropdown">
-                                        <select asp-for="Diet" class="form-control-act" id="current-preset-diet">
-                                            @foreach (var diet in Enum.GetNames(typeof(MealManagerUtility.Diets)))
-                                            {
-                                                <option value="@diet">
-                                                    @diet.ToString()
-                                                </option>
-                                            }
-                                        </select>
+                                    <div class="radio-flex">
+                                        <input asp-for="Goal" type="radio" value="@MealManagerUtility.WeightGoal.Maintain" id="goal-2" checked>
+                                        <label asp-for="Goal" class="btn-sm" for="goal-2">Maintain</label>
+                                    </div>
+                                    <div class="radio-flex">
+                                        <input asp-for="Goal" type="radio" value="@MealManagerUtility.WeightGoal.Gain" id="goal-3">
+                                        <label asp-for="Goal" class="btn-sm" for="goal-3">Build muscle</label>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label for="Goal">I want to</label>
+                            <div class="form-group row label-align">
+                                <div class="col-sm-4">
+                                    <label for="MeasurementSystem">Preffered units</label>
+                                </div>
+                                <div class="col-sm-8 stretch-it" id="units-radio">
+                                    <div class="radio-flex">
+                                        <input asp-for="MeasurementSystem" type="radio" value="@MealManagerUtility.MeasurementSystem.US_Customary" id="units-inches">
+                                        <label asp-for="MeasurementSystem" class="btn-sm">U.S. Standard</label>
                                     </div>
-                                    <div class="col-sm-8 stretch-it" id="goals-radio">
-                                        <div class="radio-flex">
-                                            <input asp-for="Goal" type="radio" value="@MealManagerUtility.WeightGoal.Lose" id="goal-1">
-                                            <label asp-for="Goal" class="btn-sm" for="goal-1">Lose weight</label>
-                                        </div>
-                                        <div class="radio-flex">
-                                            <input asp-for="Goal" type="radio" value="@MealManagerUtility.WeightGoal.Maintain" id="goal-2" checked>
-                                            <label asp-for="Goal" class="btn-sm" for="goal-2">Maintain</label>
-                                        </div>
-                                        <div class="radio-flex">
-                                            <input asp-for="Goal" type="radio" value="@MealManagerUtility.WeightGoal.Gain" id="goal-3">
-                                            <label asp-for="Goal" class="btn-sm" for="goal-3">Build muscle</label>
-                                        </div>
+                                    <div class="radio-flex">
+                                        <input asp-for="MeasurementSystem" type="radio" value="@MealManagerUtility.MeasurementSystem.Metric" id="units-metric" checked>
+                                        <label asp-for="MeasurementSystem" class="btn-sm">Metric</label>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label for="MeasurementSystem">Preffered units</label>
+                            <div class="form-group row label-align">
+                                <div class="col-sm-4">
+                                    <label for="Gender">I am</label>
+                                </div>
+                                <div class="col-sm-8 stretch-it" id="gender-radio">
+                                    <div class="radio-flex">
+                                        <input asp-for="Gender" type="radio" value="@MealManagerUtility.Gender.Male" id="gender-male" checked>
+                                        <label asp-for="Gender" class="btn-sm" for="gender-1">Male</label>
                                     </div>
-                                    <div class="col-sm-8 stretch-it" id="units-radio">
-                                        <div class="radio-flex">
-                                            <input asp-for="MeasurementSystem" type="radio" value="@MealManagerUtility.MeasurementSystem.US_Customary" id="units-inches">
-                                            <label asp-for="MeasurementSystem" class="btn-sm">U.S. Standard</label>
-                                        </div>
-                                        <div class="radio-flex">
-                                            <input asp-for="MeasurementSystem" type="radio" value="@MealManagerUtility.MeasurementSystem.Metric" id="units-metric" checked>
-                                            <label asp-for="MeasurementSystem" class="btn-sm">Metric</label>
-                                        </div>
+                                    <div class="radio-flex">
+                                        <input asp-for="Gender" type="radio" value="@MealManagerUtility.Gender.Female" id="gender-female">
+                                        <label asp-for="Gender" class="btn-sm" for="gender-2">Female</label>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label for="Gender">I am</label>
+                            <!-- TODO Iterator for form REFACTOR -->
+                            <div class="form-group row label-align">
+                                <div class="col-sm-4">
+                                    <label asp-for="MealCount">Number of meals</label>
+                                </div>
+                                <div class="col-sm-4 stretch-it" id="mealCount">
+                                    <input asp-for="MealCount" type="number" class="input-no-border" id="mealCount">
+                                    <label asp-for="MealCount" class="label-absolute">meals</label>
+                                </div>
+                            </div>
+                            <div class="form-group row label-align">
+                                <div class="col-sm-4">
+                                    <label asp-for="Height">Height</label>
+                                </div>
+                                <div class="col-sm-4 stretch-it" id="height">
+                                    <input asp-for="Height" type="number" class="input-no-border" id="height">
+                                    <label asp-for="Height" class="label-absolute">cm</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group row label-align">
+                                <div class="col-sm-4">
+                                    <label asp-for="Weight">Weight</label>
+                                </div>
+                                <div class="col-sm-4 stretch-it" id="weight">
+                                    <input asp-for="Weight" type="text" class="input-no-border" id="weight">
+                                    <label asp-for="Weight" class="label-absolute">kg</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group row label-align">
+                                <div class="col-sm-4">
+                                    <label asp-for="Age">Age</label>
+                                </div>
+                                <div class="col-sm-4 stretch-it" id="age">
+                                    <input asp-for="Age" type="text" class="input-no-border" id="age">
+                                    <label asp-for="Age" class="label-absolute">years</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group row label-align">
+                                <div class="col-sm-4">
+                                    <label asp-for="BodyFat">Bodyfat</label>
+                                </div>
+                                <div class="col-sm-8 stretch-it" id="fat-radio">
+                                    <div class="radio-flex">
+                                        <input asp-for="BodyFat" type="radio" value="@MealManagerUtility.BodyFat.Low" id="fat-1">
+                                        <label asp-for="BodyFat" class="btn-sm">Low < 14%</label>
                                     </div>
-                                    <div class="col-sm-8 stretch-it" id="gender-radio">
-                                        <div class="radio-flex">
-                                            <input asp-for="Gender" type="radio" value="@MealManagerUtility.Gender.Male" id="gender-male" checked>
-                                            <label asp-for="Gender" class="btn-sm" for="gender-1">Male</label>
-                                        </div>
-                                        <div class="radio-flex">
-                                            <input asp-for="Gender" type="radio" value="@MealManagerUtility.Gender.Female" id="gender-female">
-                                            <label asp-for="Gender" class="btn-sm" for="gender-2">Female</label>
-                                        </div>
+                                    <div class="radio-flex">
+                                        <input asp-for="BodyFat" type="radio" value="@MealManagerUtility.BodyFat.Medium" id="fat-2" checked>
+                                        <label asp-for="BodyFat" class="btn-sm">Medium 14%-22%</label>
+                                    </div>
+                                    <div class="radio-flex">
+                                        <input asp-for="BodyFat" type="radio" value="@MealManagerUtility.BodyFat.High" id="fat-3">
+                                        <label asp-for="BodyFat" class="btn-sm">High > 22%</label>
                                     </div>
                                 </div>
-                                <!-- TODO Iterator for form REFACTOR -->
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label asp-for="MealCount">Number of meals</label>
-                                    </div>
-                                    <div class="col-sm-4 stretch-it" id="mealCount">
-                                        <input asp-for="MealCount" type="number" class="input-no-border" id="mealCount">
-                                        <label asp-for="MealCount" class="label-absolute">meals</label>
-                                    </div>
-                                </div>
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label asp-for="Height">Height</label>
-                                    </div>
-                                    <div class="col-sm-4 stretch-it" id="height">
-                                        <input asp-for="Height" type="number" class="input-no-border" id="height">
-                                        <label asp-for="Height" class="label-absolute">cm</label>
-                                    </div>
-                                </div>
+                            </div>
 
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label asp-for="Weight">Weight</label>
-                                    </div>
-                                    <div class="col-sm-4 stretch-it" id="weight">
-                                        <input asp-for="Weight" type="text" class="input-no-border" id="weight">
-                                        <label asp-for="Weight" class="label-absolute">kg</label>
-                                    </div>
+                            <div class="form-group row label-align">
+                                <div class="col-sm-4">
+                                    <label asp-for="ActivityLevel">Activity level</label>
                                 </div>
-
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label asp-for="Age">Age</label>
-                                    </div>
-                                    <div class="col-sm-4 stretch-it" id="age">
-                                        <input asp-for="Age" type="text" class="input-no-border" id="age">
-                                        <label asp-for="Age" class="label-absolute">years</label>
-                                    </div>
+                                <div class="col-sm-6 stretch-it" id="activity_level_dropdown">
+                                    <select asp-for="ActivityLevel" class="form-control-act">
+                                        @foreach (var activity in Enum.GetNames(typeof(MealManagerUtility.ActivityLevel)))
+                                        {
+                                            <option value="@activity">
+                                                @activity.ToString()
+                                            </option>
+                                        }
+                                    </select>
                                 </div>
-
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label asp-for="BodyFat">Bodyfat</label>
-                                    </div>
-                                    <div class="col-sm-8 stretch-it" id="fat-radio">
-                                        <div class="radio-flex">
-                                            <input asp-for="BodyFat" type="radio" value="@MealManagerUtility.BodyFat.Low" id="fat-1">
-                                            <label asp-for="BodyFat" class="btn-sm">Low < 14%</label>
-                                        </div>
-                                        <div class="radio-flex">
-                                            <input asp-for="BodyFat" type="radio" value="@MealManagerUtility.BodyFat.Medium" id="fat-2" checked>
-                                            <label asp-for="BodyFat" class="btn-sm">Medium 14%-22%</label>
-                                        </div>
-                                        <div class="radio-flex">
-                                            <input asp-for="BodyFat" type="radio" value="@MealManagerUtility.BodyFat.High" id="fat-3">
-                                            <label asp-for="BodyFat" class="btn-sm">High > 22%</label>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="form-group row label-align">
+                                <div class="col-sm-4">
+                                    <label asp-for="TotalCalories">Total Calories</label>
                                 </div>
-
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label asp-for="ActivityLevel">Activity level</label>
-                                    </div>
-                                    <div class="col-sm-6 stretch-it" id="activity_level_dropdown">
-                                        <select asp-for="ActivityLevel" class="form-control-act">
-                                            @foreach (var activity in Enum.GetNames(typeof(MealManagerUtility.ActivityLevel)))
-                                            {
-                                                <option value="@activity">
-                                                    @activity.ToString()
-                                                </option>
-                                            }
-                                        </select>
-                                    </div>
+                                <div class="col-sm-4 stretch-it" id="totalCalories">
+                                    <input asp-for="TotalCalories" type="number" class="input-no-border" id="total-calories">
+                                    <label asp-for="TotalCalories" class="label-absolute">calories</label>
                                 </div>
-
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label asp-for="TotalCalories">Total Calories</label>
-                                    </div>
-                                    <div class="col-sm-4 stretch-it" id="totalCalories">
-                                        <input asp-for="TotalCalories" type="number" class="input-no-border" id="total-calories">
-                                        <label asp-for="TotalCalories" class="label-absolute">calories</label>
-                                    </div>
-                                    <div class="col-sm-4 stretch-it" style="border: none">
-                                        <button onclick="calculate()" type="button" class="btn btn-success" id="calculate-button">
-                                            <i class="fa fa-calculator" aria-hidden="true"></i>Calculate
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="offset">
-
-                                    <input type="submit" class="btn-green" id="calculate_button" />
-                                        @*<i class="fa fa-calculator" aria-hidden="true"></i>*@
-                                        Submit
-                                    
-                                </div>
-
-                                    <button type="submit" class="btn-green" id="submit_button" >
-                                        @*<i class="fa fa-calculator" aria-hidden="true"></i>*@
-                                        Submit
+                                <div class="col-sm-4 stretch-it" style="border: none">
+                                    <button onclick="calculate()" type="button" class="btn btn-success" id="calculate-button">
+                                        <i class="fa fa-calculator" aria-hidden="true"></i>Calculate
                                     </button>
                                 </div>
-                            <script>
-                                function calculate() {
-                                    try {
-                                        var calculateButton = document.getElementById('calculate-button');
-                                        var weight = 75;//inputs[8].value;
-                                        var height = 170;//inputs[9].value;
-                                        var age = 34; //inputs[10].value;
-                                        var inputs = document.getElementByTagName('input');
-                                        //inputs[14].innerText
-                                        alert(
-                                            (10 * inputs[9].value) + (6.25 * inputs[8].value) - (5 * inputs[10].value) + 5);
-                                        );
-                                    } catch (err) {
-                                        alert("An error was thrown!" + calculate);
-                                        console.error(err);
-                                    }
-                                }
+                            </div>
+                            <div class="offset">
+                                <label for="calculate_button">Submit</label>
+                                <input type="submit" class="btn-green" id="calculate_button" />
+                            </div>
 
-                                
-                                
-                            </script>
+                            <button type="submit" class="btn-green" id="submit_button">
+                                Submit
+                            </button>
 
-</fieldset>
-                    </form>
+                        </fieldset>
+                    </form> 
                 </div>
                 <div style="border-top: 2px solid black; margin-top: 10px;">
                     <div class="modal-footer">
@@ -232,7 +204,6 @@
                 </div>
             </div>
         </div>
-    </div>
     <div>
         <a asp-action="Index">Back to List</a>
     </div>
