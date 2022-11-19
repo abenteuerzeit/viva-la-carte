@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.DotNet.MSIdentity.Shared;
 using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
@@ -129,16 +130,31 @@ namespace VLC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,TotalCalories,MealCount,Diet,Goal,MeasurementSystem,Height,Weight,Age,BodyFat,ActivityLevel")] MealManager mealManager)
         {
-            if (ModelState.IsValid)
+            try
             {
-                MealPlan mealPlan = _mealManagerService.GetMealPlan(mealManager);
-                _context.Add(mealManager);
-                _context.Add(mealPlan);
-                await _context.SaveChangesAsync();
-                return View(nameof(NewMealPlan), mealPlan);
-                //Ok(_context.MealPlans.ToList());  //RedirectToAction(nameof(Index));
+                
+                if (ModelState.IsValid)
+                {
+                    //var manager = mealManager.TotalCalories;
+
+                    //var model = ModelState.TryGetValue("TotalCalories", out var totalCalories);
+                    //var ex = totalCalories.AttemptedValue;
+                    //double number = double.Parse(ex);
+                    //mealManager.TotalCalories = (int)number;
+
+                    //MealPlan mealPlan = _mealManagerService.GetMealPlan(mealManager);
+                    _context.Add(mealManager);
+                    //_context.Add(mealPlan);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                    //Ok(_context.MealPlans.ToList());  //RedirectToAction(nameof(Index));
+                }
+            } catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
-            return View();
+            
+            return View(mealManager);
         }
 
         // GET: MealManagers/Edit/5
