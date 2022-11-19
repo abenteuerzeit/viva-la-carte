@@ -18,6 +18,7 @@ namespace VLC
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddScoped<IMealManagerService, MealManagerService>();
+            builder.Services.AddScoped<IRecipesService, RecipesService>();
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

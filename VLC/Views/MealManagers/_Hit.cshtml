@@ -1,14 +1,10 @@
 ﻿@model VLC.Models.Recipes.Hit
 
-<div>
+<div hidden>
     <h4>Hit Page Id (results 1 - 20): @Model.Id and iterator value: @ViewData["hit-iterator-value"]</h4>
     <hr />
     <dl class="row">
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @{
@@ -23,8 +19,8 @@
     ////////////////////////////////////////
     ///*******Create HTML elements*******///
     ////////////////////////////////////////
-    <div id='hit-item-@i'>
-        <h2> <a href="@HREF">@HIT_LINKS.Self</a></h2>
+    <div id='hit-item-@i' hidden>
+        <h2> <a href="@HREF">API @HIT_LINKS.Self</a></h2>
     </div>
     #endregion
 
@@ -41,7 +37,7 @@
     ///*******Create HTML elements*******///
     ////////////////////////////////////////
 
-    <div id="hit-rating-@i">
+    @*<div id="hit-rating-@i">
         <p>@RATING</p>
         <nav id="hit-nav-@i">
            <ul>
@@ -55,8 +51,8 @@
                 }
             }
             </ul>
-        </nav>
-        @{
+        </nav>*@
+        @*@{*@
             // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
             // TODO: Remove from favs in profile settings
             // TODO: https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/cross-site-scripting.md
@@ -66,13 +62,17 @@
             // <<< SAVE TO COOKBOOK BUTTON DATA >>> //
             var btnId = $"btn-fav-{i}";
             var route = Json.Serialize(Url.Action("SaveToCookbook", "Recipes"));
+            //VLC.Models.Recipes.Cookbook cookbook = new();
             var recipeData = Json.Serialize(RECIPE);
+            //var btnId = $"btn-fav-{i}";
+            //var route = Json.Serialize(Url.Action("SaveToCookbook", "Recipes"));
+            //var recipeData = Json.Serialize(RECIPE);
             //=====================================//
-           <button id="@btnId" class="alert-warning" 
+           @*<button id="@btnId" class="alert-warning" 
                    onclick='saveToCookbook(
-                   @recipeData, @route );toggleAddToCookbookButton(this.id);'>Save to Cookbook</button>
-        }
-    </div>
+                   @recipeData, @route );toggleAddToCookbookButton(this.id);'>Save to Cookbook</button>*@
+        @*}*@
+    @*</div>*@
     #endregion
 
 
@@ -85,7 +85,7 @@
     ////////////////////////////////////////
     ///*******Create HTML elements*******///
     ////////////////////////////////////////
-    <div class="HTTP">
+    <div class="HTTP" hidden>
                 <ul>
                     <li><a href="@URI">URI</a></li>
                     <li><a href="@URL">URL</a></li>
@@ -95,25 +95,14 @@
                     <li><a id="@shareId" href="@SHARE_AS">Share</a></li>
                 </ul>
     </div>
+    
     #endregion
-
-   
-    ////////////////////////////////////////
-    #region Recipe Title Data
-    ////////////////////////////////////////
-    var AUTHOR_ID = RECIPE.AuthorId;
-    var LABEL = RECIPE.Label;
-    var NAME = RECIPE.Name;
-    ////////////////////////////////////////
-    ///*******Create HTML elements*******///
-    ////////////////////////////////////////
-    <h3 id="recipe-author-@AUTHOR_ID">@LABEL</h3>
-    <small>Name: @NAME</small>
-    #endregion
-
-
     }
+
     @{
-    <partial name="_RecipeBody" model="RECIPE" />
-    <partial name="_RecipeNutritionFacts" model="RECIPE" />
-}
+        <div id="main">
+            <div id="recipe-data" class="col-12">
+                <partial name="_RecipeBody" model="RECIPE" />
+            </div>
+        </div>
+    }

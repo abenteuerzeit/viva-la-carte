@@ -3,198 +3,96 @@
 @{
     ViewData["Title"] = "Viva La Carte!";
 }
-
-    <div class="input-group" id="development">
-    <form class="form-container" asp-action="SearchRecipesByQuery" asp-controller="MealManagers" method="get">
-        <label class="label" id="searchlabel" for="query">Find recipes</label>
-        <input class="input-group-text" id="query" name="query" type="text" placeholder="Enter search phrase" value="scrambled eggs" />
-        <input class="btn" type="submit" value="Fetch Api" />
-        </form>
-    
-    </div>
-
     <main>
-        <div class="modal-container">
-            <div class="modal-content">
-                <div style="border-bottom: 2px solid black; margin-bottom: 10px;">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Meal manager</h4>
-                        <button type="button" class="close" aria-hidden="true">x</button>
-                    </div>
+
+        <div class="container h-100">
+            <aside class="card row h-100 justify-content-center align-items-center shadow">
+                <div class="card-header">
+                    <h4>Look up recipes</h4>
                 </div>
-                <div class="modal-body">
-                    <div class="calculator_form">
-                        <form class="form-horizontal" method="post" asp-action="Create" asp-controller="MealManagers" onsubmit="() => { alert('Submitted') };">
-                            <fieldset>
-                                <div class="col-12 alert alert-primary text-small" role="alert">
-                                    <p>
-                                        This planner uses a standard BMR equation (the Mifflin-St Jeor formula) to estimate your Calorie
-                                        needs. We also make some rough macronutrient suggestions, but you're free to
-                                        completely customize these values when you create a free account.
-                                    </p>
-                                    <p class="pb-0 mb-0">
-                                        <strong>Keep in mind that this is a general estimate.</strong> For best results, consult your healthcare
-                                        provider.
-                                    </p>
-                                </div>
-
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label asp-for="Diet" class="col-sm-4 col-form-label">Current diet type</label>
-                                    </div>
-                                    <div class="col-sm-6 stretch-it" id="diet_type_dropdown">
-                                        <select asp-for="Diet" class="form-control-act" id="current-preset-diet">
-                                            @foreach (var diet in Enum.GetNames(typeof(MealManagerUtility.Diets)))
-                                            {
-                                                <option value="@diet">
-                                                    @diet.ToString()
-                                                </option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <span asp-validation-for="Diet" class="text-danger"></span>
-                                </div>
-
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label for="Goal">I want to</label>
-                                    </div>
-                                    <div class="col-sm-8 stretch-it" id="goals-radio">
-                                        <div class="radio-flex">
-                                            <input asp-for="Goal" type="radio" value="@MealManagerUtility.WeightGoal.Lose" id="goal-1">
-                                            <label asp-for="Goal" class="btn-sm" for="goal-1">Lose weight</label>
-                                        </div>
-                                        <div class="radio-flex">
-                                            <input asp-for="Goal" type="radio" value="@MealManagerUtility.WeightGoal.Maintain" id="goal-2" checked>
-                                            <label asp-for="Goal" class="btn-sm" for="goal-2">Maintain</label>
-                                        </div>
-                                        <div class="radio-flex">
-                                            <input asp-for="Goal" type="radio" value="@MealManagerUtility.WeightGoal.Gain" id="goal-3">
-                                            <label asp-for="Goal" class="btn-sm" for="goal-3">Build muscle</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label for="MeasurementSystem">Preffered units</label>
-                                    </div>
-                                    <div class="col-sm-8 stretch-it" id="units-radio">
-                                        <div class="radio-flex">
-                                            <input asp-for="MeasurementSystem" type="radio" value="@MealManagerUtility.MeasurementSystem.US_Customary" id="units-inches">
-                                            <label asp-for="MeasurementSystem" class="btn-sm">U.S. Standard</label>
-                                        </div>
-                                        <div class="radio-flex">
-                                            <input asp-for="MeasurementSystem" type="radio" value="@MealManagerUtility.MeasurementSystem.Metric" id="units-metric" checked>
-                                            <label asp-for="MeasurementSystem" class="btn-sm">Metric</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label for="Gender">I am</label>
-                                    </div>
-                                    <div class="col-sm-8 stretch-it" id="gender-radio">
-                                        <div class="radio-flex">
-                                            <input asp-for="Gender" type="radio" value="@MealManagerUtility.Gender.Male" id="gender-male">
-                                            <label asp-for="Gender" class="btn-sm" for="gender-1">Male</label>
-                                        </div>
-                                        <div class="radio-flex">
-                                            <input asp-for="Gender" type="radio" value="@MealManagerUtility.Gender.Female" id="gender-female" checked>
-                                            <label asp-for="Gender" class="btn-sm" for="gender-2">Female</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- TODO Iterator for form REFACTOR -->
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label asp-for="Height">Height</label>
-                                    </div>
-                                    <div class="col-sm-4 stretch-it" id="height">
-                                        <input asp-for="Height" type="number" class="input-no-border" id="height" value="@MockMealPlan.Height">
-                                        <label asp-for="Height" class="label-absolute">cm</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label asp-for="Weight">Weight</label>
-                                    </div>
-                                    <div class="col-sm-4 stretch-it" id="weight">
-                                        <input asp-for="Weight" type="text" class="input-no-border" id="weight" value="@MockMealPlan.Weight">
-                                        <label asp-for="Weight" class="label-absolute">kg</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label asp-for="Age">Age</label>
-                                    </div>
-                                    <div class="col-sm-4 stretch-it" id="age">
-                                        <input asp-for="Age" type="text" class="input-no-border" id="age" value="@MockMealPlan.Age">
-                                        <label asp-for="Age" class="label-absolute">years</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label asp-for="BodyFat">Bodyfat</label>
-                                    </div>
-                                    <div class="col-sm-8 stretch-it" id="fat-radio">
-                                        <div class="radio-flex">
-                                            <input asp-for="BodyFat" type="radio" value="@MealManagerUtility.BodyFat.Low" id="fat-1">
-                                            <label asp-for="BodyFat" class="btn-sm">Low < 14%</label>
-                                        </div>
-                                        <div class="radio-flex">
-                                            <input asp-for="BodyFat" type="radio" value="@MealManagerUtility.BodyFat.Medium" id="fat-2" checked>
-                                            <label asp-for="BodyFat" class="btn-sm">Medium 14%-22%</label>
-                                        </div>
-                                        <div class="radio-flex">
-                                            <input asp-for="BodyFat" type="radio" value="@MealManagerUtility.BodyFat.High" id="fat-3">
-                                            <label asp-for="BodyFat" class="btn-sm">High > 22%</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row label-align">
-                                    <div class="col-sm-4">
-                                        <label asp-for="ActivityLevel">Activity level</label>
-                                    </div>
-                                    <div class="col-sm-6 stretch-it" id="activity_level_dropdown">
-                                        <select asp-for="ActivityLevel" name="activity_level" class="form-control-act">
-                                            <option value="Choose an option">-- choose an option --</option>
-                                            @foreach (var activity in Enum.GetNames(typeof(MealManagerUtility.ActivityLevel)))
-                                            {
-                                                <option value="@activity">@activity</option>
-                                            }
-                                            @*<option value="1.2" selected>Sedentary</option>
-                                            <option value="1.375">Lightly Active</option>
-                                            <option value="1.55">Moderatly Active</option>
-                                            <option value="1.725">Very Active</option>
-                                            <option value="1.9">Extremely Active</option>*@
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="offset">
-                                    <button class="btn-green" id="calculate_button">
-                                        <i class="fa fa-calculator" aria-hidden="true"></i>
-                                        Calculate
-                                    </button>
-                                </div>
-
-                            </fieldset>
-                        </form>
-                    </div>
-                    <div style="border-top: 2px solid black; margin-top: 10px;">
-                        <div class="modal-footer">
-                            <a href="#" data-dismiss="modal" class="btn">Close</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <form id="recipe-search" class="card-body input-group form-container form flex-nowrap" asp-action="SearchRecipesByQuery" asp-controller="MealManagers" method="get">
+                    <label class="col-form-label p-2" id="query-label" for="query">
+                        What do you want to eat? 
+                    </label>
+                    <input class="input-group-text form-control" id="query" name="query" type="text" placeholder="Enter search phrase" value="scrambled eggs" />
+                    <input class="btn btn-success" type="submit" value="Search" />
+                </form>
+            </aside>
         </div>
-    </main>
 
+    <article id="welcome" class="card-deck d-flex shadow">
+
+        <section id="hook" class="card border-success">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        Meet the future of grocery shoppping
+                    </h4>
+                    <p class="card-text">
+                        Reach nutrition goals for free with our smart specialist meal plans.
+                        Now, you can do your groceries fast, and track your health and diet automatically.
+                    </p>
+                </div>
+            </section>
+
+        <section id="sales-pitch" class="card border-success">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        Make positive food choices tailored to your nutrional goals
+                    </h4>
+                    <p class="card-text">  
+                        Our meal manager helps you create a custom food list that meet specified nutritional needs. 
+                        Dieticians can use this tool to making a meal plan to help people with special dietary needs,
+                        such as <em>diabetes</em>, <em>allergies</em>, or other <em>food sensitivies</em>.
+                    </p>
+                </div>
+            </section>
+
+        <section id="description" class="card border-success">
+                <div class="card-body">
+                    <h4 class="card-title"> 
+                    Your personal dietician & grocery shopper
+                    </h4>
+                    <p class="card-text">
+                        Our awesome algorithm takes into account your specific nutritional requirements,
+                        unlike <strong>EatThisMuch</strong> or <strong>Custom Meal Planner</strong>. 
+
+                        Account for nutrient deficiencies or excesses to acheive better health outcomes.
+                        For example, a nursing mother will require a different set of nutrients than a pregnant mother. 
+                    </p>
+                </div>
+            </section>
+        </article>
+
+        <article class="card-group">
+            <section class="card border-0 shadow" id="benefits">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Features
+                    </h3>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item ">View food ratings from less to more healthy</li>
+                        <li class="list-group-item">Generate customizable plans based on the number of calories, how many meals, and macronutrient (protein, carbs, and fat) targets</li>
+                        <li class="list-group-item ">Generate customizable plans based on the BMR (Basal Metabolic Rate) and activity levels, diet type, and goal</li>
+                        <li class="list-group-item ">Meet certain diet types like paleo, vegan, or keto</li>
+                        <li class="list-group-item "><strong>Take into account the different macros, micros and vitamins and mineral requirements needed to be healthy</strong></li>
+                        <li class="list-group-item "><strong>Limit or increase the micronutrient makeup of the meals</strong></li>
+                    </ul>
+                </div>
+            </section>
+        </article>
+    </main>
+    <div id="bottom-seperator" style="height: 5em;">
+
+    </div>
+    <script>
+    window.addEventListener("resize", function () {
+        if (window.innerWidth < 1000) {
+            document.getElementById('welcome').classList.remove('d-flex');
+            document.getElementsByTagName('aside')[0].hidden = true;
+        } else {
+            document.getElementById('welcome').classList.add('d-flex'); document.getElementsByTagName('aside')[0].hidden = false;
+
+        }
+    });
+    </script>
 

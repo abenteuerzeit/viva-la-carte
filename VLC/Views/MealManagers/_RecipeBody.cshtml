@@ -1,53 +1,218 @@
 ﻿@model VLC.Models.Recipes.Recipe
 
-<h1>Recipe Body Partial</h1>
 
 @{
+    ////////////////////////////////////////
+    #region Recipe Title Data
+    ////////////////////////////////////////
+    var AUTHOR_ID = Model.AuthorId;
+    var LABEL = Model.Label;
+    var NAME = Model.Name;
+    #endregion
+
+    #region
+    var IMAGES = Model.Images;
+    var REGULAR_IMAGE = IMAGES.Regular;
+    var regularImageId = $"img-{REGULAR_IMAGE.Id}";
+    #endregion
+
+    #region Hidden From Client
+    var i = @ViewData["hit-iterator-value"];
+    #endregion
+
+    var INGREDIENTS = Model.Ingredients;
+    var INGREDIENT_LINES = Model.IngredientLines;
+    var TOTAL_NUTRIENTS = Model.TotalNutrients;
+    //var TOTAL_DAILY_KCAL = Model.TotalDaily["ENERC_KCAL"];
+
+
+
+
+    ////////////////////////////////////////
+    ///*******Create HTML elements*******///
+    ////////////////////////////////////////
+
+    <!-- <<< HEADER ROW >>> -->
+    <div class="d-flex" style="border-bottom: 1px solid black">
+        <!-- <<< LEFT SIDE OF RECIPE >>> - IMAGE -->
+        <div class="flex-shrink-0">
+            <img id="@regularImageId" src="@REGULAR_IMAGE.Url" alt="Regular Image recipe" height="@REGULAR_IMAGE.Height" width="@REGULAR_IMAGE.Width" />
+        </div>
+        <!-- RIGHT SIDE OF RECIPE - HEADER -->
+        <div class="recipe-right flex-grow-1 ms-3 position-relative">
+            <div class="recipe-header" id="recipe-author-@AUTHOR_ID">@LABEL</div>
+
+
+            <div class="recipe-nutrition">
+                <h6 class="per-serving">NUTRITION PER SERVING</h6>
+                <div class="nutrients">
+                    <ul>
+                        <li class="no-weight" title="calories">
+                            <div class="nutrients-inner">
+                                <span class="title">Calories</span>
+                                <span class="top">@((int)Model.Calories)</span>
+                                <span class="bottom">@((int)Model.TotalDaily["ENERC_KCAL"].Quantity) %</span>
+                                
+                            </div>
+                        </li>
+                        <li class="no-weight" title="fat">
+                            <div class="nutrients-inner">
+                                <span class="title">Fat</span>
+                                <span class="top">15 g</span>
+                                <span class="bottom">12 %</span>
+                            </div>
+                        </li>
+                        <li class="no-weight" title="Saturates">
+                            <div class="nutrients-inner">
+                                <span class="title">Saturates</span>
+                                <span class="top">71 g</span>
+                                <span class="bottom">15 %</span>
+                            </div>
+                        </li>
+                        <li class="no-weight" title="Sugars">
+                            <div class="nutrients-inner">
+                                <span class="title">Sugars</span>
+                                <span class="top">12 g</span>
+                                <span class="bottom">10 %</span>
+                            </div>
+                        </li>
+                        <li class="no-weight" title="Salt">
+                            <div class="nutrients-inner">
+                                <span class="title">Salt</span>
+                                <span class="top">12 g</span>
+                                <span class="bottom">10 %</span>
+                            </div>
+                        </li>
+                        <li class="no-weight" title="Protein">
+                            <div class="nutrients-inner">
+                                <span class="title">Protein</span>
+                                <span class="top">12 g</span>
+                                <span class="bottom">10 %</span>
+                            </div>
+                        </li>
+                        <li class="no-weight" title="Carbs">
+                            <div class="nutrients-inner">
+                                <span class="title">Carbs</span>
+                                <span class="top">12 g</span>
+                                <span class="bottom">10 %</span>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+
+            <!-- <<< RATING BUTTONS >>> -->
+
+            <div id="hit-rating-@i" class="row rating-buttons mt-8 ">
+                <ul>
+                    @{
+                        var ratings = Enum.GetValues(typeof(VLC.Utils.MealManagerUtility.Rating));
+                        foreach (var rating in ratings)
+                        {
+                            <li>
+                                <button id="@rating" onclick="alert('TODO: Implement rating feature')">@rating</button>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    <div class="d-flex" style="50px;">
+        <!-- BUTTON SAVE TO COOKBOOK -->
+        <div class="m-2">
+            @{
+                // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
+                // TODO: Remove from favs in profile settings
+                // TODO: https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/cross-site-scripting.md
+                // var fixJsonXssVulnerability = new JsonSerializerSettings { StringEscapeHandling = StringEscapeHandling.EscapeHtml };
+                // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ||
+
+                // <<< SAVE TO COOKBOOK BUTTON DATA >>> //
+                var btnId = $"btn-fav-{i}";
+                var route = Json.Serialize(Url.Action("SaveToCookbook", "Recipes"));
+                var recipeData = Json.Serialize(Model);
+                //=====================================//
+                <button id="@btnId" class="btn btn-success p-2 save-button position-relative float-left"
+                        onclick='saveToCookbook(
+                   @recipeData, @route );toggleAddToCookbookButton(this.id);'>
+                    Save to Cookbook
+                </button>
+            }
+        </div>
+    </div>
+        // <<< INGREDIENTS AND NUTRIENTS PART >>>
+
+    <div class="d-flex flex-row row col-12">
+        <div class="col-6 ml-5 p-3">
+            
+            <p style="margin-left: 20px;">@INGREDIENTS.Count INGREDIENTS:</p>
+            <ol>
+                @foreach (var ing in INGREDIENTS)
+                {
+                    <li class="p-2"> @ing.Text</li>
+                }
+            </ol>
+        </div>
+        <div class="col-6 p-3">
+            <p style="margin-left: 20px;">@TOTAL_NUTRIENTS.Count NUTRIENTS</p>
+            <ul style="list-style: none;">
+                @foreach (var d in TOTAL_NUTRIENTS)
+                {
+                    <li class="p-2" id="@d.Value.Id">@d.Value.Label : @((int)d.Value.Quantity) @d.Value.Unit</li>
+                }
+            </ul>
+        </div>
+
+    </div>
 
     ////////////////////////////////////////
     #region Recipe Categories
     ////////////////////////////////////////
-    var DISH_TYPE = Model.DishType;
-    var CUISINE_TYPE = Model.CuisineType;
-    var MEAL_TYPE = Model.MealType;
+    //var DISH_TYPE = Model.DishType;
+    //var CUISINE_TYPE = Model.CuisineType;
+    //var MEAL_TYPE = Model.MealType;
     ////////////////////////////////////////
     ///*******Create HTML elements*******///
     ////////////////////////////////////////
-    <ul>
+    @*<ul>
         @foreach (var dt in DISH_TYPE)
         {
-                        <li># @dt</li>
+            <li># @dt</li>
         }
         @foreach (var ct in CUISINE_TYPE)
         {
-                        <li># @ct</li>
+            <li># @ct</li>
         }
         @foreach (var mt in MEAL_TYPE)
         {
-                        <li># @mt</li>
+            <li># @mt</li>
         }
-    </ul>
-    #endregion
+    </ul>*@
+                        #endregion
 
-     ////////////////////////////////////////
+    ////////////////////////////////////////
     #region Image Objects
     ////////////////////////////////////////
-    var IMAGE = Model.Image;
-    var IMAGES = Model.Images;
-    var IMAGES_ARRAY_ID = IMAGES.Id;
-    var SMALL_IMAGE = IMAGES.Small;
-    var REGULAR_IMAGE = IMAGES.Regular;
-    var LARGE_IMAGE = IMAGES.Large;
-    var THUMBNAIL = IMAGES.Thumbnail;
-    var IMAGE_URL = Model.ImageURL;
+    //var IMAGE = Model.Image;
+    //var IMAGES = Model.Images;
+    //var IMAGES_ARRAY_ID = IMAGES.Id;
+    //var SMALL_IMAGE = IMAGES.Small;
+    //var REGULAR_IMAGE = IMAGES.Regular;
+    //var LARGE_IMAGE = IMAGES.Large;
+    //var THUMBNAIL = IMAGES.Thumbnail;
+    //var IMAGE_URL = Model.ImageURL;
     ////////////////////////////////////////
     ///*******Create HTML elements*******///
     ////////////////////////////////////////
-    var thumbmailId = $"img-{THUMBNAIL.Id}";
-    <img id="@thumbmailId" src="@THUMBNAIL.Url" alt="Recipe thumbnail" height="@THUMBNAIL.Height" width="@THUMBNAIL.Width" />
+    @*var thumbmailId = $"img-{THUMBNAIL.Id}";
+        <img id="@thumbmailId" src="@THUMBNAIL.Url" alt="Recipe thumbnail" height="@THUMBNAIL.Height" width="@THUMBNAIL.Width" />*@
     #endregion
     // =======================================================//
-   
+
     #region Recipe Body
     ////////////////////////////////////////
     var TOTAL_TIME = Model.TotalTime;
@@ -57,11 +222,11 @@
     var YIELD = Model.Yield;
     var TOTAL_WEIGHT = Model.TotalWeight;
     //
-    var INGREDIENTS = Model.Ingredients;
+    //var INGREDIENTS = Model.Ingredients;
     ////////////////////////////////////////
     ///*******Create HTML elements*******///
     ////////////////////////////////////////
-    <table class="table">
+    @*<table class="table">
         <tcaption class="caption-top">Times</tcaption>
         <thead>
             <tr class="d-table-row">
@@ -84,9 +249,9 @@
                 <td class="d-sm-table-cell">Number of ingredients: @INGREDIENTS.Count</td>
             </tr>
         </tfoot>
-    </table>
+    </table>*@
     /////////////////////////////////////////
-    <div class="flex-row card flex-sm-wrap">
+    @*<div class="flex-row card flex-sm-wrap">
         @foreach (var ingredient in INGREDIENTS)
         {
             // INGREDIENT OPTIONS
@@ -122,32 +287,32 @@
                 <dd>@INGREDIENT_FOOD_CATEGORY</dd>
             </dl>
         }
-    </div>
-    // Model DETAILS
-    var PRODUCT_LIST = Model.ProductIdList;
-    var INGREDIENT_LINES = Model.IngredientLines;
-    var INSTRUCTIONS = Model.Instructions;
-    #endregion
-    }
+    </div>*@
+            // Model DETAILS
+            var PRODUCT_LIST = Model.ProductIdList;
+            //var INGREDIENT_LINES = Model.IngredientLines;
+            var INSTRUCTIONS = Model.Instructions;
+            #endregion
 
-        <ol>
-    @foreach (var ing in INGREDIENT_LINES)
-    {
-                       <li> @ing</li>
-    }
+
+    @*<ol>
+        @foreach (var ing in INGREDIENT_LINES)
+        {
+            <li> @ing</li>
+        }
     </ol>
     <ol>
-                <li>@INSTRUCTIONS.ToString()</li>
+        <li>@INSTRUCTIONS.ToString()</li>
     </ol>
     <select>
-    @if (PRODUCT_LIST != null && PRODUCT_LIST.Count > 0)
-    {
-                <option>TODO: Add product lookup for ingredients</option>
-        @foreach (var pro in PRODUCT_LIST)
+        @if (PRODUCT_LIST != null && PRODUCT_LIST.Count > 0)
         {
-                                        <option>@pro</option>
+            <option>TODO: Add product lookup for ingredients</option>
+            @foreach (var pro in PRODUCT_LIST)
+            {
+                <option>@pro</option>
+            }
         }
-    }
 
-    </select>
+    </select>*@
 }
