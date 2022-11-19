@@ -52,5 +52,30 @@ namespace VLC.Data
 
             return plan;
         }
+
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<MealPlan>()
+        //    .HasMany(p => p.Recipes);
+        //    //.WithOne()
+        //    //.WithOne(g => g.).HasForeignKey(s => s)
+        //    //.OnDelete(DeleteBehavior.Cascade);
+        //}
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+
+        //    //modelBuilder.Entity<string[]>()
+        //    //            .Property(e => e)
+        //    //            .HasConversion(
+        //    //                v => string.Join(',', v),
+        //    //                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
+        //    //modelBuilder.Entity<DataSet>()
+        //    //            .Property(d => d.SemanticType)
+        //    //            .HasConversion(new EnumToStringConverter<DataSetSemanticType>());
+        //}
+
+
+        public DbSet<VLC.Models.Recipes.Hit> Hit { get; set; }
     }
 }

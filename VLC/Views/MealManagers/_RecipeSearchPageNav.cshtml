@@ -14,25 +14,28 @@ var HITS = Model.HitsList;
 ////////////////////////////////////////
 var query_string_value = Context.Request.Query["query"];
 
-if (!string.IsNullOrWhiteSpace(query_string_value))
-{
-    <h1>Recipe Search Results for @query_string_value</h1>
-}
 
-<nav id="@Model.Id">
-    <dl>
-        <dt>
-            Recipes found: <strong>@Model.Count</strong>.<br />
-            <em>Displaying from @Model.From hits to @Model.To hits</em>
-        </dt>
-        <dd>
-            <a href="@Model.Links.Next.Href" onclick="alert('TODO: Implement function to load more recipes
+
+<div id="@Model.Id" class="top-line">
+    <div class="inner">
+        @if (!string.IsNullOrWhiteSpace(query_string_value))
+        {
+        <h1>Recipe Search Results for @query_string_value</h1>
+        }
+        <dl>
+            <dt>
+                Recipes found: <strong>@Model.Count</strong>.<br />
+                <em>Displaying from @Model.From hits to @Model.To hits</em>
+            </dt>
+            <dd>
+                <a href="@Model.Links.Next.Href" onclick="alert('TODO: Implement function to load more recipes
                                                     so that you scroll through the results like on a feed')">
-                Next Hits List Page
-            </a>
-        </dd>
-    </dl>
-</nav>
+                    Next Hits List Page
+                </a>
+            </dd>
+        </dl>
+    </div>
+</div>
     #endregion 
  }
 @*

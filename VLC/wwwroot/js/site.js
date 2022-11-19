@@ -33,6 +33,7 @@ function alertWhenErrorCaught(functionName, errorData) {
     }
 }
 
+// TODO: Refactor = change name to postToServer(date, url)
 
 function sendToServer(data, url) {
     try {
@@ -48,8 +49,10 @@ function sendToServer(data, url) {
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                alert(xhr.responseText);
+                //alert(xhr.responseText);
                 console.info(this.responseText);
+
+                // Failed to match method call Microsoft.WebTools.BrowserLink.LivePreview.LivePreviewBrowserUIExtensionFactory.themeChanged
             }
         };
         var stringifiedData = JSON.stringify(data);
