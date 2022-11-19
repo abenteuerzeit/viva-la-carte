@@ -52,6 +52,7 @@ function sendToServer(data, url) {
                 //alert(xhr.responseText);
                 console.info(this.responseText);
 
+                // https://stackoverflow.com/questions/3193976/get-response-from-server-with-javascript-after-javascript-request
                 // Failed to match method call Microsoft.WebTools.BrowserLink.LivePreview.LivePreviewBrowserUIExtensionFactory.themeChanged
             }
         };

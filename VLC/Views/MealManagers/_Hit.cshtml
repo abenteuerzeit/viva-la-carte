@@ -66,6 +66,7 @@
             // <<< SAVE TO COOKBOOK BUTTON DATA >>> //
             var btnId = $"btn-fav-{i}";
             var route = Json.Serialize(Url.Action("SaveToCookbook", "Recipes"));
+            //VLC.Models.Recipes.Cookbook cookbook = new();
             var recipeData = Json.Serialize(RECIPE);
             //=====================================//
            <button id="@btnId" class="alert-warning" 

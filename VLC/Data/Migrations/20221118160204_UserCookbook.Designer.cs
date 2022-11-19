@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VLC.Data;
 
@@ -11,9 +12,10 @@ using VLC.Data;
 namespace VLC.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221118160204_UserCookbook")]
+    partial class UserCookbook
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +23,6 @@ namespace VLC.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("CookbookRecipe", b =>
-                {
-                    b.Property<int>("CookbooksId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RecipesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CookbooksId", "RecipesId");
-
-                    b.HasIndex("RecipesId");
-
-                    b.ToTable("CookbookRecipe");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -336,8 +323,7 @@ namespace VLC.Data.Migrations
 
                     b.Property<string>("Label")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -584,6 +570,9 @@ namespace VLC.Data.Migrations
                     b.Property<double>("Calories")
                         .HasColumnType("float");
 
+                    b.Property<int?>("CookbookId")
+                        .HasColumnType("int");
+
                     b.Property<TimeSpan>("CookingTime")
                         .HasColumnType("time");
 
@@ -655,26 +644,13 @@ namespace VLC.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CookbookId");
+
                     b.HasIndex("ImagesId");
 
                     b.HasIndex("MealPlanId");
 
                     b.ToTable("Recipes");
-                });
-
-            modelBuilder.Entity("CookbookRecipe", b =>
-                {
-                    b.HasOne("VLC.Models.Recipes.Cookbook", null)
-                        .WithMany()
-                        .HasForeignKey("CookbooksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VLC.Models.Recipes.Recipe", null)
-                        .WithMany()
-                        .HasForeignKey("RecipesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -817,6 +793,10 @@ namespace VLC.Data.Migrations
 
             modelBuilder.Entity("VLC.Models.Recipes.Recipe", b =>
                 {
+                    b.HasOne("VLC.Models.Recipes.Cookbook", null)
+                        .WithMany("Recipes")
+                        .HasForeignKey("CookbookId");
+
                     b.HasOne("VLC.Models.Recipes.Images", "Images")
                         .WithMany()
                         .HasForeignKey("ImagesId");
@@ -829,6 +809,11 @@ namespace VLC.Data.Migrations
                 });
 
             modelBuilder.Entity("VLC.Models.Meals.MealPlan", b =>
+                {
+                    b.Navigation("Recipes");
+                });
+
+            modelBuilder.Entity("VLC.Models.Recipes.Cookbook", b =>
                 {
                     b.Navigation("Recipes");
                 });

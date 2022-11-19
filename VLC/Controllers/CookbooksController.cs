@@ -54,7 +54,7 @@ namespace VLC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Label")] Cookbook cookbook)
+        public async Task<IActionResult> Create([Bind("Id,Label,UserId")] Cookbook cookbook)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace VLC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Label")] Cookbook cookbook)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Label,UserId")] Cookbook cookbook)
         {
             if (id != cookbook.Id)
             {

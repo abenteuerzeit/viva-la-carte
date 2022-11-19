@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using NuGet.Protocol;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,32 +18,35 @@ namespace VLC.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IRecipesService _service;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public RecipesController(ApplicationDbContext context, IRecipesService service)
+        public RecipesController(ApplicationDbContext context, IRecipesService service, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _service = service;
+            _userManager = userManager;
         }
 
         // GET: Recipes
         public async Task<IActionResult> Index()
         {
-            return Ok(await _context.Recipes.ToListAsync());
+            var recipes = await _context.Recipes.ToListAsync();
+
+            return View(recipes);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> SaveToCookBook([FromBody] Recipe data)
+        public async Task<IActionResult> SaveToCookBook([FromBody] Recipe recipe)
         {
-            // Todo return ID of new recipe? 
-            // Refactor: add cookbooks service. 
-            if (_service.AddToCookbook(data, out Recipe recipe))
+            IdentityUser user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
-                _context.Recipes.Add(recipe);
-                await _context.SaveChangesAsync();
-                return Ok(data);
+                throw new ArgumentNullException(nameof(user));
+                //return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-            return BadRequest(data);
+            Task<Cookbook> cookbook = _service.AddToCookbook(recipe, user.Id);
+            return Ok(cookbook.ToJson());
         }
 
         // GET: Recipes/Details/5

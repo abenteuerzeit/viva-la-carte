@@ -15,6 +15,97 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<div id="all-recipes" class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+            </tr>
+                <tr>
+                    <th>
+                        IsFavorite
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Rating
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Calories
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Label
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Thumbnail Image
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        ShareAs
+                    </th>
+                </tr>
+        </thead>
+        <tbody>
+        
+        @{
+            foreach(var recipe in Model)
+            {
+                <tr>
+                    <td>
+                        @recipe.Id;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @recipe.IsFavorite;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @recipe.Rating;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @recipe.Calories;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @recipe.Label;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @recipe.ImageURL;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @recipe.ShareAs;
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+
+</div>
+
+
 <table class="table">
     <thead>
         <tr>

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
 using VLC.Models.Nutrition;
 using VLC.Models.Products;
+using VLC.Models.Recipes;
 //using static VLC.Models.API.RecipeSearch;
 using static VLC.Utils.MealManagerUtility;
 
@@ -14,6 +15,7 @@ namespace VLC.Models.Recipes
     public partial class Recipe
     {
         [Key, Required]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [Required, DataType(DataType.Text), BindProperty]
@@ -55,6 +57,8 @@ namespace VLC.Models.Recipes
 
         [DataType(DataType.Url)]
         public string ImageURL { get; set; } = "#";
+
+        public virtual ICollection<Cookbook> Cookbooks { get; set; }
 
     }
 }

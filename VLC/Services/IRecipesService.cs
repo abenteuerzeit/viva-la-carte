@@ -4,6 +4,8 @@ namespace VLC.Services
 {
     public interface IRecipesService
     {
-        bool AddToCookbook(Recipe data, out Recipe recipe);
+
+        public Task<Cookbook> AddToCookbook(Recipe recipe, string id);
+        //bool AddToCookbook(Recipe data, out Recipe recipe);
     }
 }
