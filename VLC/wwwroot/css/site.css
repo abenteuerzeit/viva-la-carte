@@ -18,12 +18,40 @@ html, body {
     margin: 0;
 }
 
-header {
+.container-fluid {
     display: flex;
-    flex-direction: row-reverse;
-    border-bottom: 2px dashed var(--red-hue);
+    flex-direction: row;
 }
 
+#logo:hover {
+    transform: scale(1.1);
+}
+
+.card-deck {
+    margin: 3em;
+    padding: 1em;
+    min-width: 80%;
+    align-items: stretch;
+    justify-content: space-around;
+}
+
+
+.card {
+    margin: 1em;
+    padding: 2em;
+    align-self: stretch;
+    align-items: flex-start;
+    justify-content: stretch;
+}
+
+#welcome .card{
+    width: fit-content;
+}
+
+
+main {
+    margin-top: 4em;
+}
 footer {
     position: fixed;
     left: 0;
@@ -116,12 +144,18 @@ figcaption {
 }
 
 
+.section {
+    flex-wrap: wrap;
+}
+
+
 /* NAVIGATION BAR */
 /*nav {
     display: flex;
     flex-direction: row-reverse;
     flex-wrap: wrap;
     width: 100%;
+
 }*/
     /*
     nav img {
@@ -130,46 +164,49 @@ figcaption {
         margin: 0.5rem;
     }*/
 
+
     /*nav ul {
         height: 50px;
         list-style-type: none;
         display: flex;
         flex-direction: row;
         align-items: center;
+        align-content: center;
         flex-grow: 1;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         margin: auto;
         padding: 0.5em;
-        background-color: darkgreen;
     }
 
         nav ul li {
             padding: 0.5em;
             flex-grow: inherit;
-            text-transform: uppercase;
             align-self: center;
-            border-radius: 15px;
+            text-align: center;
         }
 
+            nav ul li:hover {
+                /*                background-color: var(--light-green-hue);
+*/ border-top: 5px groove var(--light-green-hue);
+                transform: translateY(0.5em);
+            }
+
             nav ul li a:hover {
-                text-decoration: overline solid red 2px;
+                color: white;
             }
 
-            nav ul li a {
-                text-decoration: none;
+            nav ul li a:active {
+                color: red;
             }
 
-                nav ul li a:active {
-                    color: red;
-                }
-
-                nav ul li a:visited {
-                    color: sandybrown;
-                }
+            nav ul li a:visited {
+                color: sandybrown;
+            }
 
                 nav ul li a:link {
                     color: white;
                 }*/
+
 
 
 /* Login Page and Registration container */
@@ -435,23 +472,23 @@ figcaption {
     margin-bottom: 8px;
 }
 
-.simple-form .input-label-postal-city .input-fields-postal {
-    width: 30%;
-    padding: 10px;
-    font-size: 16px;
-    font-family: inherit;
-    border-radius: 4px;
-    border: 1px solid black;
-}
+    .simple-form .input-label-postal-city .input-fields-postal {
+        width: 30%;
+        padding: 10px;
+        font-size: 16px;
+        font-family: inherit;
+        border-radius: 4px;
+        border: 1px solid black;
+    }
 
-.simple-form .input-label-postal-city .input-fields-city {
-    width: 70%;
-    padding: 10px;
-    font-size: 16px;
-    font-family: inherit;
-    border-radius: 4px;
-    border: 1px solid black;
-}
+    .simple-form .input-label-postal-city .input-fields-city {
+        width: 70%;
+        padding: 10px;
+        font-size: 16px;
+        font-family: inherit;
+        border-radius: 4px;
+        border: 1px solid black;
+    }
 
 .simple-form .select-country {
     border-radius: 4px;
@@ -467,6 +504,7 @@ figcaption {
     margin-bottom: 10px;
     font-size: small;
 }
+
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /*   QUERY SEARCH RESULT PAGE     */
@@ -548,3 +586,43 @@ section #main {
         align-self: center;
         display: inline;
     }
+
+@media (max-width: 576px) {
+    .xs {
+        color: red;
+        font-weight: bold;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width:768px) {
+    .sm {
+        color: red;
+        font-weight: bold;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) and (max-width:992px) {
+    .md {
+        color: red;
+        font-weight: bold;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width:1200px) {
+    .lg {
+        color: red;
+        font-weight: bold;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .xl {
+        color: red;
+        font-weight: bold;
+    }
+}
+
