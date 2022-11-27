@@ -24,6 +24,8 @@ using VLC.Services;
 
 namespace VLC.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class MealManagersController : Controller
     {
         static readonly HttpClient client = new();
@@ -37,6 +39,16 @@ namespace VLC.Controllers
             _config = config;
             _mealManagerService = mealManagerService;
         }
+
+        //[HttpGet("{search}")]
+        //public async Task<ActionResult<IEnumerable<Hits>>> Search(string name, Recipe recipe)
+        //{
+        //    try
+        //    {
+        //        var result = await _mealManagerService.Search(name, recipe)
+        //    }
+        //}
+
         /// <summary>
         /// Action injection with FromServices
         /// </summary>
