@@ -24,8 +24,6 @@ using VLC.Services;
 
 namespace VLC.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class MealManagersController : Controller
     {
         static readonly HttpClient client = new();
