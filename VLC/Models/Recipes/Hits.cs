@@ -1030,79 +1030,79 @@ namespace VLC.Models.Recipes
             switch (value)
             {
                 case DishType.AlcoholCocktail:
-                    serializer.Serialize(writer, "Alcohol cocktail");
+                    serializer.Serialize(writer, "alcohol cocktail");
                     return;
                 case DishType.BiscuitsAndCookies:
-                    serializer.Serialize(writer, "Biscuits and cookies");
+                    serializer.Serialize(writer, "biscuits and cookies");
                     return;
                 case DishType.Bread:
-                    serializer.Serialize(writer, "Bread");
+                    serializer.Serialize(writer, "bread");
                     return;
                 case DishType.Cereals:
-                    serializer.Serialize(writer, "Cereals");
+                    serializer.Serialize(writer, "cereals");
                     return;
                 case DishType.CondimentsAndSauces:
-                    serializer.Serialize(writer, "Condiments and sauces");
+                    serializer.Serialize(writer, "condiments and sauces");
                     return;
                 case DishType.Desserts:
-                    serializer.Serialize(writer, "Desserts");
+                    serializer.Serialize(writer, "desserts");
                     return;
                 case DishType.Drinks:
-                    serializer.Serialize(writer, "Drinks");
+                    serializer.Serialize(writer, "drinks");
                     return;
                 case DishType.Egg:
-                    serializer.Serialize(writer, "Egg");
+                    serializer.Serialize(writer, "egg");
                     return;
                 case DishType.IceCreamAndCustard:
-                    serializer.Serialize(writer, "Ice cream and custard");
+                    serializer.Serialize(writer, "ice cream and custard");
                     return;
                 case DishType.MainCourse:
-                    serializer.Serialize(writer, "Main course");
+                    serializer.Serialize(writer, "main course");
                     return;
                 case DishType.Pancake:
-                    serializer.Serialize(writer, "Pancake");
+                    serializer.Serialize(writer, "pancake");
                     return;
                 case DishType.Pasta:
-                    serializer.Serialize(writer, "Pasta");
+                    serializer.Serialize(writer, "pasta");
                     return;
                 case DishType.Pastry:
-                    serializer.Serialize(writer, "Pastry");
+                    serializer.Serialize(writer, "pastry");
                     return;
                 case DishType.PiesAndTarts:
-                    serializer.Serialize(writer, "Pies and tarts");
+                    serializer.Serialize(writer, "pies and tarts");
                     return;
                 case DishType.Pizza:
-                    serializer.Serialize(writer, "Pizza");
+                    serializer.Serialize(writer, "pizza");
                     return;
                 case DishType.Preps:
-                    serializer.Serialize(writer, "Preps");
+                    serializer.Serialize(writer, "preps");
                     return;
                 case DishType.Preserve:
-                    serializer.Serialize(writer, "Preserve");
+                    serializer.Serialize(writer, "preserve");
                     return;
                 case DishType.Salad:
-                    serializer.Serialize(writer, "Salad");
+                    serializer.Serialize(writer, "salad");
                     return;
                 case DishType.Sandwiches:
-                    serializer.Serialize(writer, "Sandwiches");
+                    serializer.Serialize(writer, "sandwiches");
                     return;
                 case DishType.SeaFood:
-                    serializer.Serialize(writer, "Seafood");
+                    serializer.Serialize(writer, "seafood");
                     return;
                 case DishType.SideDish:
-                    serializer.Serialize(writer, "Side dish");
+                    serializer.Serialize(writer, "side dish");
                     return;
                 case DishType.Soup:
-                    serializer.Serialize(writer, "Soup");
+                    serializer.Serialize(writer, "soup");
                     return;
                 case DishType.SpecialOccasions:
-                    serializer.Serialize(writer, "Special occasions");
+                    serializer.Serialize(writer, "special occasions");
                     return;
                 case DishType.Starter:
-                    serializer.Serialize(writer, "Starter");
+                    serializer.Serialize(writer, "starter");
                     return;
                 case DishType.Sweets:
-                    serializer.Serialize(writer, "Sweets");
+                    serializer.Serialize(writer, "sweets");
                     return;
             }
             throw new Exception("Cannot marshal type DishType");
