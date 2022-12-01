@@ -26,13 +26,22 @@ var query_string_value = Context.Request.Query["query"];
             <dt>
                 Recipes found: <strong>@Model.Count</strong>.<br />
                 <em>Displaying from @Model.From hits to @Model.To hits</em>
+
             </dt>
-            <dd>
-                <a href="@Model.Links.Next.Href" onclick="alert('TODO: Implement function to load more recipes
+            @switch(Model.Links.Next)
+            {
+                case null:
+                    break;
+                default:
+                    <dd>
+                        <a href="@Model.Links.Next.Href" onclick="alert('TODO: Implement function to load more recipes
                                                     so that you scroll through the results like on a feed')">
-                    Next Hits List Page
-                </a>
-            </dd>
+                            Next Hits List Page
+                        </a>
+                            
+                        </dd>
+                    break;
+            }
         </dl>
     </div>
 </div>
