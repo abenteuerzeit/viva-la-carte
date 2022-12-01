@@ -20,7 +20,7 @@ var query_string_value = Context.Request.Query["query"];
     <div class="inner">
         @if (!string.IsNullOrWhiteSpace(query_string_value))
         {
-        <h1>Recipe Search Results for @query_string_value</h1>
+        <h1 class="font-monospace">Recipe Search Results for @query_string_value</h1>
         }
         <dl>
             <dt>

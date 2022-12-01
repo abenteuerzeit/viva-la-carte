@@ -37,6 +37,16 @@ namespace VLC.Controllers
             _config = config;
             _mealManagerService = mealManagerService;
         }
+
+        //[HttpGet("{search}")]
+        //public async Task<ActionResult<IEnumerable<Hits>>> Search(string name, Recipe recipe)
+        //{
+        //    try
+        //    {
+        //        var result = await _mealManagerService.Search(name, recipe)
+        //    }
+        //}
+
         /// <summary>
         /// Action injection with FromServices
         /// </summary>
@@ -135,13 +145,6 @@ namespace VLC.Controllers
                 
                 if (ModelState.IsValid)
                 {
-                    //var manager = mealManager.TotalCalories;
-
-                    //var model = ModelState.TryGetValue("TotalCalories", out var totalCalories);
-                    //var ex = totalCalories.AttemptedValue;
-                    //double number = double.Parse(ex);
-                    //mealManager.TotalCalories = (int)number;
-
                     //MealPlan mealPlan = _mealManagerService.GetMealPlan(mealManager);
                     _context.Add(mealManager);
                     //_context.Add(mealPlan);

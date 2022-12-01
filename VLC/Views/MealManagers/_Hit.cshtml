@@ -1,11 +1,11 @@
 ﻿@model VLC.Models.Recipes.Hit
 
-<div hidden>
+@*<div hidden>
     <h4>Hit Page Id (results 1 - 20): @Model.Id and iterator value: @ViewData["hit-iterator-value"]</h4>
     <hr />
     <dl class="row">
     </dl>
-</div>
+</div>*@
 
 @{
     ////////////////////////////////////////
@@ -85,7 +85,7 @@
     ////////////////////////////////////////
     ///*******Create HTML elements*******///
     ////////////////////////////////////////
-    <div class="HTTP" hidden>
+    @*<div class="HTTP" hidden>
                 <ul>
                     <li><a href="@URI">URI</a></li>
                     <li><a href="@URL">URL</a></li>
@@ -94,15 +94,16 @@
             }
                     <li><a id="@shareId" href="@SHARE_AS">Share</a></li>
                 </ul>
-    </div>
+    </div>*@
     
     #endregion
     }
 
     @{
-        <div id="main">
-            <div id="recipe-data" class="col-12">
-                <partial name="_RecipeBody" model="RECIPE" />
+        <div id="main" class="mx-auto">
+            @*<div id="recipe-data" class="col-12 shadow">*@
+            <div class="row row-cols-2 g-2 shadow">
+                <partial name="_RecipeBody1" model="RECIPE" />
             </div>
         </div>
     }
