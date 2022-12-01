@@ -4,6 +4,7 @@
     ViewData["Title"] = "Viva La Carte!";
 }
     <main>
+
         @{
             int count = 0;
         }
@@ -11,6 +12,7 @@
                 Magic button
     </button>
 
+    <!-- #region LOOKUP RECIPES -->
 
         <div class="container h-100">
             <aside class="card row h-100 justify-content-center align-items-center shadow">
@@ -21,11 +23,12 @@
                     <label class="col-form-label p-2" id="query-label" for="query">
                         What do you want to eat? 
                     </label>
-                    <input class="input-group-text form-control" id="query" name="query" type="text" placeholder="Enter search phrase" value="scrambled eggs" />
+                    <input class="input-group-text form-control" id="query" name="query" type="text" placeholder="Enter search phrase" />
                     <input class="btn btn-success" type="submit" value="Search" />
                 </form>
             </aside>
         </div>
+    <!-- #endregion -->
 
     <article id="welcome" class="card-deck d-flex shadow">
 

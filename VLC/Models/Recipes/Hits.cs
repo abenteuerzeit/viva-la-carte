@@ -101,9 +101,9 @@ namespace VLC.Models.Recipes
         [NotMapped]
         public List<DietLabel> DietLabels { get; set; }
 
-        [JsonProperty("healthLabels")]
+        [JsonProperty("health")]
         [NotMapped]
-        public List<string> HealthLabels { get; set; }
+        public List<HealthLabel> HealthLabels { get; set; }
 
         [JsonProperty("cautions")]
         [NotMapped]
@@ -272,17 +272,23 @@ namespace VLC.Models.Recipes
 
     public enum Caution { Eggs, Fodmap, Milk, Soy, Sulfites };
 
-    public enum CuisineType { Greek, Italian };
+    public enum CuisineType { American, Asian, British, Caribbean, CentralEurope, Chinese, EasternEurope, French, Indian, Italian, Japanese, Kosher, Mediterranean, Mexican, MiddleEastern, Nordic, SouthAmerican, SouthEastAsian };
 
-    public enum DietLabel { Balanced, HighFiber, LowCarb, LowSodium };
+    public enum DietLabel { Balanced, HighFiber, HighProtein, LowCarb, LowFat, LowSodium };
 
     public enum SchemaOrgTag { CarbohydrateContent, CholesterolContent, FatContent, FiberContent, ProteinContent, SaturatedFatContent, SodiumContent, SugarContent, TransFatContent };
 
     public enum Unit { Empty, G, Kcal, Mg, Μg };
 
-    public enum DishType { MainCourse, Salad, Starter };
+    public enum DishType { AlcoholCocktail, BiscuitsAndCookies, Bread, Cereals, CondimentsAndSauces, Desserts, Drinks, Egg,
+        IceCreamAndCustard, MainCourse, Pancake, Pasta, Pastry, PiesAndTarts, Pizza, Preps, Preserve, Salad, Sandwiches, SeaFood,
+        SideDish, Soup, SpecialOccasions, Starter, Sweets };
 
-    public enum MealType { Breakfast, Brunch, LunchDinner };
+    public enum MealType { Breakfast, Brunch, LunchDinner, Snack, Teatime };
+
+    public enum HealthLabel { AlcoholCocktail, AlcoholFree, CeleryFree, CrustaceanFree, DairyFree, Dash, EggFree, FishFree, FodmapFree,
+    GlutenFree, ImmunoSupportive, KetoFriendly, KidneyFriendly, Kosher, LowFatAbs, LowPotassium, LowSugar, LupineFree, Mediterranean, MolluskFree, MustardFree,
+    NoOilAdded, Paleo, PeanutFree, Pescatarian, PorkFree, RedMeatFree, SesameFree, ShellfishFree, SoyFree, SugarConscious, SulfiteFree, TreeNutFree, Vegan, Vegetarian, WheatFree };
 
     public partial class Hits
     {
@@ -414,6 +420,226 @@ namespace VLC.Models.Recipes
         public static readonly CautionConverter Singleton = new CautionConverter();
     }
 
+
+    internal class HealthLabelsConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(HealthLabel) || t == typeof(HealthLabel?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "alcohol-cocktail":
+                    return HealthLabel.AlcoholCocktail;
+                case "alcohol-Free":
+                    return HealthLabel.AlcoholFree;
+                case "celery-free":
+                    return HealthLabel.CeleryFree;
+                case "crustacean-free":
+                    return HealthLabel.CrustaceanFree;
+                case "dairy-free":
+                    return HealthLabel.DairyFree;
+                case "DASH":
+                    return HealthLabel.Dash;
+                case "egg-free":
+                    return HealthLabel.EggFree;
+                case "fish-free":
+                    return HealthLabel.FishFree;
+                case "fodmap-free":
+                    return HealthLabel.FodmapFree;
+                case "gluten-free":
+                    return HealthLabel.GlutenFree;
+                case "immuno-supportive":
+                    return HealthLabel.ImmunoSupportive;
+                case "keto-friendly":
+                    return HealthLabel.KetoFriendly;
+                case "kidney-friendly":
+                    return HealthLabel.KidneyFriendly;
+                case "kosher":
+                    return HealthLabel.Kosher;
+                case "low-fat-abs":
+                    return HealthLabel.LowFatAbs;
+                case "low-potassium":
+                    return HealthLabel.LowPotassium;
+                case "low-sugar":
+                    return HealthLabel.LowSugar;
+                case "lupine-free":
+                    return HealthLabel.LupineFree;
+                case "Mediterranean":
+                    return HealthLabel.Mediterranean;
+                case "mollusk-free":
+                    return HealthLabel.MolluskFree;
+                case "mustard-free":
+                    return HealthLabel.MustardFree;
+                case "no-oil-added":
+                    return HealthLabel.NoOilAdded;
+                case "paleo":
+                    return HealthLabel.Paleo;
+                case "peanut-free":
+                    return HealthLabel.PeanutFree;
+                case "pescatarian":
+                    return HealthLabel.Pescatarian;
+                case "pork-free":
+                    return HealthLabel.PorkFree;
+                case "red-meat-free":
+                    return HealthLabel.RedMeatFree;
+                case "sesame-free":
+                    return HealthLabel.SesameFree;
+                case "shellfish-free":
+                    return HealthLabel.ShellfishFree;
+                case "soy-free":
+                    return HealthLabel.SoyFree;
+                case "sugar-conscious":
+                    return HealthLabel.SugarConscious;
+                case "sulfite-free":
+                    return HealthLabel.SulfiteFree;
+                case "tree-nut-free":
+                    return HealthLabel.TreeNutFree;
+                case "vegan":
+                    return HealthLabel.Vegan;
+                case "vegetarian":
+                    return HealthLabel.Vegetarian;
+                case "wheat-free":
+                    return HealthLabel.WheatFree;
+
+            }
+            throw new Exception("Cannot unmarshal type CuisineType");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (HealthLabel)untypedValue;
+            switch (value)
+            {
+                case HealthLabel.AlcoholCocktail:
+                    serializer.Serialize(writer, "alcohol-cocktail");
+                    return;
+                case HealthLabel.AlcoholFree:
+                    serializer.Serialize(writer, "alcohol-free");
+                    return;
+                case HealthLabel.CeleryFree:
+                    serializer.Serialize(writer, "celery-free");
+                    return;
+                case HealthLabel.CrustaceanFree:
+                    serializer.Serialize(writer, "crustacean-free");
+                    return;
+                case HealthLabel.DairyFree:
+                    serializer.Serialize(writer, "dairy-free");
+                    return;
+                case HealthLabel.Dash:
+                    serializer.Serialize(writer, "DASH");
+                    return;
+                case HealthLabel.EggFree:
+                    serializer.Serialize(writer, "egg-free");
+                    return;
+                case HealthLabel.FishFree:
+                    serializer.Serialize(writer, "fish-free");
+                    return;
+                case HealthLabel.FodmapFree:
+                    serializer.Serialize(writer, "fodmap-free");
+                    return;
+                case HealthLabel.GlutenFree:
+                    serializer.Serialize(writer, "gluten-free");
+                    return;
+                case HealthLabel.ImmunoSupportive:
+                    serializer.Serialize(writer, "immuno-supportive");
+                    return;
+                case HealthLabel.KetoFriendly:
+                    serializer.Serialize(writer, "keto-friendly");
+                    return;
+                case HealthLabel.KidneyFriendly:
+                    serializer.Serialize(writer, "kidney-friendly");
+                    return;
+                case HealthLabel.Kosher:
+                    serializer.Serialize(writer, "kosher");
+                    return;
+                case HealthLabel.LowFatAbs:
+                    serializer.Serialize(writer, "low-fat-abs");
+                    return;
+                case HealthLabel.LowPotassium:
+                    serializer.Serialize(writer, "low-potassium");
+                    return;
+                case HealthLabel.LowSugar:
+                    serializer.Serialize(writer, "low-sugar");
+                    return;
+                case HealthLabel.LupineFree:
+                    serializer.Serialize(writer, "lupine-free");
+                    return;
+                case HealthLabel.Mediterranean:
+                    serializer.Serialize(writer, "Mediterranean");
+                    return;
+                case HealthLabel.MolluskFree:
+                    serializer.Serialize(writer, "mollusk-free");
+                    return;
+                case HealthLabel.MustardFree:
+                    serializer.Serialize(writer, "mustard-free");
+                    return;
+                case HealthLabel.NoOilAdded:
+                    serializer.Serialize(writer, "no-oil-added");
+                    return;
+                case HealthLabel.Paleo:
+                    serializer.Serialize(writer, "paleo");
+                    return;
+                case HealthLabel.PeanutFree:
+                    serializer.Serialize(writer, "peanut-free");
+                    return;
+                case HealthLabel.Pescatarian:
+                    serializer.Serialize(writer, "pescatarian");
+                    return;
+                case HealthLabel.PorkFree:
+                    serializer.Serialize(writer, "pork-free");
+                    return;
+                case HealthLabel.RedMeatFree:
+                    serializer.Serialize(writer, "red-meat-free");
+                    return;
+                case HealthLabel.SesameFree:
+                    serializer.Serialize(writer, "sesame-free");
+                    return;
+                case HealthLabel.ShellfishFree:
+                    serializer.Serialize(writer, "shellfish-free");
+                    return;
+                case HealthLabel.SoyFree:
+                    serializer.Serialize(writer, "soy-free");
+                    return;
+                case HealthLabel.SugarConscious:
+                    serializer.Serialize(writer, "sugar-conscious");
+                    return;
+                case HealthLabel.SulfiteFree:
+                    serializer.Serialize(writer, "sulfite-free");
+                    return;
+                case HealthLabel.TreeNutFree:
+                    serializer.Serialize(writer, "tree-nut-free");
+                    return;
+                case HealthLabel.Vegan:
+                    serializer.Serialize(writer, "vegan");
+                    return;
+                case HealthLabel.Vegetarian:
+                    serializer.Serialize(writer, "vegetarian");
+                    return;
+                case HealthLabel.WheatFree:
+                    serializer.Serialize(writer, "wheat-free");
+                    return;
+
+
+
+            }
+            throw new Exception("Cannot marshal type CuisineType");
+        }
+
+        public static readonly HealthLabelsConverter Singleton = new HealthLabelsConverter();
+    }
+
+
+
+
+
     internal class CuisineTypeConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(CuisineType) || t == typeof(CuisineType?);
@@ -424,10 +650,43 @@ namespace VLC.Models.Recipes
             var value = serializer.Deserialize<string>(reader);
             switch (value)
             {
-                case "greek":
-                    return CuisineType.Greek;
-                case "italian":
+                case "American":
+                    return CuisineType.American;
+                case "Asian":
+                    return CuisineType.Asian;
+                case "British":
+                    return CuisineType.British;
+                case "Caribbean":
+                    return CuisineType.Caribbean;
+                case "Central Europe":
+                    return CuisineType.CentralEurope;
+                case "Chinese":
+                    return CuisineType.Chinese;
+                case "Eastern Europe":
+                    return CuisineType.EasternEurope;
+                case "French":
+                    return CuisineType.French;
+                case "Indian":
+                    return CuisineType.Indian;
+                case "Italian":
                     return CuisineType.Italian;
+                case "Japanese":
+                    return CuisineType.Japanese;
+                case "Kosher":
+                    return CuisineType.Kosher;
+                case "Mediterranean":
+                    return CuisineType.Mediterranean;
+                case "Mexican":
+                    return CuisineType.Mexican;
+                case "Middle Eastern":
+                    return CuisineType.MiddleEastern;
+                case "Nordic":
+                    return CuisineType.Nordic;
+                case "South American":
+                    return CuisineType.SouthAmerican;
+                case "South East Asian":
+                    return CuisineType.SouthEastAsian;
+                
             }
             throw new Exception("Cannot unmarshal type CuisineType");
         }
@@ -442,11 +701,59 @@ namespace VLC.Models.Recipes
             var value = (CuisineType)untypedValue;
             switch (value)
             {
-                case CuisineType.Greek:
-                    serializer.Serialize(writer, "greek");
+                case CuisineType.American:
+                    serializer.Serialize(writer, "American");
+                    return;
+                case CuisineType.Asian:
+                    serializer.Serialize(writer, "Asian");
+                    return;
+                case CuisineType.British:
+                    serializer.Serialize(writer, "British");
+                    return;
+                case CuisineType.Caribbean:
+                    serializer.Serialize(writer, "Caribbean");
+                    return;
+                case CuisineType.CentralEurope:
+                    serializer.Serialize(writer, "Central Europe");
+                    return;
+                case CuisineType.Chinese:
+                    serializer.Serialize(writer, "Chinese");
+                    return;
+                case CuisineType.EasternEurope:
+                    serializer.Serialize(writer, "Eastern Europe");
+                    return;
+                case CuisineType.French:
+                    serializer.Serialize(writer, "French");
+                    return;
+                case CuisineType.Indian:
+                    serializer.Serialize(writer, "Indian");
                     return;
                 case CuisineType.Italian:
-                    serializer.Serialize(writer, "italian");
+                    serializer.Serialize(writer, "Italian");
+                    return;
+                case CuisineType.Japanese:
+                    serializer.Serialize(writer, "Japanese");
+                    return;
+                case CuisineType.Kosher:
+                    serializer.Serialize(writer, "Kosher");
+                    return;
+                case CuisineType.Mediterranean:
+                    serializer.Serialize(writer, "Mediterranean");
+                    return;
+                case CuisineType.Mexican:
+                    serializer.Serialize(writer, "Mexican");
+                    return;
+                case CuisineType.MiddleEastern:
+                    serializer.Serialize(writer, "Middle Eastern");
+                    return;
+                case CuisineType.Nordic:
+                    serializer.Serialize(writer, "Nordic");
+                    return;
+                case CuisineType.SouthAmerican:
+                    serializer.Serialize(writer, "South American");
+                    return;
+                case CuisineType.SouthEastAsian:
+                    serializer.Serialize(writer, "South East Asian");
                     return;
             }
             throw new Exception("Cannot marshal type CuisineType");
@@ -469,8 +776,12 @@ namespace VLC.Models.Recipes
                     return DietLabel.Balanced;
                 case "High-Fiber":
                     return DietLabel.HighFiber;
+                case "High-Protein":
+                    return DietLabel.HighProtein;
                 case "Low-Carb":
                     return DietLabel.LowCarb;
+                case "Low-Fat":
+                    return DietLabel.LowFat;
                 case "Low-Sodium":
                     return DietLabel.LowSodium;
             }
@@ -493,8 +804,14 @@ namespace VLC.Models.Recipes
                 case DietLabel.HighFiber:
                     serializer.Serialize(writer, "High-Fiber");
                     return;
+                case DietLabel.HighProtein:
+                    serializer.Serialize(writer, "High-Protein");
+                    return;
                 case DietLabel.LowCarb:
                     serializer.Serialize(writer, "Low-Carb");
+                    return;
+                case DietLabel.LowFat:
+                    serializer.Serialize(writer, "Low-Fat");
                     return;
                 case DietLabel.LowSodium:
                     serializer.Serialize(writer, "Low-Sodium");
@@ -648,12 +965,56 @@ namespace VLC.Models.Recipes
             var value = serializer.Deserialize<string>(reader);
             switch (value)
             {
+                case "alcohol cocktail":
+                    return DishType.AlcoholCocktail;
+                case "biscuits and cookies":
+                    return DishType.BiscuitsAndCookies;
+                case "bread":
+                    return DishType.Bread;
+                case "cereals":
+                    return DishType.Cereals;
+                case "condiments and sauces":
+                    return DishType.CondimentsAndSauces;
+                case "desserts":
+                    return DishType.Desserts;
+                case "drinks":
+                    return DishType.Drinks;
+                case "egg":
+                    return DishType.Egg;
+                case "ice cream and custard":
+                    return DishType.IceCreamAndCustard;
                 case "main course":
                     return DishType.MainCourse;
+                case "pancake":
+                    return DishType.Pancake;
+                case "pasta":
+                    return DishType.Pasta;
+                case "pastry":
+                    return DishType.Pastry;
+                case "pies and tarts":
+                    return DishType.PiesAndTarts;
+                case "pizza":
+                    return DishType.Pizza;
+                case "preps":
+                    return DishType.Preps;
+                case "preserve":
+                    return DishType.Preserve;
                 case "salad":
                     return DishType.Salad;
+                case "sandwiches":
+                    return DishType.Sandwiches;
+                case "seafood":
+                    return DishType.SeaFood;
+                case "side Dish":
+                    return DishType.SideDish;
+                case "soup":
+                    return DishType.Soup;
+                case "special occasions":
+                    return DishType.SpecialOccasions;
                 case "starter":
                     return DishType.Starter;
+                case "sweets":
+                    return DishType.Sweets;
             }
             throw new Exception("Cannot unmarshal type DishType");
         }
@@ -668,14 +1029,80 @@ namespace VLC.Models.Recipes
             var value = (DishType)untypedValue;
             switch (value)
             {
+                case DishType.AlcoholCocktail:
+                    serializer.Serialize(writer, "alcohol cocktail");
+                    return;
+                case DishType.BiscuitsAndCookies:
+                    serializer.Serialize(writer, "biscuits and cookies");
+                    return;
+                case DishType.Bread:
+                    serializer.Serialize(writer, "bread");
+                    return;
+                case DishType.Cereals:
+                    serializer.Serialize(writer, "cereals");
+                    return;
+                case DishType.CondimentsAndSauces:
+                    serializer.Serialize(writer, "condiments and sauces");
+                    return;
+                case DishType.Desserts:
+                    serializer.Serialize(writer, "desserts");
+                    return;
+                case DishType.Drinks:
+                    serializer.Serialize(writer, "drinks");
+                    return;
+                case DishType.Egg:
+                    serializer.Serialize(writer, "egg");
+                    return;
+                case DishType.IceCreamAndCustard:
+                    serializer.Serialize(writer, "ice cream and custard");
+                    return;
                 case DishType.MainCourse:
                     serializer.Serialize(writer, "main course");
+                    return;
+                case DishType.Pancake:
+                    serializer.Serialize(writer, "pancake");
+                    return;
+                case DishType.Pasta:
+                    serializer.Serialize(writer, "pasta");
+                    return;
+                case DishType.Pastry:
+                    serializer.Serialize(writer, "pastry");
+                    return;
+                case DishType.PiesAndTarts:
+                    serializer.Serialize(writer, "pies and tarts");
+                    return;
+                case DishType.Pizza:
+                    serializer.Serialize(writer, "pizza");
+                    return;
+                case DishType.Preps:
+                    serializer.Serialize(writer, "preps");
+                    return;
+                case DishType.Preserve:
+                    serializer.Serialize(writer, "preserve");
                     return;
                 case DishType.Salad:
                     serializer.Serialize(writer, "salad");
                     return;
+                case DishType.Sandwiches:
+                    serializer.Serialize(writer, "sandwiches");
+                    return;
+                case DishType.SeaFood:
+                    serializer.Serialize(writer, "seafood");
+                    return;
+                case DishType.SideDish:
+                    serializer.Serialize(writer, "side dish");
+                    return;
+                case DishType.Soup:
+                    serializer.Serialize(writer, "soup");
+                    return;
+                case DishType.SpecialOccasions:
+                    serializer.Serialize(writer, "special occasions");
+                    return;
                 case DishType.Starter:
                     serializer.Serialize(writer, "starter");
+                    return;
+                case DishType.Sweets:
+                    serializer.Serialize(writer, "sweets");
                     return;
             }
             throw new Exception("Cannot marshal type DishType");
@@ -700,6 +1127,10 @@ namespace VLC.Models.Recipes
                     return MealType.Brunch;
                 case "lunch/dinner":
                     return MealType.LunchDinner;
+                case "snack":
+                    return MealType.Snack;
+                case "teatime":
+                    return MealType.Teatime;
             }
             throw new Exception("Cannot unmarshal type MealType");
         }
@@ -722,6 +1153,12 @@ namespace VLC.Models.Recipes
                     return;
                 case MealType.LunchDinner:
                     serializer.Serialize(writer, "lunch/dinner");
+                    return;
+                case MealType.Snack:
+                    serializer.Serialize(writer, "snack");
+                    return;
+                case MealType.Teatime:
+                    serializer.Serialize(writer, "teatime");
                     return;
             }
             throw new Exception("Cannot marshal type MealType");

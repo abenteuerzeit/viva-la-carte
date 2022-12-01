@@ -115,13 +115,16 @@ main {
 }
 
 footer {
-    position: fixed;
+    position: sticky;
+    margin-top: 10vh;
     left: 0;
     bottom: 0;
     width: 100%;
     background-color: rgb(0, 100, 0);
     color: white;
     text-align: center;
+    
+
 }
 
 figure {
@@ -249,9 +252,23 @@ figcaption {
 
             nav ul li:hover {
                 /*                background-color: var(--light-green-hue);
+
 */ border-top: 5px groove var(--light-green-hue);
 transform: translateY(0.5em);
 }
+
+border-top: 5px groove var(--light-green-hue);
+                transform: translateY(0.5em);
+            }
+
+            nav ul li a:hover {
+                color: white;
+            }
+
+            nav ul li a:active {
+                color: red;
+            }
+
 
 nav ul li a:hover {
     color: white;
@@ -572,14 +589,16 @@ nav ul li a:link {
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 section #main {
-    padding-top: 15px;
+    /*    padding-top: 15px;
     padding-bottom: 50px;
     display: flex;
     justify-content: center;
     margin: 20px auto;
     min-width: 600px;
     max-width: 80%;
-    flex-direction: initial;
+    flex-direction: initial;*/
+    margin-top: 50px;
+    width: 80%;
 }
 
 .top-line {
@@ -607,7 +626,7 @@ section #main {
     border: 1px solid grey;
     display: flex;
     flex-direction: column;
-    box-shadow: 2px 2px 20px black;
+/*    box-shadow: 2px 2px 20px black;*/
 }
 
     #recipe-data img {
@@ -749,3 +768,10 @@ section #main {
         font-weight: bold;
     }
 }
+
+
+#hits {
+    width: auto;
+}
+
+
