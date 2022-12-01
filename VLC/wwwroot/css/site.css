@@ -674,6 +674,10 @@ section #main {
         color: red;
         font-weight: bold;
     }
+    #recipe-header {
+        font-size: 0.8rem;
+        word-wrap: break-word;
+    }
 }
 
 /* Large devices (desktops, 992px and up) */

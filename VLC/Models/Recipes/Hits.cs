@@ -282,7 +282,7 @@ namespace VLC.Models.Recipes
 
     public enum DishType { AlcoholCocktail, BiscuitsAndCookies, Bread, Cereals, CondimentsAndSauces, Desserts, Drinks, Egg,
         IceCreamAndCustard, MainCourse, Pancake, Pasta, Pastry, PiesAndTarts, Pizza, Preps, Preserve, Salad, Sandwiches, SeaFood,
-        SideDish, Soup, SpecialOccasions, Starter, Sweets };
+        SideDish, Soup, SpecialOccasions, Starter, Sweets, Christmas };
 
     public enum MealType { Breakfast, Brunch, LunchDinner, Snack, Teatime };
 
@@ -1015,6 +1015,8 @@ namespace VLC.Models.Recipes
                     return DishType.Starter;
                 case "sweets":
                     return DishType.Sweets;
+                case "christmas":
+                    return DishType.Christmas;
             }
             throw new Exception("Cannot unmarshal type DishType");
         }
@@ -1103,6 +1105,9 @@ namespace VLC.Models.Recipes
                     return;
                 case DishType.Sweets:
                     serializer.Serialize(writer, "sweets");
+                    return;
+                case DishType.Christmas:
+                    serializer.Serialize(writer, "christmas");
                     return;
             }
             throw new Exception("Cannot marshal type DishType");
