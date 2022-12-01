@@ -1,6 +1,6 @@
-# User experience 
+#A free tool to allow the average health-conscience consumer a way to make positive food choices tailored to a set of nutritional goals
 
-## Story time! 
+## User experience, Story time! 
 
 Characters
 — Victoria works at Viva La Carte,
