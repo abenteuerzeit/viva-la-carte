@@ -4,6 +4,13 @@
     ViewData["Title"] = "Viva La Carte!";
 }
     <main>
+        @{
+            int count = 0;
+        }
+    <button id="magic" class="magic" count="@count" onclick="increaseCount()" hidden>
+                Magic button
+    </button>
+
 
         <div class="container h-100">
             <aside class="card row h-100 justify-content-center align-items-center shadow">
