@@ -49,12 +49,17 @@
         <main role="main">
             @RenderBody()
         </main>
-    </div>
 
-    <footer>
-        &copy;
-        <script>document.write(new Date().getFullYear())</script> - Viva la carte - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+    <footer class="text-center text-lg-start">
+
+        <div class="text-center p-3" style="background-color: rgb(0,100,0); color: white; width: 100%;">
+            &copy;
+            <script>document.write(new Date().getFullYear())</script> - Viva la carte - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
     </footer>
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
