@@ -10,7 +10,7 @@
     <div class="form-container">
         <form class="simple-form" id="account" accept-charset="UTF-8" method="post">
             <h1 class="title">Log into your account</h1>
-            
+
             <p>Hello Foodie my Friend!</p>
             <div class="fields-group">
                 <div class="intput-label">
@@ -34,6 +34,9 @@
                     <p><a id="forgot-password" asp-page="./ForgotPassword">Forgot password?</a></p>
                 </div>
             </div>
+            <div class="btn-field">
+                <button id="loginSubmit" class="button-53" type="submit">Login</button>
+            </div>
         </form>
         <div class="sign-in-with">
             <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
@@ -43,15 +46,20 @@
                     if (provider.DisplayName == "Google")
                     {
                         <button type="submit" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account" style="border: none">
-                            <img src="~/Content/Images/btn-google.png" alt="Log in button for Google Account" />
+                            <i class="fa-brands fa-google"></i>
+                        </button>
+                    }
+                    else if (provider.DisplayName == "Facebook")
+                    {
+                        <button type="submit" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account" style="border: none">
+                            <i class="fa-brands fa-facebook"></i>
                         </button>
                     }
 
                 }
+
             </form>
-            <div class="btn-field">
-                <button id="loginBtn" class="button-53" type="submit">Login</button>
-            </div>
+            
         </div>
 
     </div>
