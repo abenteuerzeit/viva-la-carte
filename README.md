@@ -269,6 +269,32 @@ After the food is selected, the SelectFood method checks if the selected food ma
 
 You can modify this implementation to use different search algorithms or criteria for selecting the food items that most closely match the nutritional requirements
 
+### Conncect to the USDA API
+To get the data from the USDA API, you would need to make a request to the API using a suitable HTTP client, such as HttpClient in C#. The API allows you to query the database using various parameters, such as the food name, nutrient ID, and food group ID, to retrieve the nutritional data for the foods you are interested in.
+
+For example, to get the data for all foods that contain the nutrient with ID 1003 (Protein), you would make a request to the following URL: https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=YOUR_API_KEY&nutrients=1003&max=100
+
+This request would return a JSON response with the data for the 100 foods that have the most amount of protein, along with their nutritional content. You can then parse this response and use the data to create instances of the NutritionFacts class in your C# code, as shown in the example below:
+
+```csharp
+// Get the data for foods that contain the nutrient with ID 1003 (Protein)
+var client = new HttpClient();
+var response = await client.GetAsync("https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=YOUR_API_KEY&nutrients=1003&max=100");
+
+// Parse the JSON response and create instances of the NutritionFacts class for each food
+var json = await response.Content.ReadAsStringAsync();
+var data = JsonConvert.DeserializeObject<NutritionFactsData>(json);
+foreach (var food in data.Foods)
+{
+    var nutritionFacts = new NutritionFacts(food);
+    // Add the NutritionFacts instance to the list of top 100 foods
+    top100Foods.Add(nutritionFacts);
+}
+```
+
+You can then repeat this process for each nutrient that you want to consider in the meal plan, using the appropriate nutrient ID in the API request. This will allow you to get the data for all the top 100 foods that contain each nutrient, which you can use to generate the personalized meal plan.
+
+
 # Project Description
 
 ## Tasks
@@ -331,6 +357,12 @@ You can modify this implementation to use different search algorithms or criteri
 
 
 ## IMPLEMENTATION
+To get the data for the nutritional content of foods, you can use a database or API that provides this information. For example, the USDA National Nutrient Database provides a database of foods and their nutritional content, which you can use to get the information you need for your meal plan generator.
+
+You can access this database through the USDA API, which allows you to query the database and retrieve the nutritional data for specific foods. You can then use this data to create instances of the NutritionFacts class in your C# code, which will store the information about the nutritional content of each food.
+
+Alternatively, you can also use a different database or API that provides similar information, as long as it includes the macronutrients and micronutrients that you want to consider in the meal plan. There are many sources of nutritional data available, so you can choose the one that best meets your needs and requirements.
+
 1. Get Nutrition Data for foods
 2.  Get a list of 100 foods with the highest amount of each nutrient from the USDA National Nutrient Database
 3.  var plan = new MealPlan();
@@ -345,6 +377,8 @@ You can modify this implementation to use different search algorithms or criteri
 12. Select the next nutrient and repeat. 
 13. Add foods until each nutrient goes over its lower bound. 
 14. Meal plan is complete if all nutrients meet minimum requirements.
+
+
 
 ```csharp
 using System.Linq;
