@@ -346,6 +346,84 @@ You can modify this implementation to use different search algorithms or criteri
 13. Add foods until each nutrient goes over its lower bound. 
 14. Meal plan is complete if all nutrients meet minimum requirements.
 
+```csharp
+using System.Linq;
+using System.Collections.Generic;
+
+// NutritionFacts, Nutrient, and MealPlan classes would be defined here
+
+class MealPlanGenerator
+{
+    // List of 100 foods with the highest amount of each nutrient
+    List<Food> top100Foods;
+    // List of nutrients to be considered in the meal plan
+    List<Nutrient> nutrients;
+    // Meal plan object
+    MealPlan plan;
+
+    public MealPlanGenerator(List<Food> top100Foods, List<Nutrient> nutrients)
+    {
+        this.top100Foods = top100Foods;
+        this.nutrients = nutrients;
+        this.plan = new MealPlan();
+    }
+
+    public void GenerateMealPlan()
+    {
+        foreach (var nutrient in nutrients)
+        {
+            // Select a random food from the top 100 foods that have the most amount of the nutrient
+            var randomFood = top100Foods.OrderBy(x => Guid.NewGuid()).First();
+
+            // Add the random food to the meal plan and recalculate the plan's total score
+            plan.AddFood(randomFood);
+            var planScore = plan.CalculateScore();
+
+            // Check if adding the random food causes any nutrient to go over its upper bound
+            var overUpperBound = plan.IsOverUpperBound(nutrient);
+
+            // If adding the random food causes a nutrient to go over its upper bound, remove it and select a new food
+            if (overUpperBound)
+            {
+                plan.RemoveFood(randomFood);
+
+                // Record the number of times a nutrient causes a food rejection
+                nutrient.NumRejections++;
+
+                // If a nutrient causes a food rejection four or more times, remove the food with the highest amount of that nutrient from the meal plan
+                if (nutrient.NumRejections >= 4)
+                {
+                    var foodWithHighestAmount = plan.GetFoodWithHighestAmount(nutrient);
+                    plan.RemoveFood(foodWithHighestAmount);
+                }
+
+                // Select a new food and add it to the meal plan
+                randomFood = top100Foods.OrderBy(x => Guid.NewGuid()).First();
+                plan.AddFood(randomFood);
+            }
+        }
+
+        // Add foods until each nutrient goes over its lower bound
+        while (!plan.IsOverLowerBound())
+        {
+            // Select a random food from the top 100 foods that have the most amount of the next unmet nutrient
+            var unmetNutrient = plan.GetNextUnmetNutrient();
+            var randomFood = top100Foods.OrderBy(x => Guid.NewGuid()).First();
+            plan.AddFood(randomFood);
+        }
+
+        // Meal plan is complete if all nutrients meet minimum requirements
+        if (plan.IsComplete())
+        {
+            // Print the final meal plan
+            plan.Print();
+        }
+    }
+}
+
+
+```
+
 
 ## IMPROVEMENTS 
  A model such as SSC3gd could be used to pare down the food list prior to it being passed to this method.
