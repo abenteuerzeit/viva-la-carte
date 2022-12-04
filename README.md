@@ -75,8 +75,10 @@ In the MealPlanController class, create a new action method called SaveMealPlan 
             // Add your code here
         }
     }
-    In the SaveMealPlan action method, use Entity Framework to connect to the database and insert the data from the mealPlan object into the MealPlan table.
-    Copy code
+```
+In the SaveMealPlan action method, use Entity Framework to connect to the database and insert the data from the mealPlan object into the MealPlan table.
+
+```csharp
     public class MealPlanController : Controller
     {
         public ActionResult SaveMealPlan(MealPlan mealPlan)
