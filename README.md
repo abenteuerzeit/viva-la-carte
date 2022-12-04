@@ -108,7 +108,7 @@ In the SaveMealPlan action method, return a success message or a JSON response t
             // Add your code here
         }
     }
-    ```
+```
 In this example, the SaveMealPlan action method takes a MealPlan object as an input parameter. The action method uses Entity Framework to connect to the database and insert the data from the mealPlan object into the MealPlan table. The SaveChanges method is then called to save the changes to the database.
 
 After the meal plan is saved, you can add additional code in the SaveMealPlan action method to return a success message or a JSON response to confirm that the meal plan was saved successfully.
