@@ -23,74 +23,7 @@ James has all the items he wants. He purchases them. Victoria takes note and tha
 5. Edit meal plan. Substitute parts by regenerating sections of the plan. E.g., for just one day, or just one meal. 
 
 
-## Flows
-
-> Key: 
-> 1. Action
->     1. Success.
->     2. Failure
-
-### Actions (CRUD or REST)
-
-#### Identity 
-
-- ***Register a new account***
-    -  ? View **Home page**
-    -  : Return *register page with error message*
-- ***Login to account***
-    - ?  View **Home page**
-    - :  Return *Login page with error message*
-
-#### Profile Settings
-
-- ***Food preferences***
-    - USer interacts with **ProductPreferenceManager** to set preferences
-        - Only 10 items can be favorite
-        - Collect: Procuct.Id
-        - Save for later viewing and editing (to change ratings)
-
-```csharp
-public enum Ratings 
-{
-    reject, dislike, like, love, favorite
-}
-
-``` 
-
-- ***Meal preferences***
-    - Displayed on home page. You don't need an account to generate meals 
-    -  User interacts with Meal Planner to view generated meals
-        - Edit items 
-            - Add new item; change quantities/portion sizes, substitute products, delete items
-        - **MealPlanManager** properties: 
-        - 
-```csharp
-public enum Diets 
-{
-    Whatever, Paleo, Vegetarian, Vegan, Keto, Mediterranean
-}
-
-public class MealPlanManager : IMealPlanManager
-{
-    private double TotalCalories { get; set; }
-    private int MealCount { get; set; }
-    private Diets diet { get; set; }
-    private List<Recipe> Meals { get; set; }
-   ... 
-}
-```
-
-### Flows
-
-- Home Page displays Meal Plan Maker ⇒ User enters meal nutrition requirements and frequency ⇒ Accept / Modify / Reject meal plan.  
-    - each meal is composed of recipes (like: how to make a hamburger, how to make french fries, how to make lemonade). 
-    - User can see the nutritional data for the complete cart, an entire meal as well as for individual items
-- Accept Meal Plan ⇒ Map as shopping list ⇒  Get, display, modify products ⇒  Checkout (Create Order) ⇒ Process Payment ⇒ Delivery Service
-
-
-
-# Logic 
-# DIET PLAN GENERATOR 
+# DIET PLAN GENERATOR LOGIC 
 
 You can use the NutritionFacts class to store information about the nutritional content of foods. This class has properties for serving size, calories, and various macronutrients and micronutrients. It also has methods for getting the macronutrient and micronutrient dictionaries.
 
