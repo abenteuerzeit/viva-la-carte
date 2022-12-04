@@ -94,7 +94,7 @@ In the MealPlanController class, create a new action method called SaveMealPlan 
 
 To save the meal plan in the SaveMealPlan action method, you can use Entity Framework to connect to the database and insert the data from the mealPlan object into the MealPlan table.
 In the SaveMealPlan action method, return a success message or a JSON response to confirm that the meal plan was saved successfully.
-
+```csharp
     public class MealPlanController : Controller
     {
         public ActionResult SaveMealPlan(MealPlan mealPlan)
@@ -108,13 +108,13 @@ In the SaveMealPlan action method, return a success message or a JSON response t
             // Add your code here
         }
     }
-    
+    ```
 In this example, the SaveMealPlan action method takes a MealPlan object as an input parameter. The action method uses Entity Framework to connect to the database and insert the data from the mealPlan object into the MealPlan table. The SaveChanges method is then called to save the changes to the database.
 
 After the meal plan is saved, you can add additional code in the SaveMealPlan action method to return a success message or a JSON response to confirm that the meal plan was saved successfully.
 
 For example, you can use the Json method of the Controller class to return a JSON response containing a success message:
-
+```csharp
     public class MealPlanController : Controller
     {
         public ActionResult SaveMealPlan(MealPlan mealPlan)
@@ -128,7 +128,7 @@ For example, you can use the Json method of the Controller class to return a JSO
             return Json("Meal plan saved successfully");
         }
     }
-
+```
 In this example, the Json method is used to return a JSON response containing a success message. This JSON response can be used in the view to confirm that the meal plan was saved successfully
 
 ### Connect to Edamame 
@@ -138,7 +138,7 @@ To use the data from the Edamame Recipes API to generate the meal plan, you can 
 Here is an example of how you can do this:
 
 Create a Food class to represent the data for a food item from the API. The Food class should have properties to store the data for the food's name, serving size, calories, and various macronutrients and micronutrients. It should also have methods to get the macronutrient and micronutrient dictionaries.
-
+```csharp
     public class Food
     {
         public string Name { get; set; }
@@ -158,7 +158,7 @@ Create a Food class to represent the data for a food item from the API. The Food
             // Add your code here
         }
     }
-
+```
 Use the MealPlanGenerator class to select and add foods from the API to the meal plan. The MealPlanGenerator class should have a Foods property to store the list of foods from the API, and a GenerateMealPlan method that selects and adds foods to the meal plan based on the nutritional requirements.
 
 To use the MealPlanGenerator class to select and add foods from the API to the meal plan, you can use the GenerateMealPlan method of the MealPlanGenerator class to select and add foods to the meal plan based on the nutritional requirements.
@@ -166,7 +166,7 @@ To use the MealPlanGenerator class to select and add foods from the API to the m
 Here is an example of how you can do this:
 
 In the GenerateMealPlan method of the MealPlanGenerator class, create a list of Food objects to store the foods from the API.
-
+```csharp
     public class MealPlanGenerator
     {
         private List<Food> Foods { get; set; }
@@ -178,10 +178,10 @@ In the GenerateMealPlan method of the MealPlanGenerator class, create a list of 
             // Add your code here
         }
     }
+```
+In the GenerateMealPlan method, use the HttpClient class to send a GET request to the Edamame Recipes API to retrieve the data for the top 100 foods.
 
-In the GenerateMealPlan method, use the HttpClient class to send a GET request to the 
-
-    Edamame Recipes API to retrieve the data for the top 100 foods.
+```csharp
     public class MealPlanGenerator
     {
         private List<Food> Foods { get; set; }
@@ -198,9 +198,9 @@ In the GenerateMealPlan method, use the HttpClient class to send a GET request t
             }
         }
     }
-
+```
 In the GenerateMealPlan method, deserialize the JSON response from the API into a list of Food objects.
-
+```csharp
      public class MealPlanGenerator
       {
         private List<Food> Foods { get; set; }
@@ -260,14 +260,16 @@ In the GenerateMealPlan method, deserialize the JSON response from the API into 
             return null;
         }
     }
-    
+    ```
 In this example, the SelectFood method takes a Nutrient object as an input parameter and uses a search algorithm to find the food item with the closest match to the nutritional requirements of the given nutrient. The OrderBy method is used to sort the list of foods by the difference between the amount of the given nutrient in each food and the ideal amount of the nutrient. The FirstOrDefault method is then used to select the first food in the sorted list.
 
 After the food is selected, the SelectFood method checks if the selected food matches the criteria for the ideal quantity of the nutrient. If the selected food matches the criteria, it is returned by the SelectFood method. If the selected food does not match the criteria, null is returned.
 
 You can modify this implementation to use different search algorithms or criteria for selecting the food items that most closely match the nutritional requirements
 
-## Project Tasks
+# Project Description
+
+## Tasks
 
 ### TASK 1: Set nutrient ranges
 - All nutrients have a MinAmount, IdealAmount, and MaxAmount 
