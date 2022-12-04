@@ -25,11 +25,12 @@ James has all the items he wants. He purchases them. Victoria takes note and tha
 
 # DIET PLAN GENERATOR LOGIC 
 
-You can use the NutritionFacts class to store information about the nutritional content of foods. This class has properties for serving size, calories, and various macronutrients and micronutrients. It also has methods for getting the macronutrient and micronutrient dictionaries.
+The NutritionFacts, Nutrient, and MealPlan classes are used to store and manage data on nutrients and foods, while the MealPlanGenerator class is used to generate personalized meal plans based on the nutritional requirements and food data stored in the other classes.
 
-1. The Nutrient class can be used to store information about the nutritional requirements of a person. It has properties for the name of the nutrient, the minimum, ideal, and maximum quantities of the nutrient, the current quantity of the nutrient in the person's diet, and the priority of the nutrient. It also has methods for calculating the score of the nutrient based on the current quantity and for checking if the nutrient requirements are met.
-2. The MealPlan class can be used to store information about a personalized meal plan. It has a list of foods and a list of nutrients. It also has methods for calculating the score of the meal plan, checking if the meal plan is acceptable, selecting a food item, and adding the food item to the meal plan.
-3. The MealPlanGenerator class can be used to generate a personalized meal plan that meets specific nutritional requirements. It has a MealPlan object, a list of Nutrient objects, and a list of top 100 foods. It also has methods for loading nutrient data from a database or API, generating the meal plan by selecting and adding foods, and calculating the nutrient content of a food.
+1. You can use the NutritionFacts class to store information about the nutritional content of foods. This class has properties for serving size, calories, and various macronutrients and micronutrients. It also has methods for getting the macronutrient and micronutrient dictionaries.
+2. The Nutrient class can be used to store information about the nutritional requirements of a person. It has properties for the name of the nutrient, the minimum, ideal, and maximum quantities of the nutrient, the current quantity of the nutrient in the person's diet, and the priority of the nutrient. It also has methods for calculating the score of the nutrient based on the current quantity and for checking if the nutrient requirements are met.
+3. The MealPlan class can be used to store information about a personalized meal plan. It has a list of foods and a list of nutrients. It also has methods for calculating the score of the meal plan, checking if the meal plan is acceptable, selecting a food item, and adding the food item to the meal plan.
+4. The MealPlanGenerator class can be used to generate a personalized meal plan that meets specific nutritional requirements. It has a MealPlan object, a list of Nutrient objects, and a list of top 100 foods. It also has methods for loading nutrient data from a database or API, generating the meal plan by selecting and adding foods, and calculating the nutrient content of a food.
 
 To implement these classes and methods, you can use a combination of the C# programming language, the .NET framework, and a database or API for storing and accessing nutritional data. You can also use arrow functions to simplify your code and make it more readable.
 
@@ -45,14 +46,6 @@ To make the algorithm faster, one possible approach is to use a more efficient m
 
 This would allow the algorithm to quickly find the optimal combination of foods that meet the nutritional goals, without the need for multiple iterations. Additionally, using a database to store and manage the data on nutrients and foods can also improve the efficiency of the algorithm, as it allows for more efficient data retrieval and manipulation.
 
-## Implementation Ideas 
-
-1. The NutritionFacts class stores information about the nutritional content of foods. It has properties for serving size, calories, and various macronutrients and micronutrients. It also has methods for getting the macronutrient and micronutrient dictionaries.
-2. The Nutrient class stores information about the nutritional requirements of a person. It has properties for the name of the nutrient, the minimum, ideal, and maximum quantities of the nutrient, the current quantity of the nutrient in the person's diet, and the priority of the nutrient. It also has methods for calculating the score of the nutrient based on the current quantity and for checking if the nutrient requirements are met.
-3. The MealPlan class stores information about a personalized meal plan. It has a list of foods and a list of nutrients. It also has methods for calculating the score of the meal plan, checking if the meal plan is acceptable, selecting a food item, and adding the food item to the meal plan.
-4. The MealPlanGenerator class is used to generate a personalized meal plan that meets specific nutritional requirements. It has a MealPlan object, a list of Nutrient objects, and a list of top 100 foods. It also has methods for loading nutrient data from a database or API, generating the meal plan by selecting and adding foods, and calculating the nutrient content of a food.
-
-The NutritionFacts, Nutrient, and MealPlan classes are used to store and manage data on nutrients and foods, while the MealPlanGenerator class is used to generate personalized meal plans based on the nutritional requirements and food data stored in the other classes.
 
 ### Steps 
 
