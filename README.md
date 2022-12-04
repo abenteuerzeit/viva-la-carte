@@ -67,6 +67,7 @@ In your ASP.NET MVC project, create a new database and a MealPlan table in the d
 
 In the MealPlanController class, create a new action method called SaveMealPlan that takes a MealPlan object as an input parameter.
 
+```csharp
     public class MealPlanController : Controller
     {
         public ActionResult SaveMealPlan(MealPlan mealPlan)
@@ -89,6 +90,7 @@ In the MealPlanController class, create a new action method called SaveMealPlan 
             // Add your code here
         }
     }
+```
 
 To save the meal plan in the SaveMealPlan action method, you can use Entity Framework to connect to the database and insert the data from the mealPlan object into the MealPlan table.
 In the SaveMealPlan action method, return a success message or a JSON response to confirm that the meal plan was saved successfully.
