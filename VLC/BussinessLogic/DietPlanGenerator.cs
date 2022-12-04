@@ -1,250 +1,518 @@
-﻿using NuGet.Protocol;
-using System.Web.Helpers;
+﻿using Humanizer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
+using NuGet.Packaging.Signing;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading;
+using VLC.Models.Meals;
 using VLC.Models.Nutrition;
 using static VLC.Models.Nutrition.NutritionFacts;
 
+
+/*
+ You can use the NutritionFacts class to store information about the nutritional content of foods. This class has properties for serving size, calories, and various macronutrients and micronutrients. It also has methods for getting the macronutrient and micronutrient dictionaries.
+
+The Nutrient class can be used to store information about the nutritional requirements of a person. It has properties for the name of the nutrient, the minimum, ideal, and maximum quantities of the nutrient, the current quantity of the nutrient in the person's diet, and the priority of the nutrient. It also has methods for calculating the score of the nutrient based on the current quantity and for checking if the nutrient requirements are met.
+
+The MealPlan class can be used to store information about a personalized meal plan. It has a list of foods and a list of nutrients. It also has methods for calculating the score of the meal plan, checking if the meal plan is acceptable, selecting a food item, and adding the food item to the meal plan.
+
+The MealPlanGenerator class can be used to generate a personalized meal plan that meets specific nutritional requirements. It has a MealPlan object, a list of Nutrient objects, and a list of top 100 foods. It also has methods for loading nutrient data from a database or API, generating the meal plan by selecting and adding foods, and calculating the nutrient content of a food.
+
+To implement these classes and methods, you can use a combination of the C# programming language, the .NET framework, and a database or API for storing and accessing nutritional data. You can also use arrow functions to simplify your code and make it more readable.
+ */
+
+// 1. Start the program and load the data on the nutrients that are considered in the meal plan, including their minimum, ideal, and maximum quantities.
+
+// 2. Select a random food item from a list of the top 100 foods that contain the next unmet nutrient in the meal plan.
+
+// 3. Check if the selected food matches the criteria for the ideal quantity of the nutrient in question.
+
+// 4. If the food matches the criteria, add it to a food list and check if all the nutrient requirements in the list are met. If they are, end the program. If not, go back to step 2 to select another food item.
+
+// 5. If the food does not match the criteria, reject the food and increment the iterator. If there are more than 100 iterations, go back to step 2 to select a different food item.
+
+// 6 .Calculate the nutrient scores for the meal plan using the linear functions described in the algorithm. Sum the scores for each nutrient to get the overall mealPlanScore.
+
+// 7. Use the mealPlanScore to evaluate the nutritional value of the meal plan and make adjustments as needed to meet the individual's nutritional goals.
+
+//To make the algorithm faster, one possible approach is to use a more efficient method for selecting food items that meet the nutritional goals.
+//For example, instead of randomly selecting food items from a list of the top 100 foods, the algorithm could use a search algorithm to find the food items that most closely match the nutritional requirements.
+//This would allow the algorithm to quickly find the optimal combination of foods that meet the nutritional goals, without the need for multiple iterations. Additionally,
+//using a database to store and manage the data on nutrients and foods can also improve the efficiency of the algorithm, as it allows for more efficient data retrieval and manipulation.
+
+// TODO: add additional properties to your Nutrient and MealPlan classes to store this information, and use it in your meal plan generation methods to customize the generated meal plan. You could also add additional methods to your MealPlanGenerator class to calculate the individual's daily calorie needs based on their gender, age, height, weight, body fat, and activity level.
+
 namespace VLC.BussinessLogic
 {
-    public class DietPlanGenerator
+    public class NutrientModel
     {
+        [Required]
+        public string Name { get; set; }
+        [Range(0, double.MaxValue)]
+        public double MinimumQuantity { get; set; }
+        [Range(0, double.MaxValue)]
+        public double IdealQuantity { get; set; }
+        [Range(0, double.MaxValue)]
+        public double MaximumQuantity { get; set; }
+        [Range(0, double.MaxValue)]
+        public double CurrentQuantity { get; set; }
+        [Range(0, double.MaxValue)]
+        public double Weight { get; set; }
 
-        partial class NutrientRanges
+        public NutrientModel()
         {
+            CurrentQuantity = 0;
+        }
+    }
 
-            public Nutrient Nutrient { get; }
+    public class Nutrient
+    {
+        public string Name { get; set; }
+        public double MinimumQuantity { get; set; }
+        public double IdealQuantity { get; set; }
+        public double MaximumQuantity { get; set; }
+        public double CurrentQuantity { get; set; }
+        public double Priority { get; set; }
 
-            public NutritionFacts NutritionFacts => GetNutrientFacts();
+        public Nutrient()
+        {
+            CurrentQuantity = 0;
+        }
+
+        /// <summary>
+        /// Method for adding a specified quantity of the nutrient
+        /// </summary>
+        /// <param name="quantity"></param>
+        public void AddQuantity(double quantity)
+        {
+            CurrentQuantity += quantity;
+        }
 
 
-            /// <summary>
-            /// The least amount of that nutrient that will be accepted to accept the meal plan.
-            /// </summary>
-            private decimal MinAmount { get; set; }
-
-
-            /// <summary>
-            /// The amount of the nutrient that will result in the meal plan receiving a perfect score for the specific nutrient.
-            /// </summary>
-            private decimal IdealAmount { get; set; }
-
-            /// <summary>
-            /// (optional) The maximum acceptable amount, above which the meal plan is not acceptable.
-            /// </summary>
-            private decimal? MaxAmount { get; set; }
-
-
-            /// <summary>
-            /// All nutrients have a MinAmount, IdealAmount, and MaxAmount.
-            /// It is possible for the minimum amount of nutrient value and ideal amount of nutrient avalue to be the same.
-            /// </summary>
-            /// <param name="min"></param>
-            /// <param name="ideal"></param>
-            /// <param name="max"></param>
-            public NutrientRanges(Nutrient nutrient, decimal min, decimal ideal, decimal? max)
+        /// <summary>
+        /// Uses the appropriate linear function to calculate the nutrient score
+        /// </summary>
+        /// <param name="ideal"></param>
+        /// <param name="maximum"></param>
+        /// <param name="minimum"></param>
+        /// <param name="priority"></param>
+        /// <param name="defaultScore"></param>
+        /// <returns></returns>
+        // based on the nutrient quantity, ideal, maximum, and minimum quantities,
+        // as well as the Priority and defaultScore values
+        public double CalculateNutrientScore(double ideal, double maximum, double minimum, double priority, double defaultScore)
+        {
+            if (CurrentQuantity > ideal && CurrentQuantity < maximum)
             {
-                Nutrient = nutrient;
-                MinAmount = min;
-                MaxAmount = max;
-                IdealAmount = ideal;
+                return priority * (CurrentQuantity - ideal) + defaultScore;
+            }
+            else if (CurrentQuantity < ideal && CurrentQuantity > minimum)
+            {
+                return priority * (CurrentQuantity - ideal) + defaultScore;
+            }
+            else if (CurrentQuantity < minimum)
+            {
+                return priority * (CurrentQuantity - minimum) + defaultScore;
             }
 
+            // default return value if none of the conditions are satisfied
+            return 0;
+        }
+    }
 
-            /// <summary>
-            /// Users can customize the default MinAmount value.
-            /// </summary>
-            /// <param name="newMinAmount"></param>
-            /// <returns></returns>
-            public decimal SetNewMinAmount(decimal newMinAmount)
+
+
+    public class MealPlan
+    {
+        // List of nutrients in the meal plan
+        public List<Nutrient> Nutrients { get; set; }
+
+        // List of food items in the meal plan
+        public List<FoodItem> FoodItems { get; set; }
+
+        // Constructor
+        public MealPlan()
+        {
+            Nutrients = new List<Nutrient>();
+            FoodItems = new List<FoodItem>();
+        }
+
+        // Method for calculating the score for a given nutrient in the meal plan
+        public double CalculateNutrientScore(Nutrient nutrient)
+        {
+            // Get the current quantity of the nutrient in the meal plan
+            double currentQuantity = nutrient.CurrentQuantity;
+
+            // Select the appropriate function for calculating the nutrient score,
+            // based on the current quantity of the nutrient in the meal plan
+            if (currentQuantity > nutrient.IdealQuantity && currentQuantity < nutrient.MaximumQuantity)
             {
-                MinAmount = newMinAmount;
-                return MinAmount;
+                // Function used when the current quantity of the nutrient is greater than the ideal quantity
+                // and less than the maximum quantity
+                return nutrient.Priority * (currentQuantity - nutrient.MinimumQuantity) + nutrient.DefaultScore;
             }
-
-            public NutritionFacts GetNutrientFacts()
+            else if (currentQuantity < nutrient.IdealQuantity && currentQuantity > nutrient.MinimumQuantity)
             {
-                return new NutritionFacts();
+                // Function used when the current quantity of the nutrient is less than the ideal quantity
+                // and greater than the minimum quantity
+                return nutrient.Priority * (currentQuantity - nutrient.MinimumQuantity) + nutrient.DefaultScore;
             }
-
-
-            public void GetNutrientMinAmount()
+            else
             {
-
-
+                // Function used when the current quantity of the nutrient is less than the minimum quantity
+                return nutrient.Priority * (currentQuantity - nutrient.MinimumQuantity) + nutrient.DefaultScore;
             }
         }
-        /*  TODO: IMPLEMENT DIET PLAN GENERATOR LOGIC
-            Algorithm: https://www.scirp.org/journal/paperinformation.aspx?paperid=66880
-        
-        ====================[ DIET PLAN GENERATOR ]=====================| 
-         TASK 1: Set nutrient ranges
-            - All nutrients have a MinAmount, IdealAmount, and MaxAmount 
-            - MinAmount = the least amount of that nutrient that will be accepted to accept the meal plan.
-                - A default MinAmount is provided for all nutrients.
-                - Users can customize the default MinAmount value
-            - IdealAmount = the amount of the nutrient that will result in the meal plan receiving a perfect score for the specific nutrient.
-            - It is possible for the minimum amount of nutrient value and ideal amount of nutrient avalue to be the same.
-            - MaxAmount = (optional) The maximum acceptable amount, above which the meal plan is not acceptable.
 
-         Task 2: Calculate a number to score each nutrient
-            - The score is calculated using one of three linear functions
-            - The funciton used to calculate the score is selected based on the nutrientAmount
-            - The decimal nutrientAmount = the amount of nutrient currently in the meal plan in relation to its MaxAmount, IdealAmount, and MinAmount.
+        // Method for calculating the overall score for the meal plan
+        public double CalculateMealPlanScore()
+        {
+            double score = 0;
 
-         TASK 3: Write three functions that differ in the “Importance” (the line segment's slope) and intercept used (where it crosses the y-axis, i.e., the 'default score').
-            - If nutrientAmount > IdealAmount && nutrientAmount < MaxAmount => use the first function.
-            - If nutrientAmount < IdealAmount && nutrientAmount > MinAmount, the second function is used.
-            - If nutrientAmount < MinAmount, the third function is used.
-            > The user can adjust the importance and defaults
-            > You should have 3 distinct ranges and functions to calculate the nutrient score so the meal plan can be customized
-            > Importance (aka weight): 1 = a line slope of 1; 2 = a line slope of 2.
+            // Calculate the score for each nutrient in the meal plan
+            foreach (var nutrient in Nutrients)
+            {
+                score += CalculateNutrientScore(nutrient);
+            }
 
-         TASK 4: Calculate a number to score the meal plan.
-             - MealPlanScore = sum of each nutrient score, i.e.: [NutrientScoreFIRST, ... ,NutrientScoreLAST].sum();
-             - If two MealPlanScores have an identical set of nutritional goals,
-                    then a larger MSCORE means that the meal plan is more in line with nutritional requirements.
+            return score;
+        }
 
-        EXAMPLE: 
-          Nutrient    = Calcium,
-          Unit        = mg,
-          MinAmount   = 1000,
-          IdealAmount = 2500,
-          MaxAmount   = 5000,
-          MealHas     = 1164, (current amount in the meal)
-          Importance  = 2
-          Intercept   = 1
+        // Method for checking if a meal plan meets the specified nutritional requirements
+        public bool IsMealPlanAcceptable(MealPlan mealPlan)
+        {
+            // Check if the meal plan is acceptable
+            foreach (var nutrient in mealPlan.Nutrients)
+            {
+                // Check if the nutrient score is within the acceptable range
+                if (nutrient.CurrentQuantity < nutrient.MinimumQuantity ||
+                    nutrient.CurrentQuantity > nutrient.MaximumQuantity)
+                {
+                    // The meal plan is not acceptable
+                    return false;
+                }
+            }
+            // If all nutrients are within the acceptable range, the meal plan is acceptable
+            return true;
 
-         Function examples:
-            f(x) =  m *     x       + b = y      
-                    2 * (1164/2500) + 1 = 1.931
-                    1 * (1164/2500) + 1 = 1.466
-
-        FORMULAS for the function(nutrientAmount). 
-         - returns: the nutrient score,
-         - parameter: the nutrient amount. 
-         - if MaxAmount >= n > idealAmount;
-                Function 1: NutrientLessThanMaxAmount(n) => (-1 * Importance * ( n / maxAmount)) + Intercept;
-         - if idealAmount >= n > MinAmount; 
-                Function 2: NutrientGreaterThanMinAmount(n) => Importance * ( n / idealAmount) + Intercept;
-         - if MinAmount >= n >= 0;
-                Function 3: NutrientLessThanMinAmount(n) => Importance * ( n / minAmount) + Intercept; 
+        }
 
 
-        ====================[ IMPLEMENTATION ]=====================| 
-         Get Nutrition Data for foods
-         Get a list of 100 foods with the highest amount of each nutrient from the USDA National Nutrient Database
-         var plan = new MealPlan();
-         Add foods to increse the meal plan's nutrient's sum score. 
-         Iterate over each nutrient to check
-         For each nutrient, select a random food from a list of 100 foods that have the most amount of the nutrient. 
-         Add the random item to the meal plan and recalculate the meal plan's total score.
-         If the food doesn't make any other nutrient amount to go over the upper bound for that nutrient, then keep it.
-         If the food makes any other nutrient amount to go over the upper bound for that nutrient, then remove it and select a new food item.
-              Record the number of times a nutrient cause a food rejection.
-              If a nutrient causes a food rejection four or more times, remove the food item from the meal plan with the highest amount of that nutrient.
-              
-         Select the next nutrient and repeat. 
-         Add foods until each nutrient goes over its lower bound. 
-         Meal plan is complete if all nutrients meet minimum requirements.
 
 
-        ====================[ IMPROVEMENTS ]=====================|
-         A model such as SSC3gd could be used to pare down the food list prior to it being passed to this method.
-         A pantry feature that would allow users to track the foods that they currently have in their pantry/house.
-         Use pantry data, along with the food list for generated meal plans, to provide the users with a shopping list.
-         Present users with nutritional goal templates, an example being “Post race recovery”.
-              The template would recommend the MinAmount, IdealAmount, and MaxAmount, and would insert the nutrient defaults and weights.
-         The website provides the user with recipes, as opposed to a simple food list.
-         The recipes would be user submitted, along with the selecting what foods from the USDA database to use.
+        public class MealPlanGenerator
+        {
+            public MealPlan MealPlan { get; set; }
+            public List<Nutrient> Nutrients { get; set; }
+            public List<string> Top100Foods { get; set; }
+            public List<string> Foods { get; set; }
+            public Diet Diet { get; set; }
+            public int Calories { get; set; }
+            public Gender Gender { get; set; }
+            public int Age { get; set; }
+            public int Height { get; set; }
+            public int Weight { get; set; }
+            public int BodyFat { get; set; }
+            public int ActivityLevel { get; set; }
+            public bool UseMetricUnits { get; set; }
 
-        ====================[ PROGRAM EXAMPLE RUN for Calcium ]=====================|
-        1) Looking for Vitamin C.
-        2) Adding Peppers, sweet, green, cooked, boiled, drained, without salt.
-        3) Looking for Vitamin B1 (thiamine).
-        4) Adding WORTHINGTON Dinner Roast, frozen, unprepared.
-        5) Looking for Vitamin B2 (riboflavin).
-        6) Adding Spaghetti with meat sauce, frozen entrée.
-        7) Looking for Vitamin B3 (niacin).
-        8) Adding Fast foods, submarine sandwich, turkey, roast beef and ham on white bread with lettuce and tomato.
-        9) Looking for Pantothenic Acid.
-        10) Adding Chicken, liver, all classes, cooked, pan-fried.
-        11) Looking for Calcium.
-        12) Exceeded Sodium (1). 
-        13) Looking for Vitamin K.
-        14) Exceeded Sodium (2).
-        15) Looking for Magnesium.
-        16) Adding Peanuts, Virginia, oil-roasted, without salt.
-        17) Looking for Potassium.
-        18) Adding Plums, dried (prunes), uncooked.
-        19) Looking for Zinc.
-        20) Exceeded Sodium (3).
-        21) Looking for Vitamin E.
-        22) Exceeded Sodium (4).
-        23) The score is: 5.52796417989.
-        24) Removing a food for Sodium.
-        25) Looking for Vitamin C.
-        26) Adding Orange juice, raw.
-        27) Looking for Calcium.
-        28) Adding CARRABBA’S ITALIAN GRILL, cheese ravioli with marinara sauce.
-        29) Looking for Vitamin K.
-        30) Exceeded Sodium (1).
-        31) Looking for Magnesium.
-        32) Exceeded Sodium (2).
-        33) Looking for Potassium.
-        34) Adding Apricots, dehydrated (low-moisture), sulfured, stewed.
-        35) Looking for Zinc.
-        36) Exceeded Sodium (3).
-        37) Looking for Vitamin E.
-        38) Adding Oil, sunflower, linoleic (less than 60%).
-        39) This report is for date: 16/11/22. The score is: 7.55021904762.
-         
-        |=====================[ OUTPUT ]=====================|
-        1) Elapsed time (ms): 329500.334978.
-        2) This report is for date: 16/11/22. The score is: 19.7325233333.
-        3) Nutrient List.
-            1) Histidine = N/A DRV (2.068 g/0).
-            2) Vitamin C = 40.7% of Ideal (609.9 mg/1.2198).
-            3) Vitamin B1 (thiamine) = 84.4% of Ideal (2.111 mg/2.5332).
-            4) Vitamin B2 (riboflavin) = 174.6% of Ideal (4.015 mg/0.330833333333).
-            5) Vitamin B3 (niacin) = 69.4% of Ideal (20.81 mg/2.081).
-            6) Pantothenic Acid = 54.2% of Ideal (10.837 mg/1.62555).
-            7) Folate = 197.8% of Ideal (989.0 ug/0.6044).
-            8) Calcium = 107.8% of Ideal (2694.0 mg/3.6896).
-            9) Vitamin K = 24.8% of Ideal (124.1 ug/0.7446).
-            10) Iron = 73.7% of Ideal (22.12 mg/2.212).
-            11) Magnesium = 87.2% of Ideal (698.0 mg/2.6175).
-            12) Phosphorus = 246.1% of Ideal (2461.0 mg/0.0156).
-            13) Potassium = 153.1% of Ideal (6890.0 mg/−3.92142857143).
-            14) Sodium = 136.3% of Ideal (1363.0 mg/0.0264285714286).
-            15) Zinc = 107.1% of Ideal (18.2 mg/0.636).
-            16) Copper = 49.6% of Ideal (2.978 mg/1.489).
-            17) Fluoride = 0.0% of Ideal (0 ug/0).
-            18) Manganese = 178.7% of Ideal (5.36 mg/0.464).
-            19) Selenium = 72.0% of Ideal (72.0 ug/2.16).
-            20) Vitamin A = 111.1% of Ideal (8334.0 IU/0.66664).
-            21) Vitamin E = 154.1% of Ideal (46.22 mg/0.5378).
-            22) Vitamin D = 0.4% of Ideal (8.0 IU/0).
-            23) Tryptophan = N/A DRV (0.904 g/0).
-            24) Threonine = N/A DRV (3.2 g/0).
-            25) Isoleucine = N/A DRV (3.487 g/0).
-            26) Leucine = N/A DRV (6.107 g/0).
-            27) Lysine = N/A DRV (4.907 g/0).
-            28) Methionine = N/A DRV (0.914 g/0).
-            29) Phenylalanine = N/A DRV (1.002 g/0).
-            30) Valine = N/A DRV (3.732 g/0).
-        4) Food List.
-            1) Beverages, MONSTER energy drink, low carb-Beverages.
-            2) Broccoli, frozen, chopped, unprepared-Vegetables and Vegetable Products.
-            3) Beans, white, mature seeds, raw-Legumes and Legume Products.
-            4) Desserts, mousse, chocolate, prepared-from-recipe-Sweets.
-            5) Strawberries, frozen, sweetened, sliced-Fruits and Fruit Juices.
-            6) Peppers, sweet, red, raw-Vegetables and Vegetable Products.
-            7) Lupins, mature seeds, raw-Legumes and Legume Products.
-            8) CAMPBELL’S, V8 Vegetable Juice, Essential Antioxidants V8-Vegetables and Vegetable Products.
-            9) Pepper, banana, raw-Vegetables and Vegetable Products.
-            10) Peppers, hot chili, green, raw-Vegetables and Vegetable Products.
-            11) Whey, acid, dried-Dairy and Egg Products.
-            12) Oil, sunflower, high oleic (70% and over)-Fats and Oils.
-            13) Mushrooms, white, cooked, boiled, drained, without salt-Vegetables and Vegetable Products.
+
+            public MealPlanGenerator()
+            {
+                MealPlan = new MealPlan();
+                Nutrients = new List<Nutrient>();
+                Top100Foods = new List<string>();
+                Foods = new List<string>();
+
+            }
+
+            public void LoadNutrientData()
+            {
+                // Use the entity framework to retrieve data on nutrients and their quantities from the database
+                using (var db = new MyDbContext())
+                {
+                    Nutrients = db.Nutrients.ToList();
+                }
+            }
+
+            public void GenerateMealPlan()
+            {
+                /*
+                 
+                  // First, calculate the person's daily caloric needs based on their gender, age, height, weight, and activity level
+                    int dailyCaloricNeeds = CalculateDailyCaloricNeeds(gender, age, height, weight, activityLevel);
+
+                    // Next, based on the person's goal (lose, maintain, or gain weight), determine the number of calories per meal and the proportion of macronutrients in the meal plan
+                    int caloriesPerMeal = 0;
+                    double proteinRatio = 0.0;
+                    double carbRatio = 0.0;
+                    double fatRatio = 0.0;
+                    if (goal == "lose")
+                    {
+                        // If the person wants to lose weight, reduce the number of calories per meal and increase the protein ratio
+                        caloriesPerMeal = dailyCaloricNeeds / 3;
+                        proteinRatio = 0.4;
+                        carbRatio = 0.3;
+                        fatRatio = 0.3;
+                    }
+                    else if (goal == "maintain")
+                    {
+                        // If the person wants to maintain their weight, keep the number of calories per meal and macronutrient ratios the same as their daily caloric needs
+                        caloriesPerMeal = dailyCaloricNeeds / 3;
+                        proteinRatio = dailyCaloricNeeds * 0.1 / caloriesPerMeal;
+                        carbRatio = dailyCaloricNeeds * 0.5 / caloriesPerMeal;
+                        fatRatio = dailyCaloricNeeds * 0.35 / caloriesPerMeal;
+                 
+                 
+                 */
+
+
+
+
+
+                // Set requirementsMet to false until all nutrient requirements are met
+                bool requirementsMet = false;
+                Random random = new();
+
+                // Keep selecting a random food and adding it to the meal plan until all requirements are met
+                while (!requirementsMet)
+                {
+                    // Select a random food from the list of top 100 foods
+                    // To do this, generate a random number between 0 and the length of the list
+                    // Use this random number as the index to access a random item from the list
+                    int index = random.Next(0, Top100Foods.Count);
+                    string food = Top100Foods[index];
+
+                    // Calculate the nutrient content of the food
+                    foreach (Nutrient nutrient in Nutrients)
+                    {
+                        nutrient.CurrentQuantity += CalculateFoodNutrientContent(food, nutrient.Name);
+                    }
+
+                    // Add the food to the meal plan
+                    Foods.Add(food);
+
+                    // Check if all nutrient requirements are met
+                    requirementsMet = true;
+                    foreach (Nutrient nutrient in Nutrients)
+                    {
+                        if (nutrient.CurrentQuantity < nutrient.MinimumQuantity)
+                        {
+                            requirementsMet = false;
+                            break;
+                        }
+                    }
+                }
+            }
+
+
+
+            ///// <summary>
+            ///// The GenerateMealPlan method is a recursive method that generates a personalized meal plan 
+            ///// by selecting a random food from a list of top 100 foods 
+            ///// and adding it to the meal plan. 
+            ///// The method then calculates the nutrient content of the food 
+            ///// and checks if all the nutrient requirements are met. 
+            ///// If all the requirements are met, the program ends. 
+            ///// If not, the method calls itself again to select another food 
+            ///// and add it to the meal plan, until all the requirements are met. 
+            ///// This allows the method to generate a meal plan that meets specific nutritional requirements
+            ///// </summary>
+            //public void GenerateMealPlan()
+            //{
+            //    // Select a random food from the list of top 100 foods
+            //    string food = Top100Foods[0];
+
+            //    // Calculate the nutrient content of the food
+            //    foreach (Nutrient nutrient in Nutrients)
+            //    {
+            //        nutrient.CurrentQuantity += CalculateFoodNutrientContent(food, nutrient.Name);
+            //    }
+
+            //    // Add the food to the meal plan
+            //    MealPlan.Foods.Add(food);
+
+            //    // Check if all nutrient requirements are met
+            //    bool requirementsMet = true;
+            //    foreach (Nutrient nutrient in Nutrients)
+            //    {
+            //        if (nutrient.CurrentQuantity < nutrient.MinimumQuantity)
+            //        {
+            //            requirementsMet = false;
+            //            break;
+            //        }
+            //    }
+
+            //    // If all nutrient requirements are met, end the program
+            //    if (requirementsMet)
+            //    {
+            //        return;
+            //    }
+
+            //    // If not, go back to selecting a random food item from the list
+            //    GenerateMealPlan();
+            //}
+
+
+            ///// <summary>
+            ///// A helper method that calculates the amount of a specific nutrient in a given food. 
+            ///// This method is called by the GenerateMealPlan method to calculate the nutrient content of a food that has been added to the meal plan. 
+            ///// The method takes two arguments: food, which is the name of the food to be analyzed, 
+            ///// and nutrientName, which is the name of the nutrient to be calculated. 
+            ///// The method looks up the nutrient composition of the food in a database or lookup table, 
+            ///// and returns the amount of the specified nutrient in the food. 
+            ///// </summary>
+            ///// <param name="food"></param>
+            ///// <param name="nutrientName"></param>
+            ///// <returns></returns>
+            //private double CalculateFoodNutrientContent(string food, string nutrientName)
+            //{
+            //    // Use the entity framework to retrieve the nutrient composition of the food from the database
+            //    using (var db = new MyDbContext())
+            //    {
+            //        var foodNutrient = db.FoodNutrients
+            //            .Where(fn => fn.Food.Name == food && fn.Nutrient.Name == nutrientName)
+            //            .SingleOrDefault();
+
+            //        if (foodNutrient != null)
+            //        {
+            //            return foodNutrient.Quantity;
+            //        }
+            //    }
+            //    // If the food does not have the specified nutrient, return 0
+            //    return 0;
+            //}
+            private double CalculateFoodNutrientContent(string food, string nutrientName)
+            {
+
+                // Make a request to the edamame API
+                string url = $"https://api.edamam.com/api/food-database/parser?ingr={food}&app_id=<YOUR_APP_ID>&app_key=<YOUR_APP_KEY>";
+                string response = MakeRequest(url);
+
+                // Parse the response to extract the nutrient content of the food
+                // For example, if the nutrientName is "Protein", you would return the amount of protein in the food
+                double nutrientContent = ParseResponse(response, nutrientName);
+
+                return nutrientContent;
+            }
+
+
+            /*
+            
+            private const string API_URL = "https://example.com/api/v1/foods";
+
+            private async Task<double> CalculateFoodNutrientContent(string food, string nutrientName)
+            {
+                // Use HttpClient to make a GET request to the API
+                using (var client = new HttpClient())
+                {
+                    // Add the API key to the request header
+                    client.DefaultRequestHeaders.Add("x-api-key", API_KEY);
+
+                    // Set the Accept header to "application/json" to indicate that we want a JSON response
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    // Make the GET request to the API
+                    HttpResponseMessage response = await client.GetAsync(API_URL);
+
+                    // Check if the request was successful
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Parse the JSON response from the API
+                        var jsonString = await response.Content.ReadAsStringAsync();
+                        var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonString);
+
+                        // Extract the nutrient data for the specified food and nutrient
+                        var foodObject = jsonObject["foods"].FirstOrDefault(x => x["name"].Value<string>() == food);
+                        var nutrientValue = foodObject["nutrients"].FirstOrDefault(x => x["name"].Value<string>() == nutrientName)?["value"];
+
+                        // Return the nutrient value, or 0 if the nutrient was not found
+                        return nutrientValue?.Value<double>() ?? 0;
+                    }
+                    else
+                    {
+                        // The request was not successful, throw an exception
+                        throw new Exception($"Failed to retrieve data from API: {response.StatusCode} - {response.ReasonPhrase}");
+                    }
+                }
+            }
+
+
+             */
+
+
+            //private NutrientContent MakeRequest(string foodName)
+            //{
+            //    // Use the entity framework or a web API client to make a request to the database or API
+            //    // for information about the specified food item
+
+            //    // For example, using the entity framework:
+            //    using (var db = new MyDbContext())
+            //    {
+            //        return db.Foods.Where(f => f.Name == foodName).FirstOrDefault();
+            //    }
+
+            //    // Or, using a web API client:
+            //    var client = new HttpClient();
+            //    var response = await client.GetAsync($"http://myapi.com/foods?name={foodName}");
+            //    return await response.Content.ReadAsAsync<NutrientContent>();
+            //}
+
+
+
+        }
+
+
+
+
+
+        //public class MealPlanController : Controller
+        //{
+        //    public ActionResult GenerateMealPlan()
+        //    {
+        //        // Use the MealPlanGenerator class to generate a meal plan
+        //        MealPlanGenerator generator = new MealPlanGenerator();
+        //        generator.LoadNutrientData();
+        //        generator.GenerateMealPlan();
+
+        //        // Pass the generated meal plan to the view
+        //        return View(generator.MealPlan);
+        //    }
+        //}
+
+
+        /*
+        @model MealPlan
+
+    <h1>Meal Plan</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Food</th>
+                <th>Nutrient Content</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var food in Model.Foods)
+        {
+                < tr >
+                    < td > @food </ td >
+                    < td >
+                        < ul >
+                            @foreach(var nutrient in Model.Nutrients)
+                            {
+                                < li > @nutrient.Name: @nutrient.CurrentQuantity @nutrient.Unit </ li >
+                            }
+                        </ ul >
+                    </ td >
+                </ tr >
+            }
+        </tbody>
+    </table>
         */
+
     }
 }
