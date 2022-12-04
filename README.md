@@ -260,7 +260,7 @@ In the GenerateMealPlan method, deserialize the JSON response from the API into 
             return null;
         }
     }
-    ```
+```
 In this example, the SelectFood method takes a Nutrient object as an input parameter and uses a search algorithm to find the food item with the closest match to the nutritional requirements of the given nutrient. The OrderBy method is used to sort the list of foods by the difference between the amount of the given nutrient in each food and the ideal amount of the nutrient. The FirstOrDefault method is then used to select the first food in the sorted list.
 
 After the food is selected, the SelectFood method checks if the selected food matches the criteria for the ideal quantity of the nutrient. If the selected food matches the criteria, it is returned by the SelectFood method. If the selected food does not match the criteria, null is returned.
