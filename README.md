@@ -306,13 +306,15 @@ Create a new MealPlanGenerator object that uses the MealPlan object created in s
 ```csharp
 # Create a new MealPlanGenerator object
 mealPlanGenerator = new MealPlanGenerator(mealPlan)
-Use the setNutrientRequirements method provided by the MealPlanGenerator class to specify the user's nutritional requirements. This method takes as input the minimum, ideal, and maximum quantities of each nutrient that should be included in the meal plan.
 ```
+Use the setNutrientRequirements method provided by the MealPlanGenerator class to specify the user's nutritional requirements. This method takes as input the minimum, ideal, and maximum quantities of each nutrient that should be included in the meal plan.
+
 ```csharp
 # Set the user's nutritional requirements
 nutrientRequirements = mealPlanGenerator.setNutrientRequirements(...)
-Use the searchForFoods method provided by the MealPlanGenerator class to search for foods that meet the nutritional requirements specified in step 3. This method takes as input the nutritional requirements and the EdamamAPI and USDAAPI objects that are used to search for and retrieve data on foods.
 ```
+Use the searchForFoods method provided by the MealPlanGenerator class to search for foods that meet the nutritional requirements specified in step 3. This method takes as input the nutritional requirements and the EdamamAPI and USDAAPI objects that are used to search for and retrieve data on foods.
+
 ```csharp
 # Search for foods that meet the nutritional requirements
 foods = mealPlanGenerator.searchForFoods(nutrientRequirements, edamamAPI, usdaAPI)
@@ -322,20 +324,23 @@ Use the selectFoods method provided by the MealPlanGenerator class to select the
 ```csharp
 # Select foods for the meal plan
 selectedFoods = mealPlanGenerator.selectFoods(foods, mealPlan)
-Use the addFoods method provided by the MealPlan class to add the selected foods to the meal plan. This method takes as input the list of selected foods returned by the selectFoods method in step 5.
 ```
+Use the addFoods method provided by the MealPlan class to add the selected foods to the meal plan. This method takes as input the list of selected foods returned by the selectFoods method in step 5.
+
 ```csharp
 # Add the selected foods to the meal plan
 mealPlan.addFoods(selectedFoods)
-Use the isAcceptable method provided by the MealPlan class to check if the meal plan meets the nutritional requirements specified in step 3. This method takes as input the nutritional requirements and returns true if the meal plan meets the requirements, and false if it does not.
 ```
+Use the isAcceptable method provided by the MealPlan class to check if the meal plan meets the nutritional requirements specified in step 3. This method takes as input the nutritional requirements and returns true if the meal plan meets the requirements, and false if it does not.
+
 ```csharp
 # Check if the meal plan meets the nutritional requirements
 if (mealPlan.isAcceptable(nutrientRequirements)):
   # The meal plan is acceptable, so we're done
   return mealPlan
-If the meal plan is not acceptable (i.e., the isAcceptable method returns false), then we need to continue searching for foods to add to the meal plan until it is acceptable. To do this, we can use a while loop that repeats the steps above until the isAcceptable method returns true.
 ```
+If the meal plan is not acceptable (i.e., the isAcceptable method returns false), then we need to continue searching for foods to add to the meal plan until it is acceptable. To do this, we can use a while loop that repeats the steps above until the isAcceptable method returns true.
+
 ```csharp
 else:
   # The meal plan is not acceptable, so we need to continue searching for foods to add to the meal plan
