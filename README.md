@@ -25,6 +25,22 @@ James has all the items he wants. He purchases them. Victoria takes note and tha
 
 # DIET PLAN GENERATOR LOGIC 
 
+## Implementation overview
+
+To implement the meal plan generator using ASP.NET, you can follow these steps:
+
+1. Add the necessary classes and methods to implement the NutritionFacts, Nutrient, MealPlan, and MealPlanGenerator classes, as described in the details.
+2. Add a new controller to handle requests from the user. This controller should have methods to handle user input, generate the meal plan, and return the results to the user.
+3. Add a new view to display the user interface for the meal plan generator. This view should include form fields for the user to enter their nutritional requirements and food preferences, as well as buttons or other controls to initiate the meal plan generation process.
+4. Use Razor syntax in the view to bind the form fields to the controller methods and to display the results of the meal plan generation process.
+5. Add any necessary database tables or other data storage mechanisms to persist user data and nutritional information.
+6. Test and debug your code to ensure that it is working correctly and that the meal plan generator is generating acceptable meal plans.
+Once you have completed these steps, you should have a functional ASP.NET application that can generate personalized meal plans for users based on their nutritional requirements and food preferences. You can then continue to enhance and improve the application by adding additional features and functionality, as needed.
+
+## Details 
+
+
+
 The NutritionFacts, Nutrient, and MealPlan classes are used to store and manage data on nutrients and foods, while the MealPlanGenerator class is used to generate personalized meal plans based on the nutritional requirements and food data stored in the other classes.
 
 1. You can use the NutritionFacts class to store information about the nutritional content of foods. This class has properties for serving size, calories, and various macronutrients and micronutrients. It also has methods for getting the macronutrient and micronutrient dictionaries.
@@ -182,12 +198,167 @@ This code would first use the EdamamAPI class to search for Edamame recipes. It 
 
 Overall, these steps provide a general overview of how you could use the USDAAPI and EdamamAPI classes to connect the USDA and Edamam APIs and generate a personalized meal plan using the nutritional data for the ingredients in Edamame recipes. You can modify and expand on these steps as needed to implement the specific features and interactions that are needed for your meal plan generator tool.
 
+### Edamam Class
+```csharp
+public class EdamamAPI
+{
+    private string _appId;
+    private string _appKey;
 
+    public EdamamAPI(string appId, string appKey)
+    {
+        _appId = appId;
+        _appKey = appKey;
+    }
 
+    public async Task<List<Recipe>> SearchRecipes(string query)
+    {
+        // Use the Edamam API endpoint and parameters to search for recipes
+        // See the Edamam API documentation for more details
+        var url = $"https://api.edamam.com/search?q={query}&app_id={_appId}&app_key={_appKey}";
+        var response = await HttpClient.GetAsync(url);
+        var json = await response.Content.ReadAsStringAsync();
 
-Try a
+        // Parse the JSON response and return a list of Recipe objects
+        return JsonConvert.DeserializeObject<List<Recipe>>(json);
+    }
+}
+```
 
-### Connect to Edamame 
+To implement the EdamamAPI class, you would need to follow the documentation provided by the Edamam API and use the appropriate API endpoint and parameters to search for recipes and retrieve the recipe data. You would then need to create methods in the EdamamAPI class that use this endpoint and these parameters to search for recipes and retrieve the recipe data
+
+This code defines the EdamamAPI class, which has two private fields, _appId and _appKey, that are used to store the API key and application ID provided by the Edamam API. The EdamamAPI class also has a constructor that takes the API key and application ID as arguments and sets the corresponding fields.
+
+The EdamamAPI class also has a SearchRecipes method that takes a query string as an argument and uses the Edamam API endpoint and parameters to search for recipes that match the query. The method then returns a list of Recipe objects that contain the data for the recipes that were found.
+
+This code is just an example of how you could implement the EdamamAPI class, and you may need to modify it to fit the specific requirements of your project. For example, you may want to add additional methods to the EdamamAPI class that allow you to retrieve more detailed information about the recipes, or that allow you to search for recipes using different parameters or filters. Additionally, you may also want to add error handling to the EdamamAPI class to handle situations where the API request fails or the response is invalid.
+
+Overall, the EdamamAPI class provides a way to search for and retrieve recipe data from the Edamam API. You can use this class in conjunction with the USDAAPI class to generate a personalized meal plan based on the nutritional data for the ingredients in the recipes.
+
+### How does the mealPlanGenerator interact with Edamam and USDA to select foods?
+
+The MealPlanGenerator class uses the data stored in the NutritionFacts and Nutrient classes to select foods that meet the nutritional requirements specified by the user.
+
+First, the MealPlanGenerator class creates a MealPlan object that contains a list of NutritionFacts objects for the foods that are included in the meal plan. The MealPlan class then calculates the nutrient scores for each nutrient in the meal plan, using the Nutrient class to determine the ideal, minimum, and maximum quantities of each nutrient.
+
+Next, the MealPlanGenerator class uses a search algorithm to find the food items that most closely match the nutritional requirements of the user. This search algorithm can use the data from the USDAAPI and EdamamAPI classes to search for foods that have the desired nutrients and are within the specified range for each nutrient.
+
+Once the MealPlanGenerator has selected the food items that meet the nutritional requirements, it adds them to the MealPlan object, and recalculates the nutrient scores for the meal plan. If the nutrient scores are within the acceptable range, the MealPlan object is considered acceptable, and the meal plan generation process is complete.
+
+If the nutrient scores are not within the acceptable range, the MealPlanGenerator can continue to search for additional food items that meet the nutritional requirements, and add them to the MealPlan object until the nutrient scores are within the acceptable range. This process continues until the MealPlan object is considered acceptable, or until a maximum number of iterations is reached
+
+At the end of the meal plan generation process, the MealPlan object contains the final list of food items that have been selected by the MealPlanGenerator. This list can be used to generate a shopping list for the user, or to display the meal plan to the user for review and approval.
+
+To interact with the EdamamAPI and USDAAPI, the MealPlanGenerator class uses methods provided by these classes to search for and retrieve data on foods that match the nutritional requirements specified by the user. The MealPlanGenerator class then uses this data to select the appropriate foods for the meal plan, and adds them to the MealPlan object.
+
+The specific steps and details of this process may vary depending on the specific implementation of the MealPlanGenerator class, but in general, the MealPlanGenerator uses the data from the EdamamAPI and USDAAPI classes to search for and select foods that meet the nutritional requirements of the user, and adds these foods to the MealPlan object. This process continues until the MealPlan object is considered acceptable, or until a maximum number of iterations is reached.
+
+Here is some pseudocode that outlines the general process of how the MealPlanGenerator class uses the EdamamAPI and USDAAPI classes to search for and select foods that meet the nutritional requirements of the user:
+
+```code
+# Create a new MealPlan object
+mealPlan = new MealPlan()
+
+# Create a new MealPlanGenerator object
+mealPlanGenerator = new MealPlanGenerator(mealPlan)
+
+# Set the user's nutritional requirements
+nutrientRequirements = setNutrientRequirements(...)
+
+# Search for foods that meet the nutritional requirements
+foods = searchForFoods(nutrientRequirements, edamamAPI, usdaAPI)
+
+# Select foods for the meal plan
+selectedFoods = selectFoods(foods, mealPlan)
+
+# Add the selected foods to the meal plan
+mealPlan.addFoods(selectedFoods)
+
+# Check if the meal plan meets the nutritional requirements
+if (mealPlan.isAcceptable(nutrientRequirements)):
+  # The meal plan is acceptable, so we're done
+  return mealPlan
+else:
+  # The meal plan is not acceptable, so we need to continue searching for foods to add to the meal plan
+  while (not mealPlan.isAcceptable(nutrientRequirements)):
+    # Search for more foods that meet the nutritional requirements
+    foods = searchForFoods(nutrientRequirements, edamamAPI, usdaAPI)
+    
+    # Select foods for the meal plan
+    selectedFoods = selectFoods(foods, mealPlan)
+    
+    # Add the selected foods to the meal plan
+    mealPlan.addFoods(selectedFoods)
+    
+    # Check if the meal plan meets the nutritional requirements
+    if (mealPlan.isAcceptable(nutrientRequirements)):
+      # The meal plan is acceptable, so we're done
+```
+
+Here is a step-by-step implementation of the pseudocode provided above:
+
+Create a new MealPlan object to store the foods that will be included in the meal plan.
+```csharp
+# Create a new MealPlan object
+mealPlan = new MealPlan()
+```
+Create a new MealPlanGenerator object that uses the MealPlan object created in step 1.
+```csharp
+# Create a new MealPlanGenerator object
+mealPlanGenerator = new MealPlanGenerator(mealPlan)
+Use the setNutrientRequirements method provided by the MealPlanGenerator class to specify the user's nutritional requirements. This method takes as input the minimum, ideal, and maximum quantities of each nutrient that should be included in the meal plan.
+```
+```csharp
+# Set the user's nutritional requirements
+nutrientRequirements = mealPlanGenerator.setNutrientRequirements(...)
+Use the searchForFoods method provided by the MealPlanGenerator class to search for foods that meet the nutritional requirements specified in step 3. This method takes as input the nutritional requirements and the EdamamAPI and USDAAPI objects that are used to search for and retrieve data on foods.
+```
+```csharp
+# Search for foods that meet the nutritional requirements
+foods = mealPlanGenerator.searchForFoods(nutrientRequirements, edamamAPI, usdaAPI)
+```
+
+Use the selectFoods method provided by the MealPlanGenerator class to select the foods that will be added to the meal plan. This method takes as input the list of foods returned by the searchForFoods method in step 4, and the MealPlan object that will store the selected foods.
+```csharp
+# Select foods for the meal plan
+selectedFoods = mealPlanGenerator.selectFoods(foods, mealPlan)
+Use the addFoods method provided by the MealPlan class to add the selected foods to the meal plan. This method takes as input the list of selected foods returned by the selectFoods method in step 5.
+```
+```csharp
+# Add the selected foods to the meal plan
+mealPlan.addFoods(selectedFoods)
+Use the isAcceptable method provided by the MealPlan class to check if the meal plan meets the nutritional requirements specified in step 3. This method takes as input the nutritional requirements and returns true if the meal plan meets the requirements, and false if it does not.
+```
+```csharp
+# Check if the meal plan meets the nutritional requirements
+if (mealPlan.isAcceptable(nutrientRequirements)):
+  # The meal plan is acceptable, so we're done
+  return mealPlan
+If the meal plan is not acceptable (i.e., the isAcceptable method returns false), then we need to continue searching for foods to add to the meal plan until it is acceptable. To do this, we can use a while loop that repeats the steps above until the isAcceptable method returns true.
+```
+```csharp
+else:
+  # The meal plan is not acceptable, so we need to continue searching for foods to add to the meal plan
+  while (not mealPlan.isAcceptable(nutrientRequirements)):
+    # Search for more foods that meet the nutritional requirements
+    foods = mealPlanGenerator.searchForFoods(nutrientRequirements, edamamAPI, usdaAPI)
+
+    # Select foods for the meal plan
+    selectedFoods = mealPlanGenerator.selectFoods(foods, mealPlan)
+
+    # Add the selected foods to the meal plan
+    mealPlan.addFoods(selectedFoods)
+
+    # Check if the meal plan meets the nutritional requirements
+    if (mealPlan.isAcceptable(nutrientRequirements)):
+      # The meal plan is acceptable, so we're done
+      return mealPlan
+```
+This is the end of the implementation. Once the return statement is reached, the MealPlan object will contain the final list of food items that have been selected by the MealPlanGenerator. This list can be used to generate a shopping list for the user, or to display the meal plan to the user in a visually appealing way, such as a table or chart. 
+
+The final list of selected foods can be used to create a shopping list that the user can take to the grocery store, or it can be displayed to the user in a way that makes it easy to understand and follow the meal plan. This could include showing the list of foods in a table or chart, with each food item and its corresponding nutritional information. Additionally, the meal plan could include additional information, such as the total number of calories in the plan, the proportion of macronutrients (such as carbohydrates, proteins, and fats) in the plan, and any other relevant details.
+
+### Connect to Edamam
 
 To use the data from the Edamame Recipes API to generate the meal plan, you can create a Food class to represent the data for a food item from the API, and use the MealPlanGenerator class to select and add foods from the API to the meal plan.
 
