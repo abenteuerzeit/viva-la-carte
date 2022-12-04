@@ -253,49 +253,7 @@ To interact with the EdamamAPI and USDAAPI, the MealPlanGenerator class uses met
 
 The specific steps and details of this process may vary depending on the specific implementation of the MealPlanGenerator class, but in general, the MealPlanGenerator uses the data from the EdamamAPI and USDAAPI classes to search for and select foods that meet the nutritional requirements of the user, and adds these foods to the MealPlan object. This process continues until the MealPlan object is considered acceptable, or until a maximum number of iterations is reached.
 
-Here is some pseudocode that outlines the general process of how the MealPlanGenerator class uses the EdamamAPI and USDAAPI classes to search for and select foods that meet the nutritional requirements of the user:
-
-```code
-# Create a new MealPlan object
-mealPlan = new MealPlan()
-
-# Create a new MealPlanGenerator object
-mealPlanGenerator = new MealPlanGenerator(mealPlan)
-
-# Set the user's nutritional requirements
-nutrientRequirements = setNutrientRequirements(...)
-
-# Search for foods that meet the nutritional requirements
-foods = searchForFoods(nutrientRequirements, edamamAPI, usdaAPI)
-
-# Select foods for the meal plan
-selectedFoods = selectFoods(foods, mealPlan)
-
-# Add the selected foods to the meal plan
-mealPlan.addFoods(selectedFoods)
-
-# Check if the meal plan meets the nutritional requirements
-if (mealPlan.isAcceptable(nutrientRequirements)):
-  # The meal plan is acceptable, so we're done
-  return mealPlan
-else:
-  # The meal plan is not acceptable, so we need to continue searching for foods to add to the meal plan
-  while (not mealPlan.isAcceptable(nutrientRequirements)):
-    # Search for more foods that meet the nutritional requirements
-    foods = searchForFoods(nutrientRequirements, edamamAPI, usdaAPI)
-    
-    # Select foods for the meal plan
-    selectedFoods = selectFoods(foods, mealPlan)
-    
-    # Add the selected foods to the meal plan
-    mealPlan.addFoods(selectedFoods)
-    
-    # Check if the meal plan meets the nutritional requirements
-    if (mealPlan.isAcceptable(nutrientRequirements)):
-      # The meal plan is acceptable, so we're done
-```
-
-Here is a step-by-step implementation of the pseudocode provided above:
+Here is an outline of the general process of how the MealPlanGenerator class uses the EdamamAPI and USDAAPI classes to search for and select foods that meet the nutritional requirements of the user:
 
 Create a new MealPlan object to store the foods that will be included in the meal plan.
 ```csharp
