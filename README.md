@@ -39,7 +39,7 @@ To implement these classes and methods, you can use a combination of the C# prog
 3. Check if the selected food matches the criteria for the ideal quantity of the nutrient in question.
 4. If the food matches the criteria, add it to a food list and check if all the nutrient requirements in the list are met. If they are, end the program. If not, go back to step 2 to select another food item.
 5. If the food does not match the criteria, reject the food and increment the iterator. If there are more than 100 iterations, go back to step 2 to select a different food item.
-6 .Calculate the nutrient scores for the meal plan using the linear functions described in the algorithm. Sum the scores for each nutrient to get the overall mealPlanScore.
+6. Calculate the nutrient scores for the meal plan using the linear functions described in the algorithm. Sum the scores for each nutrient to get the overall mealPlanScore.
 7. Use the mealPlanScore to evaluate the nutritional value of the meal plan and make adjustments as needed to meet the individual's nutritional goals.
 
 To make the algorithm faster, one possible approach is to use a more efficient method for selecting food items that meet the nutritional goals. For example, instead of randomly selecting food items from a list of the top 100 foods, the algorithm could use a search algorithm to find the food items that most closely match the nutritional requirements.
