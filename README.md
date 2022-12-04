@@ -63,7 +63,7 @@ The NutritionFacts, Nutrient, and MealPlan classes are used to store and manage 
 3. Implement the MealPlanController class in your ASP.NET MVC project. The MealPlanController class should have an GenerateMealPlan action method that takes a MealPlanGenerator object as an input parameter and returns the generated meal plan as a JSON response.
 4. Implement the view in your ASP.NET MVC project to display the JSON object that the GenerateMealPlan action method returns. You can use the Json method of the Controller class to convert the JSON object to a string and display it in the view.
 
-Once you have implemented these steps, you should have a working implementation of the project you described at the beginning of the chat. You can then use the generated meal plan to evaluate the nutritional value of a person's diet and make adjustments as needed to meet their nutritional goals.
+Once you have implemented these steps, you should have a working implementation of the project. You can then use the generated meal plan to evaluate the nutritional value of a person's diet and make adjustments as needed to meet their nutritional goals.
 
 
 ### Save plan 
