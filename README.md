@@ -133,6 +133,57 @@ For example, you can use the Json method of the Controller class to return a JSO
 ```
 In this example, the Json method is used to return a JSON response containing a success message. This JSON response can be used in the view to confirm that the meal plan was saved successfully
 
+## Edamame Recipes and USDA API 
+
+You can use the USDAAPI class to retrieve the nutritional data for the foods in the Edamame recipes and use this data to generate a personalized meal plan. To do this, you would need to first identify the ingredients in the Edamame recipes, then use the USDAAPI class to get the nutritional data for each ingredient.
+
+For example, suppose the Edamame recipes include the following ingredients: edamame, salt, and garlic. To get the nutritional data for these ingredients, you could use the following code:
+```csharp
+// Create a new instance of the USDAAPI class
+var usda = new USDAAPI("YOUR_API_KEY");
+
+// Get the nutritional data for each ingredient
+var edamame = await usda.GetFoodData("edamame");
+var salt = await usda.GetFoodData("salt");
+var garlic = await usda.GetFoodData("garlic");
+
+```
+This code would make a request to the USDA API for each ingredient, and return the nutritional data for the ingredient in the form of a Food object. You can then use this data to create instances of the NutritionFacts class, which can be used by the MealPlanGenerator class to generate the personalized meal plan.
+
+Once you have the nutritional data for the ingredients in the Edamame recipes, you can use it to create instances of the NutritionFacts class and add them to a MealPlan object. You can then use the MealPlanGenerator class to generate the personalized meal plan based on the nutritional data for the ingredients in the recipes.
+
+```csharp
+// Create a new instance of the MealPlan class
+var plan = new MealPlan();
+
+// Create instances of the NutritionFacts class for each ingredient
+var edamameFacts = new NutritionFacts(edamame);
+var saltFacts = new NutritionFacts(salt);
+var garlicFacts = new NutritionFacts(garlic);
+
+// Add the ingredients to the meal plan
+plan.AddFood(edamameFacts);
+plan.AddFood(saltFacts);
+plan.AddFood(garlicFacts);
+
+// Create a new instance of the MealPlanGenerator class
+var generator = new MealPlanGenerator(plan);
+
+// Generate the personalized meal plan
+var mealPlan = generator.GenerateMealPlan();
+
+
+```
+This code would create a MealPlan object and add the ingredients in the Edamame recipes to it. It would then create a MealPlanGenerator object and use it to generate a personalized meal plan based on the nutritional data for the ingredients in the MealPlan object. The generated meal plan would then be stored in the mealPlan variable, and you could use it to display the meal plan to the user or make further modifications to it as needed.
+
+Once the mealPlan variable has been created, you can use it to display the meal plan to the user or make further modifications to it as needed.
+
+For example, you could use the mealPlan object to display the meal plan to the user in a user-friendly format, such as a table or list. You could also add methods to the MealPlan class that allow the user to make modifications to the meal plan, such as substituting foods or changing the serving sizes of the foods.
+
+In addition, you could also use the MealPlan object to calculate the nutritional content of the meal plan and check if it meets the nutritional requirements of the individual. For example, you could add methods to the MealPlan class that calculate the total number of calories, macronutrients, and micronutrients in the meal plan, and use these values to check if the meal plan meets the nutritional requirements of the individual.
+
+Overall, the steps outlined in my previous response provide a general overview of how you could use the USDAAPI class and the NutritionFacts, Nutrient, MealPlan, and MealPlanGenerator classes to generate a personalized meal plan using the data from the USDA API and the nutritional data for the ingredients in the Edamame recipes. You can modify and expand on these steps as needed to implement the specific features and interactions that are needed for your meal plan generator tool.
+
 ### Connect to Edamame 
 
 To use the data from the Edamame Recipes API to generate the meal plan, you can create a Food class to represent the data for a food item from the API, and use the MealPlanGenerator class to select and add foods from the API to the meal plan.
@@ -294,6 +345,45 @@ foreach (var food in data.Foods)
 
 You can then repeat this process for each nutrient that you want to consider in the meal plan, using the appropriate nutrient ID in the API request. This will allow you to get the data for all the top 100 foods that contain each nutrient, which you can use to generate the personalized meal plan.
 
+To access data from the USDA database, you can use the USDA API to query the database and retrieve the nutritional data for the foods you are interested in. This can be done by making a request to the API using a suitable HTTP client, such as HttpClient in C#, and then parsing the response to retrieve the data you need.
+```csharp
+using System.Linq;
+using System.Collections.Generic;
+using System.Net.Http;
+using Newtonsoft.Json;
+
+// NutritionFacts, Nutrient, MealPlan, and MealPlanGenerator classes would be defined here
+
+class USDAAPI
+{
+    // List of 100 foods with the highest amount of each nutrient
+    List<Food> top100Foods;
+    // API key for accessing the USDA database
+    string apiKey;
+
+    public USDAAPI(string apiKey)
+    {
+        this.apiKey = apiKey;
+        this.top100Foods = new List<Food>();
+    }
+
+    public async Task<List<Food>> GetTop100Foods(int nutrientID)
+    {
+        // Get the data for foods that contain the nutrient with the specified ID
+        var client = new HttpClient();
+        var response = await client.GetAsync($"https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key={this.apiKey}&nutrients={nutrientID}&max=100");
+
+        // Parse the JSON response and create instances of the Food class for each food
+        var json = await response.Content.ReadAsStringAsync();
+        var data = JsonConvert.DeserializeObject<FoodData>(json);
+        var foods = data.Foods.Select(x => new Food(x)).ToList();
+
+        // Return the list of foods
+        return foods;
+    }
+}
+
+```
 
 # Project Description
 
