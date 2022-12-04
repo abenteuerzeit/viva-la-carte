@@ -133,56 +133,59 @@ For example, you can use the Json method of the Controller class to return a JSO
 ```
 In this example, the Json method is used to return a JSON response containing a success message. This JSON response can be used in the view to confirm that the meal plan was saved successfully
 
-## Edamame Recipes and USDA API 
+## Edamam Recipes and USDA API 
 
-You can use the USDAAPI class to retrieve the nutritional data for the foods in the Edamame recipes and use this data to generate a personalized meal plan. To do this, you would need to first identify the ingredients in the Edamame recipes, then use the USDAAPI class to get the nutritional data for each ingredient.
+To connect the USDAAPI and the Edamam Recipes API, you would need to first retrieve the recipe data from the Edamam API. This can be done using the EdamamAPI class, which provides methods for searching and retrieving recipe data from the Edamam API.
 
-For example, suppose the Edamame recipes include the following ingredients: edamame, salt, and garlic. To get the nutritional data for these ingredients, you could use the following code:
-```csharp
-// Create a new instance of the USDAAPI class
-var usda = new USDAAPI("YOUR_API_KEY");
-
-// Get the nutritional data for each ingredient
-var edamame = await usda.GetFoodData("edamame");
-var salt = await usda.GetFoodData("salt");
-var garlic = await usda.GetFoodData("garlic");
-
-```
-This code would make a request to the USDA API for each ingredient, and return the nutritional data for the ingredient in the form of a Food object. You can then use this data to create instances of the NutritionFacts class, which can be used by the MealPlanGenerator class to generate the personalized meal plan.
-
-Once you have the nutritional data for the ingredients in the Edamame recipes, you can use it to create instances of the NutritionFacts class and add them to a MealPlan object. You can then use the MealPlanGenerator class to generate the personalized meal plan based on the nutritional data for the ingredients in the recipes.
+Once you have retrieved the recipe data, you can use the USDAAPI class to get the nutritional data for the ingredients in the recipes. You can then use this data to create instances of the NutritionFacts class, which can be used by the MealPlanGenerator class to generate the personalized meal plan.
 
 ```csharp
+// Create a new instance of the EdamamAPI class
+var edamam = new EdamamAPI("YOUR_APP_ID", "YOUR_APP_KEY");
+
+// Search for Edamame recipes
+var recipes = await edamam.SearchRecipes("Edamame");
+
 // Create a new instance of the MealPlan class
 var plan = new MealPlan();
 
-// Create instances of the NutritionFacts class for each ingredient
-var edamameFacts = new NutritionFacts(edamame);
-var saltFacts = new NutritionFacts(salt);
-var garlicFacts = new NutritionFacts(garlic);
+// Create a new instance of the USDAAPI class
+var usda = new USDAAPI("YOUR_API_KEY");
 
-// Add the ingredients to the meal plan
-plan.AddFood(edamameFacts);
-plan.AddFood(saltFacts);
-plan.AddFood(garlicFacts);
+// Loop through each recipe and get the nutritional data for its ingredients
+foreach (var recipe in recipes)
+{
+    // Get the ingredients for the recipe
+    var ingredients = recipe.Ingredients;
+    
+    // Loop through each ingredient and get its nutritional data
+    foreach (var ingredient in ingredients)
+    {
+        // Get the nutritional data for the ingredient
+        var data = await usda.GetFoodData(ingredient.Name);
+        
+        // Create a new NutritionFacts object for the ingredient
+        var nutritionFacts = new NutritionFacts(data);
+        
+        // Add the ingredient to the meal plan
+        plan.AddFood(nutritionFacts);
+    }
+}
 
 // Create a new instance of the MealPlanGenerator class
 var generator = new MealPlanGenerator(plan);
 
 // Generate the personalized meal plan
 var mealPlan = generator.GenerateMealPlan();
-
-
 ```
-This code would create a MealPlan object and add the ingredients in the Edamame recipes to it. It would then create a MealPlanGenerator object and use it to generate a personalized meal plan based on the nutritional data for the ingredients in the MealPlan object. The generated meal plan would then be stored in the mealPlan variable, and you could use it to display the meal plan to the user or make further modifications to it as needed.
+This code would first use the EdamamAPI class to search for Edamame recipes. It would then retrieve the nutritional data for the ingredients in each recipe using the USDAAPI class, and create instances of the NutritionFacts class for each ingredient. These NutritionFacts objects would be added to a MealPlan object, and the MealPlanGenerator class would be used to generate the personalized meal plan based on the nutritional data for the ingredients in the recipes. The generated meal plan would then be stored in the mealPlan variable, and you could use it to display the meal plan to the user or make further modifications to it as needed.
 
-Once the mealPlan variable has been created, you can use it to display the meal plan to the user or make further modifications to it as needed.
+Overall, these steps provide a general overview of how you could use the USDAAPI and EdamamAPI classes to connect the USDA and Edamam APIs and generate a personalized meal plan using the nutritional data for the ingredients in Edamame recipes. You can modify and expand on these steps as needed to implement the specific features and interactions that are needed for your meal plan generator tool.
 
-For example, you could use the mealPlan object to display the meal plan to the user in a user-friendly format, such as a table or list. You could also add methods to the MealPlan class that allow the user to make modifications to the meal plan, such as substituting foods or changing the serving sizes of the foods.
 
-In addition, you could also use the MealPlan object to calculate the nutritional content of the meal plan and check if it meets the nutritional requirements of the individual. For example, you could add methods to the MealPlan class that calculate the total number of calories, macronutrients, and micronutrients in the meal plan, and use these values to check if the meal plan meets the nutritional requirements of the individual.
 
-Overall, the steps outlined in my previous response provide a general overview of how you could use the USDAAPI class and the NutritionFacts, Nutrient, MealPlan, and MealPlanGenerator classes to generate a personalized meal plan using the data from the USDA API and the nutritional data for the ingredients in the Edamame recipes. You can modify and expand on these steps as needed to implement the specific features and interactions that are needed for your meal plan generator tool.
+
+Try a
 
 ### Connect to Edamame 
 
