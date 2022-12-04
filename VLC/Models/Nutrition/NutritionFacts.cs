@@ -2,6 +2,11 @@
 {
     public class NutritionFacts
     {
+
+        public NutritionFacts()
+        {
+        }
+
         #region Methods
         /// <summary>
         ///  Get macronutrient dictionaries (carbs, proteins, fats)

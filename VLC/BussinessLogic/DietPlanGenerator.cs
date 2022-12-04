@@ -1,9 +1,77 @@
-﻿using System.Web.Helpers;
+﻿using NuGet.Protocol;
+using System.Web.Helpers;
+using VLC.Models.Nutrition;
+using static VLC.Models.Nutrition.NutritionFacts;
 
 namespace VLC.BussinessLogic
 {
     public class DietPlanGenerator
     {
+
+        partial class NutrientRanges
+        {
+
+            public Nutrient Nutrient { get; }
+
+            public NutritionFacts NutritionFacts => GetNutrientFacts();
+
+
+            /// <summary>
+            /// The least amount of that nutrient that will be accepted to accept the meal plan.
+            /// </summary>
+            private decimal MinAmount { get; set; }
+
+
+            /// <summary>
+            /// The amount of the nutrient that will result in the meal plan receiving a perfect score for the specific nutrient.
+            /// </summary>
+            private decimal IdealAmount { get; set; }
+
+            /// <summary>
+            /// (optional) The maximum acceptable amount, above which the meal plan is not acceptable.
+            /// </summary>
+            private decimal? MaxAmount { get; set; }
+
+
+            /// <summary>
+            /// All nutrients have a MinAmount, IdealAmount, and MaxAmount.
+            /// It is possible for the minimum amount of nutrient value and ideal amount of nutrient avalue to be the same.
+            /// </summary>
+            /// <param name="min"></param>
+            /// <param name="ideal"></param>
+            /// <param name="max"></param>
+            public NutrientRanges(Nutrient nutrient, decimal min, decimal ideal, decimal? max)
+            {
+                Nutrient = nutrient;
+                MinAmount = min;
+                MaxAmount = max;
+                IdealAmount = ideal;
+            }
+
+
+            /// <summary>
+            /// Users can customize the default MinAmount value.
+            /// </summary>
+            /// <param name="newMinAmount"></param>
+            /// <returns></returns>
+            public decimal SetNewMinAmount(decimal newMinAmount)
+            {
+                MinAmount = newMinAmount;
+                return MinAmount;
+            }
+
+            public NutritionFacts GetNutrientFacts()
+            {
+                return new NutritionFacts();
+            }
+
+
+            public void GetNutrientMinAmount()
+            {
+
+
+            }
+        }
         /*  TODO: IMPLEMENT DIET PLAN GENERATOR LOGIC
             Algorithm: https://www.scirp.org/journal/paperinformation.aspx?paperid=66880
         

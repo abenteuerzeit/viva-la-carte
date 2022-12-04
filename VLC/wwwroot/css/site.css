@@ -45,10 +45,70 @@ html, body {
     justify-content: stretch;
 }
 
-#welcome .card{
+#welcome .card {
     width: fit-content;
 }
 
+.magic {
+    position: relative;
+    width: 200px;
+    height: 50px;
+    background-color: var(--green-hue);
+    color: var(--whitelight);
+    font-weight: 600;
+    margin: 0px;
+    border: 1px solid var(--light-green-hue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 20px;
+    box-shadow: -10px 5px 10px -5px gray;
+    top: 0;
+    transition: left ease 0.5s,
+}
+
+magic:hover {
+    display: none;
+}
+
+magic:active {
+    position: relative;
+    right: 10px;
+}
+
+.magic:before {
+    content: attr(count);
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--red-hue);
+    color: var(--whitelight);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 3rem;
+    position: relative;
+    width: 400px;
+    height: 400px;
+    background-color: snow;
+    border: 1px solid var(--light-green-hue);
+    border-radius: 20px;
+    box-shadow: -10px 5px 10px -5px;
+    top: 0;
+    transition: top ease 0.5s,
+}
 
 main {
     margin-top: 4em;
@@ -190,6 +250,11 @@ figcaption {
 
             nav ul li:hover {
                 /*                background-color: var(--light-green-hue);
+
+*/ border-top: 5px groove var(--light-green-hue);
+transform: translateY(0.5em);
+}
+
 border-top: 5px groove var(--light-green-hue);
                 transform: translateY(0.5em);
             }
@@ -202,16 +267,24 @@ border-top: 5px groove var(--light-green-hue);
                 color: red;
             }
 
-            nav ul li a:visited {
-                color: sandybrown;
-            }
 
-                nav ul li a:link {
-                    color: white;
-                }*/
+nav ul li a:hover {
+    color: white;
+}
 
+nav ul li a:active {
+    color: red;
+}
 
+nav ul li a:visited {
+    color: sandybrown;
+}
 
+nav ul li a:link {
+    color: white;
+}
+
+*/
 /* Login Page and Registration container */
 .login-container {
     width: 700px;
@@ -648,13 +721,13 @@ section #main {
                 line-height: 1;
             }
 
-        .per-serving {
-            font-size: 12px;
-            line-height: 24px;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding-right: 15px;
-        }
+.per-serving {
+    font-size: 12px;
+    line-height: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-right: 15px;
+}
 
 .nutrients {
     display: block;
@@ -704,7 +777,9 @@ section #main {
     }
 }
 
+
 #hits {
     width: auto;
 }
+
 

@@ -136,6 +136,16 @@ function calculate() {
     } catch (err) {
         alertWhenErrorCaught(calculate, err);
     }
-    
+}
 
+function increaseCount() {
+    try {
+        var btn = document.getElementById('magic');
+        var count = btn.getAttribute('count');
+        btn.setAttribute('count', count++)
+        alert(count)
+    }
+    catch (err) {
+        alertWhenErrorCaught(increaseCount, err);
+    }
 }
