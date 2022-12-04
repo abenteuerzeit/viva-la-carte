@@ -5,57 +5,89 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
-<div class="login-container">
-    <div class="form-container">
-        <form class="simple-form" id="account" accept-charset="UTF-8" method="post">
-            <h1 class="title">Log into your account</h1>
-            
-            <p>Hello Foodie my Friend!</p>
-            <div class="fields-group">
-                <div class="intput-label">
-                    <input asp-for="Input.Email" class="input-fields" aria-label="Username"
-                           autocomplete="username" aria-required="true"
-                           placeholder="Username / Email"
-                           type="text" />
-                    @* Use JavaScript to display message for username required *@
-                    @*<span asp-validation-for="Input.Email" class="text-danger"></span>*@
-                </div>
-                <div class="input-label">
-                    <input asp-for="Input.Password" class="input-fields" aria-label="Password"
-                           autocomplete="current-password" aria-required="true"
-                           placeholder="Password" type="password">
-                </div>
-                <div class="remember-me--forget-password">
-                    <label asp-for="Input.RememberMe">
-                        <input type="checkbox" asp-for="Input.RememberMe" checked />
-                        <span class="text-checkbox">@Html.DisplayNameFor(m => m.Input.RememberMe)</span>
-                    </label>
-                    <p><a id="forgot-password" asp-page="./ForgotPassword">Forgot password?</a></p>
-                </div>
-            </div>
-        </form>
-        <div class="sign-in-with">
-            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+<section class="vh-100">
+    <div class="container h-100">
+        <div class="login-container card text-black">
+            <div class="form-container">
+                <form class="mx-1 mx-md-4" id="account" accept-charset="UTF-8" method="post">
+                    <h1 class="title">Log into your account</h1>
 
-                @foreach (var provider in Model.ExternalLogins)
-                {
-                    if (provider.DisplayName == "Google")
-                    {
-                        <button type="submit" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account" style="border: none">
-                            <img src="~/Content/Images/btn-google.png" alt="Log in button for Google Account" />
-                        </button>
-                    }
+                    <p>Hello Foodie my Friend!</p>
 
-                }
-            </form>
-            <div class="btn-field">
-                <button id="loginBtn" class="button-53" type="submit">Login</button>
+                    <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                            <input asp-for="Input.Email" class="form-control" aria-label="Username"
+                                   autocomplete="username" aria-required="true"
+                                   placeholder="Username / Email"
+                                   type="text" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            @* Use JavaScript to display message for username required *@
+                            @*<span asp-validation-for="Input.Email" class="text-danger"></span>*@
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                            <input asp-for="Input.Password" class="form-control" aria-label="Password"
+                                   autocomplete="current-password" aria-required="true"
+                                   placeholder="Password" type="password" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="remember-me w-100">
+                        <div class="row">
+                            <label asp-for="Input.RememberMe">
+                                <input type="checkbox" asp-for="Input.RememberMe" checked />
+                                <span class="text-checkbox">@Html.DisplayNameFor(m => m.Input.RememberMe)</span>
+                            </label>
+                        </div>
+                        <div class="row">
+                            <p><a id="forgot-password" asp-page="./ForgotPassword">Forgot password?</a></p>
+                        </div>
+
+                    </div>
+
+                    <div class="btn-field">
+                        <button id="loginSubmit" class="button-53" type="submit">Login</button>
+                    </div>
+                </form>
+
+                <div class="sign-in-with">
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+
+                        @foreach (var provider in Model.ExternalLogins)
+                        {
+                            <button type="submit" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account" style="border: none">
+                                <i class="fa-brands fa-@provider.Name.ToLower() "></i>
+                            </button>
+                        }
+                        @*{
+                        if (provider.DisplayName == "Google")
+                        {
+                            <button type="submit" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account" style="border: none">
+                                <i class="fa-brands fa-@provider.Name.ToLower() "></i>
+                            </button>
+                        }
+                        else if (provider.DisplayName == "Facebook")
+                        {
+                            <button type="submit" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account" style="border: none">
+                                <i class="fa-brands fa-facebook"></i>
+                            </button>
+                        }
+
+                        }*@
+
+                    </form>
+
+                </div>
+
             </div>
         </div>
-
     </div>
-</div>
+</section>
 
 
 
