@@ -27,6 +27,7 @@
 	<ItemGroup>
 		<Folder Include="Models\Addresses\" />
 		<Folder Include="Models\UserRoles\" />
+		<Folder Include="Repository\" />
 	</ItemGroup>
 
   <ItemGroup>
@@ -39,5 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Newtonsoft.Json" />
+    <None Remove="Repository\" />
   </ItemGroup>
 </Project>

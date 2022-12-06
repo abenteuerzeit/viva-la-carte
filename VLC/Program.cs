@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using VLC.Data;
+using VLC.Models.MealManager;
+using VLC.Repository;
 using VLC.Services;
 
 namespace VLC
@@ -17,6 +19,7 @@ namespace VLC
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+            builder.Services.AddScoped<IMealManagerRepository<MealManager>, MealManagerRepository<MealManager>>();
             builder.Services.AddScoped<IMealManagerService, MealManagerService>();
             builder.Services.AddScoped<IRecipesService, RecipesService>();
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();

@@ -8,8 +8,8 @@ namespace VLC.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "meals");
+            //migrationBuilder.DropTable(
+            //    name: "meals");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
