@@ -11,6 +11,7 @@ using RestSharp;
 using RestSharp.Extensions;
 using RestSharp.Serializers.Json;
 using System.Collections.Generic;
+using System.Data;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -31,25 +32,16 @@ namespace VLC.Controllers
         //private readonly ApplicationDbContext _context;
         private readonly IConfiguration _config;
         private readonly IMealManagerService _mealManagerService;
-        private readonly IMealManagerRepository<MealManager> _mealManagerRepository;
+        private readonly IUnitOfWork _uow;
 
         //public MealManagersController(ApplicationDbContext context, IConfiguration config, IMealManagerService mealManagerService)
-        public MealManagersController(IConfiguration config, IMealManagerService mealManagerService, IMealManagerRepository<MealManager> mealManagerRepository)
+        public MealManagersController(IConfiguration config, IMealManagerService mealManagerService, IUnitOfWork uow)
         {
             //_context = context;
             _config = config;
             _mealManagerService = mealManagerService;
-            _mealManagerRepository = mealManagerRepository;
+            _uow = uow;
         }
-
-        //[HttpGet("{search}")]
-        //public async Task<ActionResult<IEnumerable<Hits>>> Search(string name, Recipe recipe)
-        //{
-        //    try
-        //    {
-        //        var result = await _mealManagerService.Search(name, recipe)
-        //    }
-        //}
 
         /// <summary>
         /// Action injection with FromServices
@@ -60,8 +52,6 @@ namespace VLC.Controllers
         [HttpGet]
         public async Task<IActionResult> SearchRecipesByQuery(string query, [FromServices] IMealManagerService service)
         {
-            // TODO: Fetch recipes by query and extract results.
-            // TODO: Provide user with search results
             Uri searchURL = new(service.GetEdamamRecipesAPI_URL_For(query));
             try
             {
@@ -81,24 +71,21 @@ namespace VLC.Controllers
         }
 
         // GET: MealManagers
-        public async Task<IActionResult> Index() //async Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
-            var mealManagers = await _mealManagerRepository.GetRecords();
+            var mealManagers = await _uow.MealManagerRepo.GetAllAsync();
             return View(mealManagers);
-            //string recipesURL = _mealManagerService.GetEdamamRecipesAPI_URL_For("scrambled%20eggs");
-            //return Redirect(recipesURL);
-            //return View(await _context.MealManager.ToListAsync());
         }
 
         // GET: MealManagers/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            if (id == null || _mealManagerRepository == null)
+            if (_uow == null)
             {
                 return NotFound();
             }
 
-            var mealManager = await _mealManagerRepository.GetRecordByIdAsync(id);
+            var mealManager = await _uow.MealManagerRepo.GetRecordByIdAsync(id);
             if (mealManager == null)
             {
                 return NotFound();
@@ -106,25 +93,6 @@ namespace VLC.Controllers
 
             return View(mealManager);
         }
-
-        //// GET: MealManagers/NewMealPlan/3
-        //public async Task<IActionResult> NewMealPlan(int id)
-        //{
-        //    MealPlan mealPlan = await _context.FindMealPlanAsync(id);
-        //    if (mealPlan == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    ViewData.Add("MealPlanId", mealPlan.Id);
-        //    List<Recipe> recipeIds = mealPlan.Recipes;
-        //    foreach (Recipe recipeId in recipeIds)
-        //    {
-        //    }
-
-
-        //    return View(mealPlan);
-        //}
 
 
         // GET: MealManagers/Create
@@ -142,17 +110,17 @@ namespace VLC.Controllers
         {
             try
             {
-
                 if (ModelState.IsValid)
                 {
                     //MealPlan mealPlan = _mealManagerService.GetMealPlan(mealManager);
-                    _mealManagerRepository.InsertRecordAsync(mealManager);
+                    await _uow.MealManagerRepo.InsertRecordAsync(mealManager);
                     //_context.Add(mealPlan);
-                    await _mealManagerRepository.SaveChangesAsync();
+                    await _uow.MealManagerRepo.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                     //Ok(_context.MealPlans.ToList());  //RedirectToAction(nameof(Index));
                 }
-            } catch(Exception e)
+            }
+            catch(Exception e)
             {
                 Console.WriteLine(e.Message);
             }
@@ -160,58 +128,84 @@ namespace VLC.Controllers
             return View(mealManager);
         }
 
-        //// GET: MealManagers/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null || _context.MealManagers == null)
-        //    {
-        //        return NotFound();
-        //    }
 
-        //    var mealManager = await _context.MealManagers.FindAsync(id);
-        //    await _context.SaveChangesAsync();
+        #region EDIT
+        // GET: MealManagers/Edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (_uow.MealManagerRepo == null)
+            {
+                return NotFound();
+            }
 
-        //    if (mealManager == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(mealManager);
-        //}
+            var mealManager = await _uow.MealManagerRepo.GetRecordByIdAsync(id);
+            await _uow.MealManagerRepo.SaveChangesAsync();
 
-        //// POST: MealManagers/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,TotalCalories,MealCount,Diet,Goal,MeasurementSystem,Height,Weight,Age,BodyFat,ActivityLevel")] MealManager mealManager)
-        //{
-        //    if (id != mealManager.Id)
-        //    {
-        //        return NotFound();
-        //    }
+            if(mealManager == null)
+            {
+                return NotFound();
+            }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(mealManager);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!MealManagerExists(mealManager.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(mealManager);
-        //}
+            return View(mealManager);
+
+        }
+
+
+        // POST: MealManagers/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult>Edit([Bind(include: "Id,TotalCalories,MealCount,Diet,Goal,MeasurementSystem,Height,Weight,Age,BodyFat,ActivityLevel")] MealManager mealManager)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _uow.MealManagerRepo.UpdateRecord(mealManager);
+                    await _uow.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException /* dex */)
+            {
+                //Log the error (uncomment dex variable name after DataException and add a line here to write a log.
+                ModelState.AddModelError(string.Empty, "Unable to save changes. Try again, and if the problem persists contact your system administrator.");
+            }
+            return RedirectToAction("Index");
+
+        }
+        #endregion
+      
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (_uow.MealManagerRepo == null)
+            {
+                return NotFound();
+            }
+
+            var mealManager = await _uow.MealManagerRepo.GetRecordByIdAsync(id);
+            return View(mealManager);
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if(_uow.MealManagerRepo == null)
+            {
+                return NotFound();
+            }
+
+            var mealManager = await _uow.MealManagerRepo.GetRecordByIdAsync(id);
+            if(mealManager != null)
+            {
+                await _uow.MealManagerRepo.DeleteRecordAsync(id);
+            }
+            await _uow.MealManagerRepo.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
 
         //// GET: MealManagers/Delete/5
         //public async Task<IActionResult> Delete(int? id)
@@ -253,6 +247,25 @@ namespace VLC.Controllers
         //private bool MealManagerExists(int id)
         //{
         //    return _context.MealManagers.Any(e => e.Id == id);
+        //}
+
+        //// GET: MealManagers/NewMealPlan/3
+        //public async Task<IActionResult> NewMealPlan(int id)
+        //{
+        //    MealPlan mealPlan = await _context.FindMealPlanAsync(id);
+        //    if (mealPlan == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    ViewData.Add("MealPlanId", mealPlan.Id);
+        //    List<Recipe> recipeIds = mealPlan.Recipes;
+        //    foreach (Recipe recipeId in recipeIds)
+        //    {
+        //    }
+
+
+        //    return View(mealPlan);
         //}
 
     }

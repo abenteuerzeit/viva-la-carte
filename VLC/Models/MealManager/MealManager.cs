@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Transactions;
+using VLC.Models.Entity;
 using VLC.Models.Recipes;
 using static VLC.Utils.MealManagerUtility;
 
@@ -10,10 +11,10 @@ namespace VLC.Models.MealManager
     /// <summary>
     /// This model represents the form used to generate a meal plan. 
     /// </summary>
-    public class MealManager
+    public class MealManager : EntityBase
     {
-        [Required, Key]
-        public int Id { get; set; }
+        //[Required, Key]
+        //public int Id { get; set; }
         public DateTime Created => DateTime.Now;
         //[ForeignKey("MealPlan")]
         //public int MealPlanId { get; set; }
