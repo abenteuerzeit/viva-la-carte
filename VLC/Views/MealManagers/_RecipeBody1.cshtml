@@ -5,41 +5,28 @@
     <div class="row row-cols-1 row-cols-md-2 g-2 mx-auto" id="main">
         @for (int i = 0; i < Model.HitsList.Count; i++)
             {
-                var AUTHOR_ID = Model.HitsList[i].Recipe.AuthorId;
-                var LABEL = Model.HitsList[i].Recipe.Label;
-                var NAME = Model.HitsList[i].Recipe.Name;
-
-                var IMAGES = Model.HitsList[i].Recipe.Images;
-                var REGULAR_IMAGE = Model.HitsList[i].Recipe.Images.Regular;
-                var regularImageId = $"img-{REGULAR_IMAGE.Id}";
-
-                var INGREDIENTS = Model.HitsList[i].Recipe.Ingredients;
-                var INGREDIENT_LINES = Model.HitsList[i].Recipe.IngredientLines;
-                var TOTAL_NUTRIENTS = Model.HitsList[i].Recipe.TotalNutrients;
-
-                var CALORIES_PER_SERVING = Model.HitsList[i].Recipe.Calories / Model.HitsList[i].Recipe.Yield;
 
             <div class="container-xs">
 
                 <div class="col d-flex p-2 shadow" style="border: 1px solid black; border-radius: 5px;">
                     <!-- Image -->
                     <div class="flex-shrink-0">
-                        <img class="img-fluid rounded-start" id="@regularImageId" src="@REGULAR_IMAGE.Url" alt="Regular Image recipe" height="200" width="200" />
+                        <img class="img-fluid rounded-start" id="img-@Model.HitsList[i].Recipe.Images.Id" src="@Model.HitsList[i].Recipe.Images.Small.Url" alt="Regular Image recipe" height="@Model.HitsList[i].Recipe.Images.Small.Height" width="@Model.HitsList[i].Recipe.Images.Small.Width" />
                     </div>
                     <!-- Recipe Body -->
                     <div class="card-body flex-grow-1 ms-3">
-                        <div class="card-text" style="position: relative; top: 41px;">Total: @((int)Model.HitsList[i].Recipe.Calories) kcal</div>
+                        <div class="card-text" style="position: relative; top: 41px;">Total: @Model.HitsList[i].Recipe.ConvertCaloriesToInt() kcal</div>
 
-                        <h6 id="recipe-header" class="card-title font-monospace" dir="recipe-author-@AUTHOR_ID"
+                        <h6 id="recipe-header" class="card-title font-monospace" dir="recipe-author-@Model.HitsList[i].Recipe.AuthorId"
                             style="position: relative; top: -35px; min-height: 55px;">
-                        @LABEL
+                        @Model.HitsList[i].Recipe.Label
                         </h6>
 
-                        <div class="card-text" style="position: relative; top: -20px;">Per serving: @((int)CALORIES_PER_SERVING) kcal</div>
+                        <div class="card-text" style="position: relative; top: -20px;">Per serving: @Model.HitsList[i].Recipe.CountCaloriesPerServing() kcal</div>
                     </div>
 
                     
-                        
+                    <!-- SAVE RECIPE TO COOKBOOK BUTTON HERE -->
                     
 
                 </div>

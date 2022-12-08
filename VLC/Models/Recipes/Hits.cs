@@ -148,6 +148,17 @@ namespace VLC.Models.Recipes
         [JsonProperty("digest")]
         [NotMapped]
         public List<Digest> Digest { get; set; }
+
+        public int CountCaloriesPerServing()
+        {
+            var caloriesPerServing = Convert.ToInt32(Calories / Yield);
+            return caloriesPerServing;
+        }
+
+        public int ConvertCaloriesToInt()
+        {
+            return Convert.ToInt32(Calories);
+        }
     }
 
     public partial class Digest

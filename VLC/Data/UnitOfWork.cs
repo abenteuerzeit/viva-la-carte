@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using VLC.Models.MealManager;
 using VLC.Models.Recipes;
 using VLC.Repository;
@@ -26,30 +28,20 @@ namespace VLC.Data
             await _context.SaveChangesAsync();
         }
 
-        public virtual void Dispose(bool disposing)
+        private bool _disposed = false;
+
+        protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
-                _context.Dispose();
-
-            //if (!disposedValue)
-            //{
-            //    if (disposing)
-            //    {
-            //        // TODO: dispose managed state (managed objects)
-            //    }
-
-            //    // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-            //    // TODO: set large fields to null
-            //    disposedValue = true;
-            //}
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+            }
+            _disposed = true;
         }
 
-        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~UnitOfWork()
-        // {
-        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-        //     Dispose(disposing: false);
-        // }
 
         public void Dispose()
         {
