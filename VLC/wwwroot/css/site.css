@@ -641,7 +641,7 @@ section #main {
     text-align: center;
 }
 
-.recipe-header {
+#recipe-header {
     padding: 20px 10px 0px 10px;
     flex-wrap: wrap;
 }
@@ -676,31 +676,35 @@ section #main {
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 .recipe-nutrition {
-    margin-top: 0;
-    border-top: 1px solid #cbc0aa;
+  width: 95%;
+
 }
 
-    .recipe-nutrition ul {
-        width: 100%;
-        float: left;
-        clear: both;
-    }
+  .recipe-nutrition ul {
+    width: 100%;
+    float: left;
+/*    clear: both;*/
+    margin: 0 auto;
+    
+  }
 
-        .recipe-nutrition ul li {
-            margin: 0 !important;
-            display: inline-block;
-            float: left;
-        }
+    .recipe-nutrition ul li {
+      margin: 0 !important;
+      display: inline-block;
+      float: left;
+      
+    }
 
             .recipe-nutrition ul li .nutrients-inner {
                 padding: 6px;
                 display: flex;
                 flex-direction: column;
                 border-radius: 2px;
-                border: 1px solid #1e282f;
+/*                border: 1px solid #1e282f;*/
                 text-align: center;
                 width: 70px;
                 cursor: pointer;
+                background-color: bisque;
             }
 
             .recipe-nutrition ul li .title {
@@ -732,6 +736,7 @@ section #main {
 .nutrients {
     display: block;
     min-height: auto;
+    margin: 0 auto;
 }
 
 @media (max-width: 576px) {

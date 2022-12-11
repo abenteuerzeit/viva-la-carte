@@ -13,8 +13,10 @@ namespace VLC.Models.Recipes
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Globalization;
+    using System.Linq;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+    using NuGet.Protocol;
 
     public partial class Hits
     {
@@ -159,6 +161,50 @@ namespace VLC.Models.Recipes
         {
             return Convert.ToInt32(Calories);
         }
+
+        //TODO Refactor 2 methods in 1, take dictionary as parameter and pass it to the method
+        //public string CountTotalNutrientsPerServing(string computedValue)
+        //{
+        //    return (TotalNutrients.GetValueOrDefault(computedValue).Quantity / Yield).ToString("#");
+        //}
+
+        //public int CountTotalDailyPerServing(string computedValue)
+        //{
+          
+        //    return Convert.ToInt32(TotalDaily.GetValueOrDefault(computedValue).Quantity / Yield);
+        //}
+
+        public string CountPerServing(string recipeDetails, string computedValue)
+        {
+            switch (recipeDetails)
+            {
+                case "totalNutrients":
+                    return (TotalNutrients.GetValueOrDefault(computedValue).Quantity / Yield).ToString("#");
+                case "totalDaily":
+                    return (TotalDaily.GetValueOrDefault(computedValue).Quantity / Yield).ToString("#");
+                case "digest":
+                    return CountDigestPerServing(computedValue);
+            }
+            throw new Exception($"There is no value provided!");
+        }
+
+        public string CountDigestPerServing(string value)
+        {
+            for(int i = 0; i < Digest.Count; i++)
+            {
+                switch (value)
+                {
+                    case "total":
+                        return (Digest[i].Total / Yield).ToString("#") + Digest[i].Unit.ToString().ToLower();
+                    case "daily":
+                        return (Digest[i].Daily / Yield).ToString("#") + Digest[i].Unit.ToString().ToLower() ;
+                }
+            }
+            
+            throw new Exception($"There is no value provided!");
+        }
+
+
     }
 
     public partial class Digest
@@ -197,19 +243,19 @@ namespace VLC.Models.Recipes
         public int Id { get; set; }
 
         [JsonProperty("THUMBNAIL")]
-        public Large Thumbnail { get; set; }
+        public Photo Thumbnail { get; set; }
 
         [JsonProperty("SMALL")]
-        public Large Small { get; set; }
+        public Photo Small { get; set; }
 
         [JsonProperty("REGULAR")]
-        public Large Regular { get; set; }
+        public Photo Regular { get; set; }
 
         [JsonProperty("LARGE", NullValueHandling = NullValueHandling.Ignore)]
-        public Large Large { get; set; }
+        public Photo Large { get; set; }
     }
 
-    public partial class Large
+    public partial class Photo
     {
         [Key]
         public int Id { get; set; }
