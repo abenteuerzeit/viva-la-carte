@@ -5,103 +5,107 @@
     <div class="row row-cols-1 row-cols-md-2 g-2 mx-auto" id="main">
         @for (int i = 0; i < Model.HitsList.Count; i++)
             {
+            <form method="post" asp-action="Create" asp-controller="Recipes">
 
-            <div class="container-xs shadow" style="border: 1px solid black; border-radius: 5px;">
+                <div class="container-xs shadow" style="border: 1px solid black; border-radius: 5px;">
 
-                <div class="col d-flex p-2">
-                    <!-- Image -->
-                    <div class="flex-shrink-0">
-                        <img class="img-fluid rounded-start" id="img-@Model.HitsList[i].Recipe.Images.Id" src="@Model.HitsList[i].Recipe.Images.Small.Url" alt="Regular Image recipe" height="@Model.HitsList[i].Recipe.Images.Small.Height" width="@Model.HitsList[i].Recipe.Images.Small.Width" />
+                    <div class="col d-flex p-2">
+                        <!-- Image -->
+                        <div class="flex-shrink-0">
+                            <label asp-for="HitsList[i].Recipe.Images.Id">
+                                <img class="img-fluid rounded-start" id="img-@Model.HitsList[i].Recipe.Images.Id" src="@Model.HitsList[i].Recipe.Images.Small.Url" alt="Regular Image recipe" height="@Model.HitsList[i].Recipe.Images.Small.Height" width="@Model.HitsList[i].Recipe.Images.Small.Width" />
+                            </label>
+                        </div>
+                        <!-- Recipe Body -->
+                        <div class="card-body flex-grow-1 ms-3">
+
+                            <h6 id="recipe-header" class="card-title font-monospace" >
+                                <label asp-for="HitsList[i].Recipe.Label"><a href="@Model.HitsList[i].Recipe.Url">@Model.HitsList[i].Recipe.Label</a></label>
+                            </h6>
+                            <p>Number of servings: @Model.HitsList[i].Recipe.Yield</p>
+
+                        </div>
+
                     </div>
-                    <!-- Recipe Body -->
-                    <div class="card-body flex-grow-1 ms-3">
 
-                        <h6 id="recipe-header" class="card-title font-monospace" dir="recipe-author-@Model.HitsList[i].Recipe.AuthorId">
-                            <a href="@Model.HitsList[i].Recipe.Url">@Model.HitsList[i].Recipe.Label</a>
-                        </h6>
-                        <p>Number of servings: @Model.HitsList[i].Recipe.Yield</p>
+                    <div class="d-flex flex-column recipe-nutrition">
+                        <h6 class="per-serving">NUTRITION PER SERVING</h6>
+                        <div class="nutrients">
+                            <ul>
+                                <li class="no-weight g-1" title="calories">
+                                    <div class="nutrients-inner">
+                                        <span class="title">Calories</span>
+                                        <label asp-for="HitsList[i].Recipe.Calories"><span class="top">@Model.HitsList[i].Recipe.CountPerServing("totalNutrients", "ENERC_KCAL")</span></label>
+                                        <span class="bottom">@Model.HitsList[i].Recipe.CountPerServing("totalDaily", "ENERC_KCAL")%</span>
 
-                    </div>
-
-                </div>
-
-                <div class="d-flex flex-column recipe-nutrition">
-                    <h6 class="per-serving">NUTRITION PER SERVING</h6>
-                    <div class="nutrients">
-                        <ul>
-                            <li class="no-weight g-1" title="calories">
-                                <div class="nutrients-inner">
-                                    <span class="title">Calories</span>
-                                    <span class="top">@Model.HitsList[i].Recipe.CountPerServing("totalNutrients", "ENERC_KCAL")</span>
-                                    <span class="bottom">@Model.HitsList[i].Recipe.CountPerServing("totalDaily", "ENERC_KCAL")%</span>
-
-                                </div>
-                            </li>
-                            <li class="no-weight" title="fat">
-                                <div class="nutrients-inner">
-                                    <span class="title">Fat</span>
-                                    <span class="top">@Model.HitsList[i].Recipe.CountPerServing("digest", "total")</span>
-                                    <span class="bottom">@Model.HitsList[i].Recipe.CountPerServing("digest", "daily")%</span>
-                                </div>
-                            </li>
-                            <li class="no-weight" title="Saturates">
-                                <div class="nutrients-inner">
-                                    <span class="title">Saturates</span>
-                                    <span class="top">@Model.HitsList[i].Recipe.CountPerServing("totalNutrients", "FASAT")g</span>
-                                    <span class="bottom">@Model.HitsList[i].Recipe.CountPerServing("totalDaily", "FASAT")%</span>
-                                </div>
-                            </li>
-                            <li class="no-weight" title="Sugars">
-                                <div class="nutrients-inner">
-                                    <span class="title">Sugars</span>
-                                    <span class="top">@Model.HitsList[i].Recipe.CountPerServing("totalNutrients", "SUGAR")g</span>
+                                    </div>
+                                </li>
+                                <li class="no-weight" title="fat">
+                                    <div class="nutrients-inner">
+                                        <span class="title">Fat</span>
+                                        <span class="top">@Model.HitsList[i].Recipe.CountPerServing("digest", "total")</span>
+                                        <span class="bottom">@Model.HitsList[i].Recipe.CountPerServing("digest", "daily")%</span>
+                                    </div>
+                                </li>
+                                <li class="no-weight" title="Saturates">
+                                    <div class="nutrients-inner">
+                                        <span class="title">Saturates</span>
+                                        <span class="top">@Model.HitsList[i].Recipe.CountPerServing("totalNutrients", "FASAT")g</span>
+                                        <span class="bottom">@Model.HitsList[i].Recipe.CountPerServing("totalDaily", "FASAT")%</span>
+                                    </div>
+                                </li>
+                                <li class="no-weight" title="Sugars">
+                                    <div class="nutrients-inner">
+                                        <span class="title">Sugars</span>
+                                        <span class="top">@Model.HitsList[i].Recipe.CountPerServing("totalNutrients", "SUGAR")g</span>
                                     
-                                    @if(!@Model.HitsList[i].Recipe.TotalNutrients.ContainsKey("sugar"))
-                                    {
-                                        <span class="bottom">n/a</span>
-                                    }
-                                    else
-                                    {
-                                <span class="bottom">
-                                    @Model.HitsList[i].Recipe.CountPerServing("totalDaily", "SUGAR")%</span>
-                                                                }
+                                        @if(!@Model.HitsList[i].Recipe.TotalNutrients.ContainsKey("sugar"))
+                                        {
+                                            <span class="bottom">n/a</span>
+                                        }
+                                        else
+                                        {
+                                    <span class="bottom">
+                                        @Model.HitsList[i].Recipe.CountPerServing("totalDaily", "SUGAR")%</span>
+                                                                    }
 
 
-</div>
-                            </li>
-                            <li class="no-weight" title="Salt">
-                                <div class="nutrients-inner">
-                                    <span class="title">Salt</span>
-                                    <span class="top">@Model.HitsList[i].Recipe.CountPerServing("totalNutrients", "NA")g</span>
-                                    <span class="bottom">@Model.HitsList[i].Recipe.CountPerServing("totalDaily", "NA")%</span>
-                                </div>
-                            </li>
-                            <li class="no-weight" title="Protein">
-                                <div class="nutrients-inner">
-                                    <span class="title">Protein</span>
-                                    <span class="top">@Model.HitsList[i].Recipe.CountPerServing("totalNutrients", "PROCNT")g</span>
-                                    <span class="bottom">@Model.HitsList[i].Recipe.CountPerServing("totalDaily", "PROCNT")%</span>
-                                </div>
-                            </li>
-                            <li class="no-weight" title="Carbs">
-                                <div class="nutrients-inner">
-                                    <span class="title">Carbs</span>
-                                    <span class="top">@Model.HitsList[i].Recipe.CountPerServing("totalNutrients", "CHOCDF")g</span>
-                                    <span class="bottom">@Model.HitsList[i].Recipe.CountPerServing("totalDaily", "CHOCDF")%</span>
-                                </div>
-                            </li>
+                                    </div>
+                                </li>
+                                <li class="no-weight" title="Salt">
+                                    <div class="nutrients-inner">
+                                        <span class="title">Salt</span>
+                                        <span class="top">@Model.HitsList[i].Recipe.CountPerServing("totalNutrients", "NA")g</span>
+                                        <span class="bottom">@Model.HitsList[i].Recipe.CountPerServing("totalDaily", "NA")%</span>
+                                    </div>
+                                </li>
+                                <li class="no-weight" title="Protein">
+                                    <div class="nutrients-inner">
+                                        <span class="title">Protein</span>
+                                        <span class="top">@Model.HitsList[i].Recipe.CountPerServing("totalNutrients", "PROCNT")g</span>
+                                        <span class="bottom">@Model.HitsList[i].Recipe.CountPerServing("totalDaily", "PROCNT")%</span>
+                                    </div>
+                                </li>
+                                <li class="no-weight" title="Carbs">
+                                    <div class="nutrients-inner">
+                                        <span class="title">Carbs</span>
+                                        <span class="top">@Model.HitsList[i].Recipe.CountPerServing("totalNutrients", "CHOCDF")g</span>
+                                        <span class="bottom">@Model.HitsList[i].Recipe.CountPerServing("totalDaily", "CHOCDF")%</span>
+                                    </div>
+                                </li>
 
-                        </ul>
+                            </ul>
 
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <small class="text-muted float-end me-3">
+                            <input class="btn btn-success" type="submit" asp-route-id="@Model.HitsList[i].Recipe.Id" asp-action="Create" asp-controller="Recipes" value="Add To Database" />
+                        </small>
                     </div>
                 </div>
-
-                <div class="card-footer">
-                    <small class="text-muted float-end me-3">
-
-                    </small>
-                </div>
-            </div>
+            </form>
         }
     </div>
 

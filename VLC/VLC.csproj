@@ -13,27 +13,25 @@
 		<PackageReference Include="Google.Apis.PeopleService.v1" Version="1.57.0.2707" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.10" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.10" />
-		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.12" />
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.10" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10" />
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
-		<PackageReference Include="RestSharp" Version="108.0.2" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Models\Addresses\" />
-		<Folder Include="Models\UserRoles\" />
-		<Folder Include="Models\Entity\" />
-		<Folder Include="Data\Repository\" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.12" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.12" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.12" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.12"><IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+<PrivateAssets>all</PrivateAssets>
+</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
+		<PackageReference Include="RestSharp" Version="108.0.3" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 	</ItemGroup>
 
   <ItemGroup>
     <Content Remove="wwwroot\Content\" />
     <Content Remove="wwwroot\Content\Images\" />
+    <Content Remove="Views\MealManagers\_RecipeBody.cshtml" />
+    <Content Remove="Views\MealManagers\_Hit.cshtml" />
+    <Content Remove="Views\MealManagers\_RecipeNutritionFacts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\Content\" />
@@ -41,7 +39,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Newtonsoft.Json" />
-    <None Remove="Models\Entity\" />
-    <None Remove="Data\Repository\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VLC.Data\VLC.Data.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\VLC.Models\VLC.Models.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

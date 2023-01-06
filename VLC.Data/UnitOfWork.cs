@@ -13,13 +13,15 @@ namespace VLC.Data
         private readonly ApplicationDbContext _context;
 
         public IRepository<MealManager> MealManagerRepo { get; }
+        public IRepository<Hits> RecipesRepo { get; }
 
         //private bool disposedValue;
 
-        public UnitOfWork(ApplicationDbContext context, IRepository<MealManager> mealManagerRepo)
+        public UnitOfWork(ApplicationDbContext context, IRepository<MealManager> mealManagerRepo, IRepository<Hits> recipesRepo)
         {
             _context = context;
             MealManagerRepo = mealManagerRepo;
+            RecipesRepo = recipesRepo;
         }
 
 

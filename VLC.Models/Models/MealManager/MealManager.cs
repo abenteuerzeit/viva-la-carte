@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Transactions;
 using VLC.Models.Entity;
 using VLC.Models.Recipes;
-using static VLC.Utils.MealManagerUtility;
+using VLC.Utils.MealManagerUtility;
 
 namespace VLC.Models.MealManager
 {

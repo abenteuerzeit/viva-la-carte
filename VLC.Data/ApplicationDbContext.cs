@@ -18,7 +18,7 @@ namespace VLC.Data
         }
 
         public DbSet<Hits> RecipeSearches { get; set; }
-        public DbSet<Recipe> Recipes { get; set; }
+        //public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Cookbook> Cookbooks { get; set; }
         public DbSet<MealPlan> MealPlans { get; set; }
         public DbSet<MealManager> MealManagers { get; set; }
@@ -76,6 +76,6 @@ namespace VLC.Data
         //}
 
 
-        public DbSet<VLC.Models.Recipes.Hit> Hit { get; set; }
+        //public DbSet<VLC.Models.Recipes.Hit> Hit { get; set; }
     }
 }

@@ -29,7 +29,6 @@ namespace VLC.Controllers
     public class MealManagersController : Controller
     {
         static readonly HttpClient client = new();
-        //private readonly ApplicationDbContext _context;
         private readonly IConfiguration _config;
         private readonly IMealManagerService _mealManagerService;
         private readonly IUnitOfWork _uow;
@@ -37,7 +36,6 @@ namespace VLC.Controllers
         //public MealManagersController(ApplicationDbContext context, IConfiguration config, IMealManagerService mealManagerService)
         public MealManagersController(IConfiguration config, IMealManagerService mealManagerService, IUnitOfWork uow)
         {
-            //_context = context;
             _config = config;
             _mealManagerService = mealManagerService;
             _uow = uow;
@@ -62,7 +60,7 @@ namespace VLC.Controllers
                 var response = await restClient.ExecuteAsync(request, cancellationTokenSource.Token);
                 var res = string.IsNullOrWhiteSpace(response.Content) ? throw new TypeLoadException() : response.Content;
                 var hits = Hits.FromJson(res);
-                return View(hits); //View("RecipeSearchResults", hits);
+                return View(hits);
             }
             catch (Exception err)
             {
@@ -176,7 +174,8 @@ namespace VLC.Controllers
 
         }
         #endregion
-      
+
+        #region DELETE
         public async Task<IActionResult> Delete(int id)
         {
             if (_uow.MealManagerRepo == null)
@@ -187,7 +186,9 @@ namespace VLC.Controllers
             var mealManager = await _uow.MealManagerRepo.GetRecordByIdAsync(id);
             return View(mealManager);
         }
+        #endregion
 
+        #region DELETE CONFIRMED
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -205,6 +206,7 @@ namespace VLC.Controllers
             await _uow.MealManagerRepo.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        #endregion
 
 
         //// GET: MealManagers/Delete/5

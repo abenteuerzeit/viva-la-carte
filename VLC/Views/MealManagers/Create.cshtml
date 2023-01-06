@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-sm-6 stretch-it" id="diet_type_dropdown">
                                     <select asp-for="Diet" class="form-control-act" id="current-preset-diet">
-                                        @foreach (var diet in Enum.GetNames(typeof(MealManagerUtility.Diets)))
+                                        @foreach (var diet in Enum.GetNames(typeof(VLC.Utils.Enums.Diets)))
                                         {
                                             <option value="@diet">
                                                 @diet.ToString()
@@ -50,15 +50,15 @@
                                 </div>
                                 <div class="col-sm-8 stretch-it" id="goals-radio">
                                     <div class="radio-flex">
-                                        <input asp-for="Goal" type="radio" value="@MealManagerUtility.WeightGoal.Lose" id="goal-1">
+                                        <input asp-for="Goal" type="radio" value="@VLC.Utils.Enums.WeightGoal.Lose" id="goal-1">
                                         <label asp-for="Goal" class="btn-sm" for="goal-1">Lose weight</label>
                                     </div>
                                     <div class="radio-flex">
-                                        <input asp-for="Goal" type="radio" value="@MealManagerUtility.WeightGoal.Maintain" id="goal-2" checked>
+                                        <input asp-for="Goal" type="radio" value="@VLC.Utils.Enums.WeightGoal.Maintain" id="goal-2" checked>
                                         <label asp-for="Goal" class="btn-sm" for="goal-2">Maintain</label>
                                     </div>
                                     <div class="radio-flex">
-                                        <input asp-for="Goal" type="radio" value="@MealManagerUtility.WeightGoal.Gain" id="goal-3">
+                                        <input asp-for="Goal" type="radio" value="@VLC.Utils.Enums.WeightGoal.Gain" id="goal-3">
                                         <label asp-for="Goal" class="btn-sm" for="goal-3">Build muscle</label>
                                     </div>
                                 </div>
@@ -70,11 +70,11 @@
                                 </div>
                                 <div class="col-sm-8 stretch-it" id="units-radio">
                                     <div class="radio-flex">
-                                        <input asp-for="MeasurementSystem" type="radio" value="@MealManagerUtility.MeasurementSystem.US_Customary" id="units-inches">
+                                        <input asp-for="MeasurementSystem" type="radio" value="@VLC.Utils.Enums.MeasurementSystem.US_Customary" id="units-inches">
                                         <label asp-for="MeasurementSystem" class="btn-sm">U.S. Standard</label>
                                     </div>
                                     <div class="radio-flex">
-                                        <input asp-for="MeasurementSystem" type="radio" value="@MealManagerUtility.MeasurementSystem.Metric" id="units-metric" checked>
+                                        <input asp-for="MeasurementSystem" type="radio" value="@VLC.Utils.Enums.MeasurementSystem.Metric" id="units-metric" checked>
                                         <label asp-for="MeasurementSystem" class="btn-sm">Metric</label>
                                     </div>
                                 </div>
@@ -86,11 +86,11 @@
                                 </div>
                                 <div class="col-sm-8 stretch-it" id="gender-radio">
                                     <div class="radio-flex">
-                                        <input asp-for="Gender" type="radio" value="@MealManagerUtility.Gender.Male" id="gender-male" checked>
+                                        <input asp-for="Gender" type="radio" value="@VLC.Utils.Enums.Gender.Male" id="gender-male" checked>
                                         <label asp-for="Gender" class="btn-sm" for="gender-1">Male</label>
                                     </div>
                                     <div class="radio-flex">
-                                        <input asp-for="Gender" type="radio" value="@MealManagerUtility.Gender.Female" id="gender-female">
+                                        <input asp-for="Gender" type="radio" value="@VLC.Utils.Enums.Gender.Female" id="gender-female">
                                         <label asp-for="Gender" class="btn-sm" for="gender-2">Female</label>
                                     </div>
                                 </div>
@@ -142,15 +142,15 @@
                                 </div>
                                 <div class="col-sm-8 stretch-it" id="fat-radio">
                                     <div class="radio-flex">
-                                        <input asp-for="BodyFat" type="radio" value="@MealManagerUtility.BodyFat.Low" id="fat-1">
+                                        <input asp-for="BodyFat" type="radio" value="@VLC.Utils.Enums.BodyFat.Low" id="fat-1">
                                         <label asp-for="BodyFat" class="btn-sm">Low < 14%</label>
                                     </div>
                                     <div class="radio-flex">
-                                        <input asp-for="BodyFat" type="radio" value="@MealManagerUtility.BodyFat.Medium" id="fat-2" checked>
+                                        <input asp-for="BodyFat" type="radio" value="@VLC.Utils.Enums.BodyFat.Medium" id="fat-2" checked>
                                         <label asp-for="BodyFat" class="btn-sm">Medium 14%-22%</label>
                                     </div>
                                     <div class="radio-flex">
-                                        <input asp-for="BodyFat" type="radio" value="@MealManagerUtility.BodyFat.High" id="fat-3">
+                                        <input asp-for="BodyFat" type="radio" value="@VLC.Utils.Enums.BodyFat.High" id="fat-3">
                                         <label asp-for="BodyFat" class="btn-sm">High > 22%</label>
                                     </div>
                                 </div>
@@ -162,7 +162,7 @@
                                 </div>
                                 <div class="col-sm-6 stretch-it" id="activity_level_dropdown">
                                     <select asp-for="ActivityLevel" class="form-control-act">
-                                        @foreach (var activity in Enum.GetNames(typeof(MealManagerUtility.ActivityLevel)))
+                                        @foreach (var activity in Enum.GetNames(typeof(VLC.Utils.Enums.ActivityLevel)))
                                         {
                                             <option value="@activity">
                                                 @activity.ToString()
@@ -244,7 +244,7 @@
                 <div class="form-group">
                     <label asp-for="Diet" class="control-label"></label>
                     <select asp-for="Diet" class="form-control">
-                        @foreach (var diet in Enum.GetNames(typeof(MealManagerUtility.Diets)))
+                        @foreach (var diet in Enum.GetNames(typeof(VLC.Utils.Enums.Diets)))
                         {
                             <option value="@diet">
                                 @diet.ToString()
@@ -257,7 +257,7 @@
                 <div class="form-group">
                     <label asp-for="Goal" class="control-label"></label>
                     <select asp-for="Goal" class="form-control">
-                        @foreach (var goal in Enum.GetNames(typeof(MealManagerUtility.WeightGoal)))
+                        @foreach (var goal in Enum.GetNames(typeof(VLC.Utils.Enums.WeightGoal)))
                         {
                             <option value="@goal">
                                 @goal.ToString()

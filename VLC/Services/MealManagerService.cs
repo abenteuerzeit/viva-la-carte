@@ -1,5 +1,4 @@
-﻿using Humanizer;
-using Microsoft.CodeAnalysis.Recommendations;
+﻿using Microsoft.CodeAnalysis.Recommendations;
 using System;
 using System.Configuration;
 using System.Numerics;
@@ -9,7 +8,6 @@ using VLC.Models.MealManager;
 using VLC.Models.Meals;
 using VLC.Models.Products;
 using VLC.Models.Recipes;
-using static Humanizer.In;
 using static VLC.Utils.MealManagerUtility;
 
 namespace VLC.Services

@@ -25,7 +25,7 @@
 
             <label asp-for="Diet" class="input-group-text col-4"></label>
             <select asp-for="Diet" class="form-select col-6" id="current-preset-diet">
-                @foreach (var diet in Enum.GetNames(typeof(MealManagerUtility.Diets)))
+                @foreach (var diet in Enum.GetNames(typeof(VLC.Utils.Enums.Diets)))
                 {
                     <option value="@diet">
                         @diet.ToString()
@@ -38,7 +38,7 @@
         <div class="input-group mb-3">
             <label asp-for="Goal" class="input-group-text col-4"></label>
             <select asp-for="Goal" class="form-select col-6">
-                @foreach (var goal in Enum.GetNames(typeof(MealManagerUtility.WeightGoal)))
+                @foreach (var goal in Enum.GetNames(typeof(VLC.Utils.Enums.WeightGoal)))
                 {
                     <option value="@goal">
                         @goal.ToString()
@@ -50,7 +50,7 @@
         <div class="input-group mb-3">
             <label asp-for="MeasurementSystem" class="input-group-text col-4"></label>
             <select asp-for="MeasurementSystem" class="form-select col-6">
-                @foreach (var measurement in Enum.GetNames(typeof(MealManagerUtility.MeasurementSystem)))
+                @foreach (var measurement in Enum.GetNames(typeof(VLC.Utils.Enums.MeasurementSystem)))
                 {
                     <option value="@measurement">
                         @measurement.ToString()
@@ -62,7 +62,7 @@
         <div class="input-group mb-3">
             <label asp-for="Gender" class="input-group-text col-4"></label>
             <select asp-for="Gender" class="form-select col-6">
-                @foreach (var gender in Enum.GetNames(typeof(MealManagerUtility.Gender)))
+                @foreach (var gender in Enum.GetNames(typeof(VLC.Utils.Enums.Gender)))
                 {
                     <option value="@gender">
                         @gender.ToString()
@@ -89,7 +89,7 @@
         <div class="input-group mb-3">
             <label asp-for="BodyFat" class="input-group-text col-4"></label>
             <select asp-for="BodyFat" class="form-select col-6">
-                @foreach (var fat in Enum.GetNames(typeof(MealManagerUtility.BodyFat)))
+                @foreach (var fat in Enum.GetNames(typeof(VLC.Utils.Enums.BodyFat)))
                 {
                     <option value="@fat">
                         @fat.ToString()
@@ -101,7 +101,7 @@
         <div class="input-group mb-3">
             <label asp-for="ActivityLevel" class="input-group-text col-4"></label>
             <select asp-for="ActivityLevel" class="form-select col-6">
-                @foreach (var activity in Enum.GetNames(typeof(MealManagerUtility.ActivityLevel)))
+                @foreach (var activity in Enum.GetNames(typeof(VLC.Utils.Enums.ActivityLevel)))
                 {
                     <option value="@activity" selected="@activity">
                         @activity.ToString()

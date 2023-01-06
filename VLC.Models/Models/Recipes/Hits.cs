@@ -17,11 +17,12 @@ namespace VLC.Models.Recipes
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using NuGet.Protocol;
+    using VLC.Models.Entity;
 
-    public partial class Hits
+    public partial class Hits : EntityBase
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
         [JsonProperty("from")]
         public long From { get; set; }
 
@@ -71,141 +72,141 @@ namespace VLC.Models.Recipes
         public Title Title { get; set; }
     }
 
-    public partial class Recipe
-    {
-        //public int Id { get; set; }
+    //public partial class Recipe : EntityBase
+    //{
+    //    //public int Id { get; set; }
 
-        [JsonProperty("uri")]
-        public Uri Uri { get; set; }
+    //    [JsonProperty("uri")]
+    //    public Uri Uri { get; set; }
 
-        [JsonProperty("label")]
-        public string Label { get; set; }
+    //    [JsonProperty("label")]
+    //    public string Label { get; set; }
 
-        [JsonProperty("image")]
-        public Uri Image { get; set; }
+    //    [JsonProperty("image")]
+    //    public Uri Image { get; set; }
 
-        [JsonProperty("images")]
-        public Images Images { get; set; }
+    //    [JsonProperty("images")]
+    //    public Images Images { get; set; }
 
-        [JsonProperty("source")]
-        public string Source { get; set; }
+    //    [JsonProperty("source")]
+    //    public string Source { get; set; }
 
-        [JsonProperty("url")]
-        public Uri Url { get; set; }
+    //    [JsonProperty("url")]
+    //    public Uri Url { get; set; }
 
-        [JsonProperty("shareAs")]
-        public Uri ShareAs { get; set; }
+    //    [JsonProperty("shareAs")]
+    //    public Uri ShareAs { get; set; }
 
-        [JsonProperty("yield")]
-        public long Yield { get; set; }
+    //    [JsonProperty("yield")]
+    //    public long Yield { get; set; }
 
-        [JsonProperty("dietLabels")]
-        [NotMapped]
-        public List<DietLabel> DietLabels { get; set; }
+    //    [JsonProperty("dietLabels")]
+    //    [NotMapped]
+    //    public List<DietLabel> DietLabels { get; set; }
 
-        [JsonProperty("health")]
-        [NotMapped]
-        public List<HealthLabel> HealthLabels { get; set; }
+    //    [JsonProperty("health")]
+    //    [NotMapped]
+    //    public List<HealthLabel> HealthLabels { get; set; }
 
-        [JsonProperty("cautions")]
-        [NotMapped]
-        public List<string> Cautions { get; set; }
+    //    [JsonProperty("cautions")]
+    //    [NotMapped]
+    //    public List<string> Cautions { get; set; }
 
-        [JsonProperty("ingredientLines")]
-        [NotMapped]
-        public List<string> IngredientLines { get; set; }
+    //    [JsonProperty("ingredientLines")]
+    //    [NotMapped]
+    //    public List<string> IngredientLines { get; set; }
 
-        [JsonProperty("ingredients")]
-        public List<Ingredient> Ingredients { get; set; }
+    //    [JsonProperty("ingredients")]
+    //    public List<Ingredient> Ingredients { get; set; }
 
-        [JsonProperty("calories")]
-        public double Calories { get; set; }
+    //    [JsonProperty("calories")]
+    //    public double Calories { get; set; }
 
-        [JsonProperty("totalWeight")]
-        public double TotalWeight { get; set; }
+    //    [JsonProperty("totalWeight")]
+    //    public double TotalWeight { get; set; }
 
-        [JsonProperty("totalTime")]
-        public long TotalTime { get; set; }
+    //    [JsonProperty("totalTime")]
+    //    public long TotalTime { get; set; }
 
-        [JsonProperty("cuisineType")]
-        [NotMapped]
-        public List<string> CuisineType { get; set; }
+    //    [JsonProperty("cuisineType")]
+    //    [NotMapped]
+    //    public List<string> CuisineType { get; set; }
 
-        [JsonProperty("mealType")]
-        [NotMapped]
-        public List<MealType> MealType { get; set; }
+    //    [JsonProperty("mealType")]
+    //    [NotMapped]
+    //    public List<MealType> MealType { get; set; }
 
-        [JsonProperty("dishType")]
-        [NotMapped]
-        public List<DishType> DishType { get; set; }
+    //    [JsonProperty("dishType")]
+    //    [NotMapped]
+    //    public List<DishType> DishType { get; set; }
 
-        [JsonProperty("totalNutrients")]
-        [NotMapped]
-        public Dictionary<string, Total> TotalNutrients { get; set; }
+    //    [JsonProperty("totalNutrients")]
+    //    [NotMapped]
+    //    public Dictionary<string, Total> TotalNutrients { get; set; }
 
-        [JsonProperty("totalDaily")]
-        [NotMapped]
-        public Dictionary<string, Total> TotalDaily { get; set; }
+    //    [JsonProperty("totalDaily")]
+    //    [NotMapped]
+    //    public Dictionary<string, Total> TotalDaily { get; set; }
 
-        [JsonProperty("digest")]
-        [NotMapped]
-        public List<Digest> Digest { get; set; }
+    //    [JsonProperty("digest")]
+    //    [NotMapped]
+    //    public List<Digest> Digest { get; set; }
 
-        public int CountCaloriesPerServing()
-        {
-            var caloriesPerServing = Convert.ToInt32(Calories / Yield);
-            return caloriesPerServing;
-        }
+    //    public int CountCaloriesPerServing()
+    //    {
+    //        var caloriesPerServing = Convert.ToInt32(Calories / Yield);
+    //        return caloriesPerServing;
+    //    }
 
-        public int ConvertCaloriesToInt()
-        {
-            return Convert.ToInt32(Calories);
-        }
+    //    public int ConvertCaloriesToInt()
+    //    {
+    //        return Convert.ToInt32(Calories);
+    //    }
 
-        //TODO Refactor 2 methods in 1, take dictionary as parameter and pass it to the method
-        //public string CountTotalNutrientsPerServing(string computedValue)
-        //{
-        //    return (TotalNutrients.GetValueOrDefault(computedValue).Quantity / Yield).ToString("#");
-        //}
+    //    //TODO Refactor 2 methods in 1, take dictionary as parameter and pass it to the method
+    //    //public string CountTotalNutrientsPerServing(string computedValue)
+    //    //{
+    //    //    return (TotalNutrients.GetValueOrDefault(computedValue).Quantity / Yield).ToString("#");
+    //    //}
 
-        //public int CountTotalDailyPerServing(string computedValue)
-        //{
+    //    //public int CountTotalDailyPerServing(string computedValue)
+    //    //{
           
-        //    return Convert.ToInt32(TotalDaily.GetValueOrDefault(computedValue).Quantity / Yield);
-        //}
+    //    //    return Convert.ToInt32(TotalDaily.GetValueOrDefault(computedValue).Quantity / Yield);
+    //    //}
 
-        public string CountPerServing(string recipeDetails, string computedValue)
-        {
-            switch (recipeDetails)
-            {
-                case "totalNutrients":
-                    return (TotalNutrients.GetValueOrDefault(computedValue).Quantity / Yield).ToString("#");
-                case "totalDaily":
-                    return (TotalDaily.GetValueOrDefault(computedValue).Quantity / Yield).ToString("#");
-                case "digest":
-                    return CountDigestPerServing(computedValue);
-            }
-            throw new Exception($"There is no value provided!");
-        }
+    //    public string CountPerServing(string recipeDetails, string computedValue)
+    //    {
+    //        switch (recipeDetails)
+    //        {
+    //            case "totalNutrients":
+    //                return (TotalNutrients.GetValueOrDefault(computedValue).Quantity / Yield).ToString("#");
+    //            case "totalDaily":
+    //                return (TotalDaily.GetValueOrDefault(computedValue).Quantity / Yield).ToString("#");
+    //            case "digest":
+    //                return CountDigestPerServing(computedValue);
+    //        }
+    //        throw new Exception($"There is no value provided!");
+    //    }
 
-        public string CountDigestPerServing(string value)
-        {
-            for(int i = 0; i < Digest.Count; i++)
-            {
-                switch (value)
-                {
-                    case "total":
-                        return (Digest[i].Total / Yield).ToString("#") + Digest[i].Unit.ToString().ToLower();
-                    case "daily":
-                        return (Digest[i].Daily / Yield).ToString("#") + Digest[i].Unit.ToString().ToLower() ;
-                }
-            }
+    //    public string CountDigestPerServing(string value)
+    //    {
+    //        for(int i = 0; i < Digest.Count; i++)
+    //        {
+    //            switch (value)
+    //            {
+    //                case "total":
+    //                    return (Digest[i].Total / Yield).ToString("#") + Digest[i].Unit.ToString().ToLower();
+    //                case "daily":
+    //                    return (Digest[i].Daily / Yield).ToString("#") + Digest[i].Unit.ToString().ToLower() ;
+    //            }
+    //        }
             
-            throw new Exception($"There is no value provided!");
-        }
+    //        throw new Exception($"There is no value provided!");
+    //    }
 
 
-    }
+    //}
 
     public partial class Digest
     {

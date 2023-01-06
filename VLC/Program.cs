@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using VLC.Data;
 using VLC.Models.MealManager;
+using VLC.Models.Recipes;
 using VLC.Repository;
 using VLC.Services;
 
@@ -20,6 +21,7 @@ namespace VLC
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddScoped<IRepository<MealManager>, DataRepository<MealManager>>();
+            builder.Services.AddScoped<IRepository<Hits>, DataRepository<Hits>>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IMealManagerService, MealManagerService>();
             builder.Services.AddScoped<IRecipesService, RecipesService>();
