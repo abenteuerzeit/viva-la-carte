@@ -36,9 +36,11 @@
   <ItemGroup>
     <Folder Include="wwwroot\Content\" />
     <Folder Include="wwwroot\Content\Images\" />
+    <Folder Include="Views\ExternalApi\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Newtonsoft.Json" />
+    <None Remove="Views\ExternalApi\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VLC.Data\VLC.Data.csproj">

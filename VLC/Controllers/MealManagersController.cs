@@ -28,7 +28,7 @@ namespace VLC.Controllers
 {
     public class MealManagersController : Controller
     {
-        static readonly HttpClient client = new();
+        
         private readonly IConfiguration _config;
         private readonly IMealManagerService _mealManagerService;
         private readonly IUnitOfWork _uow;
@@ -41,32 +41,6 @@ namespace VLC.Controllers
             _uow = uow;
         }
 
-        /// <summary>
-        /// Action injection with FromServices
-        /// </summary>
-        /// <param name="service"></param>
-        /// <returns></returns>
-        // GET: MealManagers/SearchRecipesByQuery
-        [HttpGet]
-        public async Task<IActionResult> SearchRecipesByQuery(string query, [FromServices] IMealManagerService service)
-        {
-            Uri searchURL = new(service.GetEdamamRecipesAPI_URL_For(query));
-            try
-            {
-                RestClient restClient = new RestClient(client);
-                restClient.Options.MaxTimeout = 30;
-                RestRequest request = new(searchURL) { AlwaysMultipartFormData = true };
-                var cancellationTokenSource = new CancellationTokenSource();
-                var response = await restClient.ExecuteAsync(request, cancellationTokenSource.Token);
-                var res = string.IsNullOrWhiteSpace(response.Content) ? throw new TypeLoadException() : response.Content;
-                var hits = Hits.FromJson(res);
-                return View(hits);
-            }
-            catch (Exception err)
-            {
-                return BadRequest(err);
-            }
-        }
 
         // GET: MealManagers
         public async Task<IActionResult> Index()

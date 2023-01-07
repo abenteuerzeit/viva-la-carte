@@ -34,10 +34,12 @@ var query_string_value = Context.Request.Query["query"];
                     break;
                 default:
                     <dd>
-                        <a href="@Model.Links.Next.Href" onclick="alert('TODO: Implement function to load more recipes
-                                                    so that you scroll through the results like on a feed')">
+                        <form id="next" asp-action="SearchRecipesByQuery" method="get">
+                            <input class="btn btn-success" type="submit" />
+                        </form>
+                        @*<a href="@Model.Links.Next.Href" target="SearchRecipesByQuery">
                             Next Hits List Page
-                        </a>
+                        </a>*@
                             
                         </dd>
                     break;

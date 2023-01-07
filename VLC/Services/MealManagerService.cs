@@ -15,7 +15,6 @@ namespace VLC.Services
     // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
     public class MealManagerService : IMealManagerService
     {
-        //private readonly RequestDelegate _next;
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _config;
 
@@ -23,20 +22,7 @@ namespace VLC.Services
         {
             _context = context;
             _config = config;
-            //_next = next;
         }
-
-        //public MealManagerService(RequestDelegate next)
-        //{
-        //    _next = next;
-        //}
-
-        //public Task Invoke(HttpContext httpContext)
-        //{
-
-        //    return _next(httpContext);
-        //}
-
 
         /// <summary>
         ///     Searches the Edamam recipes database Application Programming Interface v2.
