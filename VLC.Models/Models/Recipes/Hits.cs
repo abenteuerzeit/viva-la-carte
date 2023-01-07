@@ -16,7 +16,6 @@ namespace VLC.Models.Recipes
     using System.Linq;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
-    using NuGet.Protocol;
     using VLC.Models.Entity;
 
     public partial class Hits : EntityBase

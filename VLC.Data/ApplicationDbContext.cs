@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NuGet.Protocol;
 using System.Data;
-using VLC.Models.API;
-using VLC.Models.MealManager;
-using VLC.Models.Meals;
+using VLC.Models;
 using VLC.Models.Recipes;
+using VLC.Models.Meals;
+using VLC.Models.MealManager;
 
 namespace VLC.Data
 {
