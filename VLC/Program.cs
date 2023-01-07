@@ -24,6 +24,7 @@ namespace VLC
             builder.Services.AddScoped<IRepository<Hits>, DataRepository<Hits>>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IMealManagerService, MealManagerService>();
+            builder.Services.AddScoped<IExternalApiService, ExternalApiService>();
             builder.Services.AddScoped<IRecipesService, RecipesService>();
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

@@ -25,27 +25,6 @@ namespace VLC.Services
         }
 
         /// <summary>
-        ///     Searches the Edamam recipes database Application Programming Interface v2.
-        ///     Documentation: https://developer.edamam.com/recipe-search-api-v2-changelog.
-        /// </summary>
-        /// <param name="search_query">
-        ///     Provide a search phrase with escaped whitespace.
-        /// </param>
-        /// <returns>
-        ///     URL string for Edamam Recipes Search API,
-        ///     Example:"https://api.edamam.com/api/recipes/v2?q=scrambled%20eggs&app_id=54fe811b&app_key=3dc43f24bc09518326e7783ceb08d984&type=public"
-        /// </returns>
-        public string GetEdamamRecipesAPI_URL_For(string search_query)
-        {
-            string baseURL = "https://api.edamam.com/api/recipes/v2";
-            string app_id = _config["EdamamRecipeSearch:app_id"];
-            string app_key = _config["EdamamRecipeSearch:app_key"];
-            string type = "public";
-            return $"{baseURL}?q={search_query}&app_id={app_id}&app_key={app_key}&type={type}";
-        }
-
-
-        /// <summary>
         /// 1. Select recipes
         /// 2. Shop for ingredients
         /// 3. Prepare those ingredients

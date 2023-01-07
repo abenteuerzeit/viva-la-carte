@@ -15,12 +15,12 @@ namespace VLC.Controllers
     {
         static readonly HttpClient client = new();
         private readonly IConfiguration _config;
-        private readonly IMealManagerService _mealManagerService;
+        private readonly IExternalApiService _externalApiService;
 
-        public ExternalApiController(IConfiguration config, IMealManagerService mealManagerService)
+        public ExternalApiController(IConfiguration config, IExternalApiService mealManagerService)
         {
             _config = config;
-            _mealManagerService = mealManagerService;
+            _externalApiService = mealManagerService;
         }
 
         /// <summary>
@@ -30,9 +30,9 @@ namespace VLC.Controllers
         /// <returns></returns>
         // GET: MealManagers/SearchRecipesByQuery
         [HttpGet]
-        public async Task<IActionResult> SearchRecipesByQuery(string query, [FromServices] IMealManagerService service)
+        public async Task<IActionResult> Search(string query)
         {
-            Uri searchURL = new(service.GetEdamamRecipesAPI_URL_For(query));
+            var searchURL = _externalApiService.SearchByQuery(query);
             try
             {
                 RestClient restClient = new RestClient(client);
