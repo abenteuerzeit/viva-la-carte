@@ -5,8 +5,8 @@
     <div class="row row-cols-1 row-cols-md-2 g-2 mx-auto" id="main">
         @for (int i = 0; i < Model.HitsList.Count; i++)
             {
-            <form method="post" asp-action="Create" asp-controller="Recipes">
-
+            
+            <div>
                 <div class="container-xs shadow" style="border: 1px solid black; border-radius: 5px;">
 
                     <div class="col d-flex p-2">
@@ -19,10 +19,38 @@
                         <!-- Recipe Body -->
                         <div class="card-body flex-grow-1 ms-3">
 
-                            <h6 id="recipe-header" class="card-title font-monospace" >
-                                <label asp-for="HitsList[i].Recipe.Label"><a href="@Model.HitsList[i].Recipe.Url">@Model.HitsList[i].Recipe.Label</a></label>
+                            <h6 id="recipe-header" class="card-title font-monospace">
+                                <label asp-for="HitsList[i].Recipe.Label">@Model.HitsList[i].Recipe.Label</label>
                             </h6>
-                            <p>Number of servings: @Model.HitsList[i].Recipe.Yield</p>
+                            <div>
+                                <ul id="recipe-details">
+
+                                    <li>
+                                        Cuisine Type:
+                                        @foreach (var cuisine in Model.HitsList[i].Recipe.CuisineType)
+                                        {
+
+                                            if (cuisine.Count() == 1)
+                                            {
+
+                                                <i>| @cuisine |</i>
+                                            }
+                                            else
+                                            {
+                                                <i>| @cuisine </i>
+                                            }
+
+                                        }
+                                    </li>
+
+                                    <li>Total Calories: <i>@Model.HitsList[i].Recipe.Calories.ToString("#")</i></li>
+                                    <li>Total Weight: <i>@Model.HitsList[i].Recipe.TotalWeight.ToString("#") g</i></li>
+                                    <li>Number of servings: @Model.HitsList[i].Recipe.Yield</li>
+                                    <!-- Modal on mouseover and mouseleave JAVASCRIPT here-->
+                                    <li id="diet-labels-modal">Diet Labels</li>
+                                    <li id="health-labels-modal">Health Labels</li>
+                                </ul>
+                            </div>
 
                         </div>
 
@@ -31,8 +59,8 @@
                     <div class="d-flex flex-column recipe-nutrition">
                         <h6 class="per-serving">NUTRITION PER SERVING</h6>
                         <div class="nutrients">
-                            <ul>
-                                <li class="no-weight g-1" title="calories">
+                            <ul id="nutrients-list">
+                                <li class="no-weight" title="calories">
                                     <div class="nutrients-inner">
                                         <span class="title">Calories</span>
                                         <label asp-for="HitsList[i].Recipe.Calories"><span class="top">@Model.HitsList[i].Recipe.CountPerServing("totalNutrients", "ENERC_KCAL")</span></label>
@@ -58,16 +86,17 @@
                                     <div class="nutrients-inner">
                                         <span class="title">Sugars</span>
                                         <span class="top">@Model.HitsList[i].Recipe.CountPerServing("totalNutrients", "SUGAR")g</span>
-                                    
-                                        @if(!@Model.HitsList[i].Recipe.TotalNutrients.ContainsKey("sugar"))
+
+                                        @if (!@Model.HitsList[i].Recipe.TotalNutrients.ContainsKey("sugar"))
                                         {
                                             <span class="bottom">n/a</span>
                                         }
                                         else
                                         {
-                                    <span class="bottom">
-                                        @Model.HitsList[i].Recipe.CountPerServing("totalDaily", "SUGAR")%</span>
-                                                                    }
+                                            <span class="bottom">
+                                                @Model.HitsList[i].Recipe.CountPerServing("totalDaily", "SUGAR")%
+                                            </span>
+                                        }
 
 
                                     </div>
@@ -101,11 +130,12 @@
 
                     <div class="card-footer">
                         <small class="text-muted float-end me-3">
-                            <input class="btn btn-success" type="submit" asp-route-id="@Model.HitsList[i].Recipe.Id" asp-action="Create" asp-controller="Recipes" value="Add To Database" />
+                            <i>See full recipe on:</i>
+                            <a href="@Model.HitsList[i].Recipe.Url">@Model.HitsList[i].Recipe.Source</a>
                         </small>
                     </div>
                 </div>
-            </form>
+            </div>
         }
     </div>
 

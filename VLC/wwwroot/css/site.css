@@ -602,7 +602,7 @@ section #main {
     max-width: 80%;
     flex-direction: initial;*/
     margin-top: 50px;
-    width: 80%;
+    width: 90%;
 }
 
 .top-line {
@@ -642,12 +642,20 @@ section #main {
 }
 
 #recipe-header {
-    padding: 20px 10px 0px 10px;
+    width: 80%;
+    text-align: left;
+    padding: 0 0 5px;
     flex-wrap: wrap;
+    height: 60px;
+}
+
+#recipe-details {
+  list-style: none;
+  padding-left: 0;
 }
 
 .save-button {
-    margin-left: 70px;
+  margin-left: 70px;
 }
 
 .rating-buttons {
@@ -676,16 +684,16 @@ section #main {
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 .recipe-nutrition {
-  width: 95%;
-
+  width: 100%;
+  align-content: center;
 }
 
   .recipe-nutrition ul {
     width: 100%;
     float: left;
-/*    clear: both;*/
+    /*    clear: both;*/
     margin: 0 auto;
-    
+    background-color: rgb(200, 240, 214);
   }
 
     .recipe-nutrition ul li {
@@ -699,12 +707,12 @@ section #main {
                 padding: 6px;
                 display: flex;
                 flex-direction: column;
-                border-radius: 2px;
+/*                border-radius: 2px;*/
 /*                border: 1px solid #1e282f;*/
                 text-align: center;
                 width: 70px;
                 cursor: pointer;
-                background-color: bisque;
+                
             }
 
             .recipe-nutrition ul li .title {
@@ -736,8 +744,14 @@ section #main {
 .nutrients {
     display: block;
     min-height: auto;
-    margin: 0 auto;
+    margin: auto;
+    padding-bottom: 10px;
+    align-content: center;
 }
+  #nutrients-list {
+    list-style: none;
+    padding-left: 0;
+  }
 
 @media (max-width: 576px) {
     .xs {

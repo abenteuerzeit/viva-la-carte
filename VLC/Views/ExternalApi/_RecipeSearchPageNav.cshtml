@@ -34,12 +34,12 @@ var query_string_value = Context.Request.Query["query"];
                     break;
                 default:
                     <dd>
-                        <form id="next" asp-action="SearchRecipesByQuery" method="get">
-                            <input class="btn btn-success" type="submit" />
-                        </form>
-                        @*<a href="@Model.Links.Next.Href" target="SearchRecipesByQuery">
-                            Next Hits List Page
-                        </a>*@
+                        @*<form id="next" asp-action="Search" method="get">
+                            <input class="btn btn-success" type="submit" value="NEXT"/>
+                        </form>*@
+                        <a href="@Model.Links.Next.Href" target="SearchRecipesByQuery">
+                            Next Hits Json Format
+                        </a>
                             
                         </dd>
                     break;
