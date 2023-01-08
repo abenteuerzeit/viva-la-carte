@@ -1,4 +1,7 @@
 ﻿using System;
+using NuGet.Protocol;
+using VLC.Data.Migrations;
+
 namespace VLC.Services
 {
     public class ExternalApiService : IExternalApiService
@@ -27,7 +30,13 @@ namespace VLC.Services
             string app_id = _config["EdamamRecipeSearch:app_id"];
             string app_key = _config["EdamamRecipeSearch:app_key"];
             string type = "public";
-            return $"{baseURL}?q={search_query}&app_id={app_id}&app_key={app_key}&type={type}";
+            return $"{baseURL}?type={type}&q={search_query}&app_id={app_id}&app_key={app_key}";
+        }
+
+
+        public string Next20Recipes(string next)
+        {
+            return next;
         }
     }
 }

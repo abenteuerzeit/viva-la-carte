@@ -28,22 +28,35 @@ var query_string_value = Context.Request.Query["query"];
                 <em>Displaying from @Model.From hits to @Model.To hits</em>
 
             </dt>
-            @switch(Model.Links.Next)
-            {
-                case null:
-                    break;
-                default:
-                    <dd>
-                        @*<form id="next" asp-action="Search" method="get">
-                            <input class="btn btn-success" type="submit" value="NEXT"/>
-                        </form>*@
-                        <a href="@Model.Links.Next.Href" target="SearchRecipesByQuery">
-                            Next Hits Json Format
-                        </a>
-                            
-                        </dd>
-                    break;
-            }
+
+            <dd>
+                <div class="d-flex flex-row mb-3 align-items-center justify-content-sm-center">
+                    <div class="p-2">
+                        @if (Model.To == 20)
+                        {
+                            <form>
+                                <input type="button" value="Nothing" hidden />
+                            </form>
+                        }
+                        else
+                        {
+                            <form>
+                                <input type="button" class="btn btn-primary" value="<< Prev 20" onclick="history.back()" />
+                            </form>
+
+                        }
+                    </div>
+                    <div class="p-2">
+                        <form id="next-search" asp-action="Next" asp-controller="ExternalApi" method="get">
+                            @*<label class="col-form-label p-2" for="next">next values</label>*@
+                            <input class="input-group-text form-control" id="next" name="next" type="text" value="@Model.Links.Next.Href.AbsoluteUri" hidden />
+                            <input class="btn btn-primary" type="submit" value="Next 20 >>" />
+
+                        </form>
+                    </div>
+                </div>
+            </dd>
+
         </dl>
     </div>
 </div>

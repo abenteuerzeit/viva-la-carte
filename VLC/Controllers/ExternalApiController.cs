@@ -40,7 +40,7 @@ namespace VLC.Controllers
                 RestRequest request = new(searchURL) { AlwaysMultipartFormData = true };
                 var cancellationTokenSource = new CancellationTokenSource();
                 var response = await restClient.ExecuteAsync(request, cancellationTokenSource.Token);
-                var res = string.IsNullOrWhiteSpace(response.Content) ? throw new TypeLoadException() : response.Content;
+                var res = string.IsNullOrWhiteSpace(response.Content) ? throw new TypeLoadException() : response.Content ;
                 var hits = Hits.FromJson(res);
                 return View(hits);
             }
@@ -50,5 +50,25 @@ namespace VLC.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Next(string next)
+        {
+            var searchURL = _externalApiService.Next20Recipes(next);
+            try
+            {
+                RestClient restClient = new RestClient(client);
+                restClient.Options.MaxTimeout = 30;
+                RestRequest request = new(searchURL) { AlwaysMultipartFormData = true };
+                var cancellationTokenSource = new CancellationTokenSource();
+                var response = await restClient.ExecuteAsync(request, cancellationTokenSource.Token);
+                var res = string.IsNullOrWhiteSpace(response.Content) ? throw new TypeLoadException() : response.Content;
+                var hits = Hits.FromJson(res);
+                return View(hits);
+            }
+            catch (Exception err)
+            {
+                return BadRequest(err);
+            }
+        }
     }
 }
