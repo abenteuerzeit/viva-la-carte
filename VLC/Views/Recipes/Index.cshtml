@@ -1,4 +1,4 @@
-﻿@model IEnumerable<VLC.Models.Recipes.Recipe>
+﻿@model IEnumerable<VLC.Models.Recipes.Hits>
 
 @{
     Layout = null;
@@ -26,12 +26,12 @@
             </tr>
                 <tr>
                     <th>
-                        IsFavorite
+                        CuisineType
                     </th>
                 </tr>
                 <tr>
                     <th>
-                        Rating
+                        DietLabels
                     </th>
                 </tr>
                 <tr>
@@ -46,7 +46,7 @@
                 </tr>
                 <tr>
                     <th>
-                        Thumbnail Image
+                        IngredientLines
                     </th>
                 </tr>
                 <tr>
@@ -62,37 +62,44 @@
             {
                 <tr>
                     <td>
-                        @recipe.Id;
+                        @recipe.HitsList.Select(x=>x.Id);
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        @recipe.IsFavorite;
+                        @recipe.HitsList.Select(c=>c.Recipe.CuisineType) - CuisineType
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        @recipe.Rating;
+                        @recipe.HitsList.Select(c=>c.Recipe.DietLabels) - DietLabels
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        @recipe.Calories;
+                        @recipe.HitsList.Select(c=>c.Recipe.Calories) -  Calories;
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        @recipe.Label;
+                        @recipe.HitsList.Select(c => c.Recipe.Label);
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        @recipe.ImageURL;
+                        @recipe.HitsList.Select(c => c.Recipe.IngredientLines)
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        @recipe.ShareAs;
+                        @recipe.HitsList.Select(c => c.Recipe.ShareAs);
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@recipe.HitsList.Select(x=>x.Id)">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@recipe.HitsList.Select(x=>x.Id)">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@recipe.HitsList.Select(x=>x.Id)">Delete</a>
                     </td>
                 </tr>
             }
@@ -106,154 +113,7 @@
 </div>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Uri)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Label)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Source)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Url)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShareAs)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Yield)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Calories)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalWeight)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Instructions)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Portions)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PortionSize)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PortionUnitOfMeasurment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Grams)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AuthorId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PreperationTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CookingTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsFavorite)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageURL)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Uri)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Label)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Source)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Url)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShareAs)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Yield)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Calories)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalWeight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Instructions)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Portions)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PortionSize)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PortionUnitOfMeasurment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Grams)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuthorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PreperationTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CookingTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsFavorite)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageURL)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+
     </tbody>
 </table>
 </body>
