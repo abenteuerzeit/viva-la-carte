@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VLC.Data", "..\VLC.Data\VLC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VLC.React", "..\VLC.React\VLC.React.csproj", "{80F1605A-93B4-473A-BF3D-24AF01829A82}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "vlc.react.standalone", "..\VLC.React.Standalone\vlc.react.standalone.esproj", "{B7F801F4-73B2-41BA-8DBA-678B9378C8CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,12 @@ Global
 		{80F1605A-93B4-473A-BF3D-24AF01829A82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80F1605A-93B4-473A-BF3D-24AF01829A82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80F1605A-93B4-473A-BF3D-24AF01829A82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7F801F4-73B2-41BA-8DBA-678B9378C8CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7F801F4-73B2-41BA-8DBA-678B9378C8CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7F801F4-73B2-41BA-8DBA-678B9378C8CE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B7F801F4-73B2-41BA-8DBA-678B9378C8CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7F801F4-73B2-41BA-8DBA-678B9378C8CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7F801F4-73B2-41BA-8DBA-678B9378C8CE}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
