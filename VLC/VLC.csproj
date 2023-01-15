@@ -18,37 +18,37 @@
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.12" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.12" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.12" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.12"><IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-<PrivateAssets>all</PrivateAssets>
-</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.12">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
 		<PackageReference Include="RestSharp" Version="108.0.3" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <Content Remove="wwwroot\Content\" />
-    <Content Remove="wwwroot\Content\Images\" />
-    <Content Remove="Views\MealManagers\_RecipeBody.cshtml" />
-    <Content Remove="Views\MealManagers\_Hit.cshtml" />
-    <Content Remove="Views\MealManagers\_RecipeNutritionFacts.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\Content\" />
-    <Folder Include="wwwroot\Content\Images\" />
-    <Folder Include="Views\ExternalApi\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Newtonsoft.Json" />
-    <None Remove="Views\ExternalApi\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\VLC.Data\VLC.Data.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
-    <ProjectReference Include="..\VLC.Models\VLC.Models.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
-    <ProjectReference Include="..\VLC.React\VLC.Views.React.esproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Remove="wwwroot\Content\" />
+		<Content Remove="wwwroot\Content\Images\" />
+		<Content Remove="Views\MealManagers\_RecipeBody.cshtml" />
+		<Content Remove="Views\MealManagers\_Hit.cshtml" />
+		<Content Remove="Views\MealManagers\_RecipeNutritionFacts.cshtml" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\Content\" />
+		<Folder Include="wwwroot\Content\Images\" />
+		<Folder Include="Views\ExternalApi\" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="Newtonsoft.Json" />
+		<None Remove="Views\ExternalApi\" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\VLC.Data\VLC.Data.csproj">
+			<GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+		</ProjectReference>
+		<ProjectReference Include="..\VLC.Models\VLC.Models.csproj">
+			<GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+		</ProjectReference>
+	</ItemGroup>
 </Project>
