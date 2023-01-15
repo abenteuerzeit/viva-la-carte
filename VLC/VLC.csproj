@@ -49,5 +49,6 @@
     <ProjectReference Include="..\VLC.Models\VLC.Models.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\VLC.React\VLC.Views.React.esproj" />
   </ItemGroup>
 </Project>
